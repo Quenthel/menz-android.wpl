@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:minHeight="60dp"
+    android:paddingBottom="2dp"
+    android:paddingTop="2dp">
+
+    <ImageView
+        android:id="@+id/icono"
+        android:layout_width="55dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="3dp"
+        android:layout_gravity="center"
+        android:adjustViewBounds="false"
+        android:focusableInTouchMode="false"
+        android:maxHeight="70dp"
+        android:transitionName="alb"
+        android:scaleType="fitXY" />
+
+    <TextView
+        android:id="@+id/label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/icono"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="3dp"
+        android:layout_toEndOf="@+id/icono"
+        android:breakStrategy="high_quality"
+        android:elegantTextHeight="true"
+        android:maxLines="2"
+        android:textColor="?android:textColorPrimary"
+        android:textSize="16sp"
+        android:typeface="serif" />
+
+    <TextView
+        android:id="@+id/tDuration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignRight="@+id/grupo"
+        android:layout_below="@id/grupo"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="-24dp"
+        android:textColor="?android:textColorPrimary"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/grupo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/label"
+        android:layout_marginLeft="63dp"
+        android:layout_marginTop="5dp"
+        android:maxLines="1"
+        android:textColor="?android:textColorSecondary"
+        android:textSize="13sp" />
+
+    <TextView
+        android:id="@+id/songpath"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Small Text"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:visibility="gone" />
+</RelativeLayout>

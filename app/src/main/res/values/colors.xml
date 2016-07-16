@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#d70d03</color>
+    <color name="colorAccent">#ff0090</color>
+    <color name="colorTras">#00000000</color>
+    <color name="traspless">#95000000</color>
+    <color name="trasplesstool">#3c000000</color>
+    <color name="black">#000000</color>
+</resources>

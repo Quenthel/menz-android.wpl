@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Main Player</string>
+    <string name="Album">Álbum</string>
+    <string name="Artist">Artista</string>
+    <string name="Bitrate">Bitrate</string>
+    <string name="Duration">Duración</string>
+    <string name="Genre">Género</string>
+    <string name="Name">Nombre</string>
+    <string name="Song">Canción</string>
+    <string name="Year">Año</string>
+    <string name="title_activity_data">Datos</string>
+    <string name="title_activity_settings">Configuración</string>
+    <string name="Playlist">PlayList</string>
+    <string name="Songs">Canciones</string>
+    <string name="AlbumList">Álbum Grid</string>
+    <string name="AddTo">Añadir a playlist</string>
+    <string name="delete">Eliminar</string>
+    <string name="setRing">Poner como tono</string>
+    <string name="showInfo">Ver info</string>
+    <string name="Edit">Editar</string>
+    <string name="playfromtop">Reproducir </string>
+    <string name="isCompilation">¿Compilación?</string>
+    <string name="vbr">¿VBR?</string>
+    <string name="sample">Muestreo</string>
+    <string name="summP">Esta opción cambia el diseño dependiendo del álbum actual</string>
+    <string name="usepa">¿Usar Palette cuando sea posible?</string>
+    <string name="Notifications">Notificaciones</string>
+    <string name="darksum">Sólo si el tema claro esta activado</string>
+    <string name="darkB">¿Usar fondo oscuro en la vista álbum?</string>
+    <string name="designop">Opciones de diseño</string>
+    <string name="enableno">Permitir notificaciones</string>
+    <string name="orderop">Opciones de orden y media</string>
+    <string name="uselight">¿Utilizar tema claro?</string>
+    <string name="usemat">¿Usar tema Material?</string>
+    <string name="runme">¿Lanzar MediaScanner al principio?</string>
+    <string name="sumMed">Opción para escanear nuevos archivos o para añadir carátulas perdidas</string>
+    <string name="search">Buscar</string>
+    <string name="orderBy">¿Ordenar por álbum?</string>
+    <string name="deleteFrom">Eliminar de playlist</string>
+    <string name="Format">Formato</string>
+    <string name="sumOr">Por defecto es Artista/Album</string>
+    <string name="sumnotf">Estilo de la notificación. Requiere reinicio para ver el cambio.</string>
+    <string name="nottyo">Estilo de notificación</string>
+    <string name="pref_header_general">ghj</string>
+
+    <string-array name="nottypes">
+        <item>MediaStyle</item>
+        <item>Big Artwork style</item>
+        <item>Default style</item>
+    </string-array>
+
+    <string-array  name="nottypesVal">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+</resources>

@@ -1,0 +1,60 @@
+apply plugin: 'com.android.application'
+
+android {
+    signingConfigs {
+        BlackMagic {
+            keyAlias 'Witchery'
+            keyPassword 'Wisdom'
+            storeFile file($/C:/Users/Wizardry/aKey.jks/$)
+            storePassword 'Wisdom'
+        }
+    }
+    compileSdkVersion 24
+    buildToolsVersion "24.0.0"
+    defaultConfig {
+        applicationId "Witchery.wPlayer"
+        minSdkVersion 23
+        targetSdkVersion 24
+        versionCode 1
+        versionName "1.0 -ヂレンマ- "
+        signingConfig signingConfigs.BlackMagic
+    }
+    buildTypes {
+        release {
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            minifyEnabled false
+            shrinkResources false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        fullDavai {
+            minifyEnabled true
+            shrinkResources true
+            //proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.BlackMagic
+            proguardFile 'C:/x/x/app/proG.txt'
+        }
+    }
+    productFlavors {
+
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    testCompile 'junit:junit:4.12'
+    repositories {
+        mavenCentral()
+    }
+    compile 'com.android.support:appcompat-v7:24.0.0'
+    compile 'com.android.support:design:24.0.0'
+    compile 'com.android.support:palette-v7:24.0.0'
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+    compile 'com.oguzdev:CircularFloatingActionMenu:1.0.2'
+    compile 'com.github.chrisbanes:PhotoView:1.2.6'
+    compile 'com.android.support:support-v4:24.0.0'
+    androidTestCompile 'org.testng:testng:6.9.6'
+}

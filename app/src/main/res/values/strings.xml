@@ -1,0 +1,66 @@
+<resources>
+    <string name="app_name">wPlayer</string>
+    <string name="title_activity_data">Data</string>
+    <string name="Genre">Genre</string>
+    <string name="Artist">Artist</string>
+    <string name="Year">Year</string>
+    <string name="Name">Name</string>
+    <string name="Album">Album</string>
+    <string name="Songs">Songs</string>
+    <string name="AlbumList">Album Grid</string>
+    <string name="Playlist">PlayList</string>
+    <string name="Edit">Edit</string>
+    <string name="Bitrate">Bitrate</string>
+    <string name="Duration">Duration</string>
+    <string name="AddTo">Add to Playlist</string>
+    <string name="showInfo">Show info</string>
+    <string name="setRing">Set as Ringtone</string>
+    <string name="orderBy">Order by Artist/Album?</string>
+    <string name="sumOr">Default order is Album/Artist</string>
+    <string name="delete">Delete</string>
+    <string name="title_activity_settings">Settings</string>
+    <string name="playfromtop">Play From Top</string>
+    <string name="nottyo">Notification style</string>
+
+    <string name="sumnotf">Notification style.  Restart required to see changes</string>
+    <!-- Strings related to Settings -->
+
+    <!-- Example General settings -->
+    <string name="pref_header_general">General</string>
+
+
+    <string-array name="nottypes">
+        <item>MediaStyle</item>
+        <item>Big Artwork style</item>
+        <item>Default style</item>
+
+    </string-array>
+
+    <string-array  name="nottypesVal">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+
+
+    <!-- Example settings for Data & Sync -->
+    <string name="Song">Song</string>
+    <string name="isCompilation">Is compilation?</string>
+    <string name="vbr">Is VBR</string>
+    <string name="sample">Sample rate</string>
+    <string name="summP">This option changes the overall design depending on the current album art</string>
+    <string name="usepa">"Use Palette whenever possible? (Min API 21)"</string>
+    <string name="darkB">Use Dark background on Album view?</string>
+    <string name="darksum">Only if Light mode is enabled</string>
+    <string name="enableno">Enable notifications?</string>
+    <string name="Notifications">Notifications</string>
+    <string name="designop">Design options</string>
+    <string name="uselight">Use Light theme?</string>
+    <string name="usemat">Use Material Album theme? (Min API 21)</string>
+    <string name="orderop">Order and Media options</string>
+    <string name="runme">Run MediaScanner at start?</string>
+    <string name="sumMed">This option is used to scan for new media files on the device or to add missing album artworks</string>
+    <string name="deleteFrom">Delete from playlist</string>
+    <string name="search">Search</string>
+    <string name="Format">Format</string>
+</resources>

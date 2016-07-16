@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:layout_width="match_parent"
+    android:layout_height="55dp"
+    android:paddingTop="5dp"
+    android:paddingBottom="5dp"
+    android:hapticFeedbackEnabled="true"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:longClickable="true">
+        <TextView
+            android:id="@+id/icono"
+            android:layout_width="50dp"
+            android:layout_height="fill_parent"
+            android:textSize="28dp"
+            android:textAlignment="center"
+            android:layout_gravity="center_vertical"
+            android:focusableInTouchMode="false"
+            android:typeface="monospace"
+            android:singleLine="true"
+            android:maxLength="2">
+        </TextView>
+
+        <TextView
+            android:id="@+id/label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:textColor="?android:textColorPrimary"
+            android:layout_alignTop="@+id/icono"
+            android:layout_toEndOf="@+id/icono"
+            android:layout_above="@+id/grupo"
+            android:maxLines="1">
+        </TextView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Small Text"
+            android:id="@+id/grupo"
+
+            android:textColor="?android:textColorSecondary"
+            android:maxLines="1"
+            android:layout_alignBottom="@+id/icono"
+            android:layout_toEndOf="@+id/icono" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="0:00"
+            android:id="@+id/tDuration"
+            android:textColor="?android:textColorSecondary"
+            android:enabled="false"
+            android:layout_alignTop="@+id/grupo"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="10dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/songpath"
+            android:visibility="gone" />
+    </RelativeLayout>

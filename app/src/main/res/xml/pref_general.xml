@@ -1,0 +1,72 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:key="pref_key_storage_settings"
+        android:title="@string/Notifications">
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="not"
+            android:enabled="false"
+            android:textColor="?android:textColorPrimary"
+            android:title="@string/enableno" />
+    </PreferenceCategory>
+
+    <ListPreference
+        android:defaultValue="2"
+        android:entries="@array/nottypes"
+        android:entryValues="@array/nottypesVal"
+        android:key="nottype"
+        android:negativeButtonText="@null"
+        android:positiveButtonText="@null"
+        android:summary="@string/sumnotf"
+        android:title="@string/nottyo" />
+
+    <PreferenceCategory
+        android:key="pref_key_storage_settings"
+        android:title="@string/designop">
+
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="usepalette"
+            android:summary="@string/summP"
+            android:textColor="?android:textColorPrimary"
+            android:enabled="false"
+
+            android:title="@string/usepa" />
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="light"
+            android:textColor="?android:textColorPrimary"
+            android:title="@string/uselight" />
+        <CheckBoxPreference
+            android:background="@android:color/darker_gray"
+            android:defaultValue="false"
+            android:dependency="light"
+            android:key="lightB"
+            android:summary="@string/darksum"
+            android:textColor="?android:textColorPrimary"
+            android:title="@string/darkB" />
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="usematerial"
+            android:textColor="?android:textColorPrimary"
+            android:enabled="false"
+            android:title="@string/usemat" />
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:key="pref_key_storage_settings"
+        android:title="@string/orderop">
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="order"
+            android:summary="@string/orderBy"
+            android:textColor="?android:textColorPrimary"
+            android:title="@string/sumOr"
+            />
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="scanner"
+            android:summary="@string/sumMed"
+            android:textColor="?android:textColorPrimary"
+            android:title="@string/runme" />
+    </PreferenceCategory>
+</PreferenceScreen>

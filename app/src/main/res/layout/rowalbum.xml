@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="125dp">
+
+    <ImageView
+        android:id="@+id/imItemAlb"
+        android:layout_width="match_parent"
+        android:transitionName="alb"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:animateLayoutChanges="true"
+        android:background="#64000000"
+        android:baselineAligned="false"
+        android:orientation="horizontal"
+        android:id="@+id/cxz"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/tvItemAlbName"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:breakStrategy="high_quality"
+            android:clickable="false"
+            android:elegantTextHeight="true"
+            android:enabled="false"
+            android:maxLines="2"
+            android:transitionName="textal"
+            android:textAlignment="center"
+            android:textColor="@android:color/white" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/chPath"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/chArtist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/chYear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+</RelativeLayout>
