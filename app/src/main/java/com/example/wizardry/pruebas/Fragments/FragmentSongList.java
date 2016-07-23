@@ -43,7 +43,7 @@ import java.util.List;
 public class FragmentSongList extends Fragment {
     String s = "";
     String currentSelectedSong = "";
-    String current=";";
+    String current = ";";
     String selectedSong = "";
     MusicService mService;
     boolean mBound;
@@ -165,7 +165,6 @@ public class FragmentSongList extends Fragment {
         getActivity().getApplicationContext().unbindService(mConnection);
         super.onDestroy();
     }
-
 
 
     @Override

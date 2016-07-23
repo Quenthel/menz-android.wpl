@@ -358,15 +358,16 @@ public class PlayerActivity extends AppCompatActivity implements SeekBar.OnSeekB
     public void setRepeat(View v) {
         if (MusicService.mediaPlayer.isLooping()) {
             mService.setRepeat();
-            ImageButton ib = (ImageButton)v;
+            ImageButton ib = (ImageButton) v;
             ib.getBackground().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);
 
         } else {
             mService.setRepeat();
-            ImageButton ib = (ImageButton)v;
+            ImageButton ib = (ImageButton) v;
             ib.getBackground().setColorFilter(getResources().getColor(R.color.colorAccent), PorterDuff.Mode.SRC_ATOP);
         }
     }
+
     public void setRandom(View v) {
         Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade);
         v.setAnimation(animation);
@@ -387,7 +388,6 @@ public class PlayerActivity extends AppCompatActivity implements SeekBar.OnSeekB
             setupData(mService.getPath());
         }
     }
-
 
 
     /**
@@ -472,6 +472,5 @@ public class PlayerActivity extends AppCompatActivity implements SeekBar.OnSeekB
         }
         return super.onOptionsItemSelected(item);
     }
-
 
 }

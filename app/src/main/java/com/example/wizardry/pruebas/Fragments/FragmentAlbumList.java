@@ -52,14 +52,14 @@ public class FragmentAlbumList extends Fragment {
                 String s3 = t3.getText().toString();
                 String s4 = t4.getText().toString();
                 String[] d = new String[4];
-                d[0]=s;
-                d[1]=s2;
-                d[2]=s3;
-                d[3]=s4;
+                d[0] = s;
+                d[1] = s2;
+                d[2] = s3;
+                d[3] = s4;
 
                 //------------
                 i.putExtra("data", d);
-               // i.putStringArrayListExtra("datos", datos);
+                // i.putStringArrayListExtra("datos", datos);
                 View v = view.findViewById(R.id.imItemAlb);
                 ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), v, "alb");
                 ActivityCompat.startActivity(getActivity(), i, options.toBundle());

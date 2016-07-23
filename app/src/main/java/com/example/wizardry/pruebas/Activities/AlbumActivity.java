@@ -7,6 +7,7 @@ import android.content.res.ColorStateList;
 import android.database.DatabaseUtils;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -53,6 +54,7 @@ public class AlbumActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         //    Boolean use = sharedPref.getBoolean("usematerial", true);
         light = sharedPref.getBoolean("light", false);

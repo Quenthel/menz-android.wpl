@@ -21,11 +21,11 @@ import java.util.concurrent.TimeUnit;
 
 public class AlbumSongListAdapterRecycler extends RecyclerView.Adapter<AlbumSongListAdapterRecycler.ViewHolder> {
 
-    private ArrayList<AlbumSongsRetriever.Item> list;
-    private Activity ctx;
     private static int[] colorsArr;
     private static boolean light;
     private static boolean useD = false;
+    private ArrayList<AlbumSongsRetriever.Item> list;
+    private Activity ctx;
     private ArrayList<String> albumPaths = new ArrayList<>();
     private ArrayList<String> albumPaths2 = new ArrayList<>();
 
@@ -33,14 +33,14 @@ public class AlbumSongListAdapterRecycler extends RecyclerView.Adapter<AlbumSong
     public AlbumSongListAdapterRecycler(Activity context, ArrayList<AlbumSongsRetriever.Item> l) {
         this.ctx = context;
         this.list = l;
-        this.light = false;
+        light = false;
     }
 
     public AlbumSongListAdapterRecycler(Activity context, ArrayList<AlbumSongsRetriever.Item> l, int[] colors, boolean light, boolean useD) {
         this.ctx = context;
-        this.colorsArr = colors;
-        this.light = light;
-        this.useD = useD;
+        colorsArr = colors;
+        AlbumSongListAdapterRecycler.light = light;
+        AlbumSongListAdapterRecycler.useD = useD;
         this.list = l;
     }
 

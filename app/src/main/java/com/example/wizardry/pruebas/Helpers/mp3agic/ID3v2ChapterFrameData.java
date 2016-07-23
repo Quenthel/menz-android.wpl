@@ -139,21 +139,20 @@ public class ID3v2ChapterFrameData extends AbstractID3v2FrameData {
 
     @Override
     public String toString() {
-        StringBuilder builder = new StringBuilder();
-        builder.append("ID3v2ChapterFrameData [id=");
-        builder.append(id);
-        builder.append(", startTime=");
-        builder.append(startTime);
-        builder.append(", endTime=");
-        builder.append(endTime);
-        builder.append(", startOffset=");
-        builder.append(startOffset);
-        builder.append(", endOffset=");
-        builder.append(endOffset);
-        builder.append(", subframes=");
-        builder.append(subframes);
-        builder.append("]");
-        return builder.toString();
+        String builder = "ID3v2ChapterFrameData [id=" +
+                id +
+                ", startTime=" +
+                startTime +
+                ", endTime=" +
+                endTime +
+                ", startOffset=" +
+                startOffset +
+                ", endOffset=" +
+                endOffset +
+                ", subframes=" +
+                subframes +
+                "]";
+        return builder;
     }
 
 	@Override

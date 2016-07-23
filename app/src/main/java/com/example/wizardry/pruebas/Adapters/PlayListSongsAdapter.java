@@ -1,7 +1,6 @@
 package com.example.wizardry.pruebas.Adapters;
 
 import android.app.Activity;
-import android.content.ContentResolver;
 import android.graphics.Bitmap;
 import android.view.View;
 import android.view.ViewGroup;

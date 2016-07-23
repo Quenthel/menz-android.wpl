@@ -8,8 +8,6 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.transition.Explode;
-import android.transition.Slide;
-import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.widget.CheckBox;
@@ -20,7 +18,6 @@ import com.example.wizardry.pruebas.Helpers.ImageHelper;
 import com.example.wizardry.pruebas.Helpers.MetadataHelper;
 import com.example.wizardry.pruebas.R;
 
-import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import uk.co.senab.photoview.PhotoViewAttacher;

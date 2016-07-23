@@ -202,7 +202,7 @@ public class MainActivity extends AppCompatActivity implements FragmentSongList.
 
     private void createButtonMenu() {
         ImageView icon = new ImageView(this);
-       // icon.setImageResource(R.mipmap.circma);
+        // icon.setImageResource(R.mipmap.circma);
         icon.setImageResource(R.drawable.ic_add);
         icon.setColorFilter(getResources().getColor(R.color.colorAccent), PorterDuff.Mode.SRC_ATOP);
 
@@ -285,7 +285,7 @@ public class MainActivity extends AppCompatActivity implements FragmentSongList.
         i.putExtra("path", path);
         i.putExtra("random", true);
         i.putStringArrayListExtra("albumpaths", randomString);
-     //   startActivity(i);
+        //   startActivity(i);
 
     }
 

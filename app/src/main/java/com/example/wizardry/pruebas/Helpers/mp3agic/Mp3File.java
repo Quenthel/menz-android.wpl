@@ -231,7 +231,7 @@ public class Mp3File extends FileWrapper {
 	}
 
 	private void addBitrate(int bitrate) {
-		Integer key = new Integer(bitrate);
+		Integer key = Integer.valueOf(bitrate);
 		MutableInteger count = bitrates.get(key);
 		if (count != null) {
 			count.increment();

@@ -34,7 +34,7 @@ public class AlbumSongListAdapterX extends ArrayAdapter<AlbumSongsRetriever.Item
         this.ctx = context;
     }
 
-    public AlbumSongListAdapterX(Activity context, List<AlbumSongsRetriever.Item> l, int[] colors, boolean light, boolean useD ){
+    public AlbumSongListAdapterX(Activity context, List<AlbumSongsRetriever.Item> l, int[] colors, boolean light, boolean useD) {
         super(context, R.layout.rowalbumlist, l);
         this.ctx = context;
         this.colorsArr = colors;

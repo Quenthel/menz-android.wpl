@@ -93,7 +93,6 @@ public class FragmentPlaylist extends Fragment {
         lv2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.e("sdsd","sdsd");
                 PlaylistRetriever.Item actual = l.get(position);
                 ArrayList<MusicRetriever.Item> a = new PlaylistRetriever(getContentResolver()).aBlazing(actual.getId());
                 Intent i = new Intent(getActivity(), PlayListActivity.class);

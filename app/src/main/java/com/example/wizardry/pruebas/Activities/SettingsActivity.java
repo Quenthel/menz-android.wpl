@@ -15,15 +15,14 @@ import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.ActionBar;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.RingtonePreference;
-import android.text.TextUtils;
-import android.util.Log;
-import android.view.MenuItem;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.NavUtils;
+import android.support.v7.app.ActionBar;
+import android.text.TextUtils;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.example.wizardry.pruebas.Helpers.AppCompatPreferenceActivity;
@@ -130,7 +129,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         super.onCreate(savedInstanceState);
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         Boolean light = sharedPref.getBoolean("light", false);
-      //  setTheme(!light ? R.style.AppTheme : R.style.AppThemeWhite);
+        //  setTheme(!light ? R.style.AppTheme : R.style.AppThemeWhite);
         getWindow().setStatusBarColor(Color.BLACK);
 
         setupActionBar();
@@ -184,7 +183,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         return PreferenceFragment.class.getName().equals(fragmentName)
                 || GeneralPreferenceFragment.class.getName().equals(fragmentName);
     }
-    public void makeSnack(View v){
+
+    public void makeSnack(View v) {
         Snackbar.make(v, "", Snackbar.LENGTH_LONG)
                 .setDuration(Snackbar.LENGTH_SHORT)
                 .setActionTextColor(getResources().getColor(R.color.black))
@@ -202,8 +202,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.pref_general);
             setHasOptionsMenu(true);
-      //  /(/)    bindPreferenceSummaryToValue(findPreference("example_text"));
-       //7  bindPreferenceSummaryToValue(findPreference("example_list"));
+            //  /(/)    bindPreferenceSummaryToValue(findPreference("example_text"));
+            //7  bindPreferenceSummaryToValue(findPreference("example_list"));
         }
 
         @Override

@@ -84,6 +84,7 @@ public class RetrieverHelper {
                 int idIndex = cursor.getColumnIndex(MediaStore.Audio.Media._ID);
                 id = Long.parseLong(cursor.getString(idIndex));
             }
+            cursor.close();
         }
         return id;
     }

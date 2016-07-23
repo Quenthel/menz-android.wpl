@@ -77,13 +77,13 @@ public class SearchActivity extends AppCompatActivity {
                 startNewPlayer(path, albumPaths);
             }
         });
-        int cnt=0;
+        int cnt = 0;
         for (MusicRetriever.Item i : l) {
             adapterSon.add(i);
             cnt++;
         }
-        TextView t = (TextView)findViewById(R.id.totaal) ;
-        t.setText( "Total: " +cnt);
+        TextView t = (TextView) findViewById(R.id.totaal);
+        t.setText("Total: " + cnt);
         registerForContextMenu(lv2);
     }
 

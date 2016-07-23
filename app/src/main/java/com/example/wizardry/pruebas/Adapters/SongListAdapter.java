@@ -34,16 +34,16 @@ public class SongListAdapter extends ArrayAdapter<MusicRetriever.Item> {
         if (vi == null) {
             vi = ctx.getLayoutInflater().inflate(R.layout.rows, parent, false);
             ViewHolder holder = new ViewHolder();
-            holder.tv=(TextView)vi.findViewById(R.id.label);
-            holder.tv2=(TextView)vi.findViewById(R.id.grupo);
-            holder.tv3=(TextView)vi.findViewById(R.id.tDuration);
-            holder.tv4=(TextView)vi.findViewById(R.id.songpath);
-            holder.img=(ImageView)vi.findViewById(R.id.icono);
+            holder.tv = (TextView) vi.findViewById(R.id.label);
+            holder.tv2 = (TextView) vi.findViewById(R.id.grupo);
+            holder.tv3 = (TextView) vi.findViewById(R.id.tDuration);
+            holder.tv4 = (TextView) vi.findViewById(R.id.songpath);
+            holder.img = (ImageView) vi.findViewById(R.id.icono);
             vi.setTag(holder);
         }
         long i = actual.getDuration();
         String dura = String.format("%02d:%02d", TimeUnit.MILLISECONDS.toMinutes(i), TimeUnit.MILLISECONDS.toSeconds(i) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(i)));
-        ViewHolder holder =(ViewHolder)vi.getTag();
+        ViewHolder holder = (ViewHolder) vi.getTag();
         holder.tv.setText(actual.getTitle());
         holder.tv2.setText(actual.getArtist());
         holder.tv3.setText(dura);
@@ -53,7 +53,7 @@ public class SongListAdapter extends ArrayAdapter<MusicRetriever.Item> {
         } else {
             Glide.with(ctx).load(R.drawable.nodata).asBitmap().into(holder.img);
         }
-       // setup(view, actual);
+        // setup(view, actual);
         return vi;
     }
 
