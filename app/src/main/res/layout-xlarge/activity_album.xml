@@ -71,8 +71,8 @@
                     android:breakStrategy="high_quality"
                     android:text="Medium Text"
                     android:textAllCaps="false"
-                    android:transitionName="title"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"
+                    android:transitionName="title" />
 
                 <TextView
                     android:id="@+id/txAlbumOther"
@@ -82,7 +82,7 @@
                     android:visibility="gone" />
             </LinearLayout>
 
-            <com.example.wizardry.pruebas.Helpers.AdaptableLinearLayout
+            <com.example.wizardry.wPlayer.Helpers.AdaptableLinearLayout
                 android:id="@+id/adapr"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -91,7 +91,7 @@
                 android:gravity="bottom"
                 android:hapticFeedbackEnabled="true"
                 android:longClickable="true"
-                android:orientation="vertical"></com.example.wizardry.pruebas.Helpers.AdaptableLinearLayout>
+                android:orientation="vertical"></com.example.wizardry.wPlayer.Helpers.AdaptableLinearLayout>
 
             <RelativeLayout
                 android:id="@+id/linearLayout"

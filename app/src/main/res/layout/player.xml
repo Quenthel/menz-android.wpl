@@ -9,81 +9,73 @@
         android:id="@+id/app_bar_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fitsSystemWindows="true"
-        android:background="@android:color/transparent">
+        android:background="@color/black"
+        android:fitsSystemWindows="true">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
+            android:contextClickable="false"
+            android:textAlignment="center"
+            android:transitionGroup="true"
             android:transitionName="now"
-            app:titleTextAppearance="@style/TextAppearance.AppCompat.Medium"
             app:navigationIcon="@drawable/nav"
             app:titleMarginTop="10dp"
-            android:transitionGroup="true"
-            android:background="@color/traspless"
-            android:contextClickable="false"
-            android:textAlignment="center" />
+            app:titleTextAppearance="@style/TextAppearance.AppCompat.Medium" />
 
     </android.support.design.widget.AppBarLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginTop="58dp">
 
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/llImagen"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="395dp"
+            android:background="@android:color/transparent">
 
-            <RelativeLayout
+            <ImageView
+                android:id="@+id/imageViewPlayer"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:orientation="horizontal">
+                android:layout_height="match_parent"
+                android:scaleType="fitXY"
+                android:transitionName="alb" />
 
-                <ImageView
-                    android:id="@+id/imageViewPlayer"
-                    android:layout_width="match_parent"
-                    android:layout_height="420dp"
-                    android:scaleType="fitXY"
-                    android:transitionName="alb" />
-
-                <ScrollView
-                    android:id="@+id/scrollLyr"
-                    android:layout_width="match_parent"
-                    android:layout_height="365dp"
-                    android:layout_marginTop="55dp"
-                    android:visibility="invisible">
-
-                    <TextView
-                        android:id="@+id/txLyr"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/traspless"
-                        android:breakStrategy="balanced"
-                        android:clickable="false"
-                        android:minHeight="365dp"
-                        android:padding="5dp"
-                        android:textAlignment="center"
-                        android:textAllCaps="false"
-                        android:textIsSelectable="true"
-                        android:textSize="15sp" />
-                </ScrollView>
-
-            </RelativeLayout>
-
-            <LinearLayout
-                android:id="@+id/rlBotonesHover"
+            <ScrollView
+                android:id="@+id/scrollLyr"
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:layout_marginTop="-60dp"
-                android:longClickable="true"
-                android:onClick="hide"
-                android:orientation="horizontal"></LinearLayout>
+                android:layout_height="match_parent"
+                android:visibility="invisible">
 
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/txLyr"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/traspless"
+                    android:breakStrategy="balanced"
+                    android:clickable="false"
+                    android:minHeight="395dp"
+                    android:padding="5dp"
+                    android:textAlignment="center"
+                    android:textAllCaps="false"
+                    android:textIsSelectable="true"
+                    android:textSize="15sp" />
+            </ScrollView>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/rlBotonesHover"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="340dp"
+            android:longClickable="true"
+            android:onClick="hide"
+            android:orientation="horizontal" />
+
 
         <RelativeLayout
             android:id="@+id/rlData"
@@ -91,7 +83,7 @@
             android:layout_height="fill_parent"
             android:layout_alignParentStart="true"
             android:layout_below="@+id/llImagen"
-            android:background="@color/traspless"
+            android:background="@color/material_grey_900"
             android:minHeight="70dp">
 
             <TextView
@@ -138,7 +130,8 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="12dp"
+                android:maxLines="2"
                 android:textAlignment="center"
                 android:textSize="16sp"
                 android:transitionName="title" />
@@ -148,52 +141,49 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/textView6"
+                android:maxLines="1"
                 android:textAlignment="center" />
+
+
+            <RelativeLayout
+                android:id="@+id/controls"
+                android:layout_width="120dp"
+                android:layout_height="fill_parent"
+                android:layout_centerHorizontal="true"
+                android:orientation="horizontal" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="45dp"
+                android:layout_alignParentBottom="true"
+                android:background="@color/black">
 
-                <RelativeLayout
-                    android:id="@+id/controls"
-                    android:layout_width="120dp"
-                    android:layout_height="fill_parent"
-                    android:layout_centerHorizontal="true"
-                    android:orientation="horizontal" />
+                <ImageButton
+                    android:id="@+id/imageButton"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginStart="20dp"
+                    android:background="@drawable/ic_loop"
+                    android:backgroundTint="@android:color/white"
+                    android:onClick="setRepeat"
+                    android:tint="@android:color/white"
+                    android:visibility="visible" />
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_alignParentBottom="true"
-                    android:background="@color/black">
-
-                    <ImageButton
-                        android:id="@+id/imageButton"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_alignParentStart="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginStart="20dp"
-                        android:background="@drawable/ic_loop"
-                        android:backgroundTint="@android:color/white"
-                        android:onClick="setRepeat"
-                        android:tint="@android:color/white"
-                        android:visibility="visible" />
-
-                    <ImageButton
-                        android:id="@+id/imageButton2"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignTop="@+id/imageButton"
-                        android:layout_gravity="end"
-                        android:layout_marginEnd="19dp"
-                        android:background="@drawable/ic_shuffle"
-                        android:backgroundTint="@android:color/white"
-                        android:onClick="setRandom"
-                        android:visibility="visible" />
-                </RelativeLayout>
+                <ImageButton
+                    android:id="@+id/imageButton2"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignTop="@+id/imageButton"
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="19dp"
+                    android:background="@drawable/ic_shuffle"
+                    android:backgroundTint="@android:color/white"
+                    android:onClick="setRandom"
+                    android:visibility="visible" />
             </RelativeLayout>
         </RelativeLayout>
     </RelativeLayout>
@@ -217,7 +207,7 @@
         android:onClick="next"
         android:src="@drawable/ic_skip_next_black_24dp"
         android:tint="@android:color/white"
-        app:backgroundTint="@android:color/black"
+        app:backgroundTint="@color/black"
         app:fabSize="mini"
         app:layout_anchor="@id/controls"
         app:layout_anchorGravity="bottom|end" />

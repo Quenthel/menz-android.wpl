@@ -3,7 +3,7 @@
     <!-- These settings headers are only used on tablets. -->
 
     <header
-        android:fragment="com.example.wizardry.pruebas.Activities.SettingsActivity$GeneralPreferenceFragment"
+        android:fragment="com.example.wizardry.wPlayer.Activities.SettingsActivity$GeneralPreferenceFragment"
         android:icon="@mipmap/info"
 
         android:title="@string/pref_header_general" />

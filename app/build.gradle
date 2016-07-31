@@ -23,7 +23,9 @@ android {
         release {
             minifyEnabled true
             shrinkResources true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            //proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFile 'C:/x/x/app/proG.txt'
+
         }
         debug {
             minifyEnabled false
@@ -45,7 +47,6 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    testCompile 'junit:junit:4.12'
     repositories {
         mavenCentral()
     }
@@ -56,5 +57,4 @@ dependencies {
     compile 'com.oguzdev:CircularFloatingActionMenu:1.0.2'
     compile 'com.github.chrisbanes:PhotoView:1.2.6'
     compile 'com.android.support:support-v4:24.0.0'
-    androidTestCompile 'org.testng:testng:6.9.6'
 }
