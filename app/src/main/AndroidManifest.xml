@@ -15,8 +15,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name="com.example.wizardry.wPlayer.Activities.MainActivity"
-            android:label="@string/app_name"
-            android:theme="@style/AppThemeWhite">
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -38,24 +37,13 @@
             android:screenOrientation="portrait" />
         <activity
             android:name="com.example.wizardry.wPlayer.Activities.AlbumActivity"
-            android:parentActivityName="com.example.wizardry.wPlayer.Activities.MainActivity"
-            android:theme="@style/AppThemeWhite" />
-        <activity
-            android:name="com.example.wizardry.wPlayer.Activities.SettingsActivity"
-            android:label="@string/title_activity_settings"
-            android:parentActivityName="com.example.wizardry.wPlayer.Activities.MainActivity"
-            android:theme="@style/AppThemeWhite">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.wizardry.wPlayer.Activities.MainActivity" />
-        </activity>
+            android:parentActivityName="com.example.wizardry.wPlayer.Activities.MainActivity" />
 
         <activity
             android:name="com.example.wizardry.wPlayer.Activities.PlayListActivity"
             android:theme="@style/AppThemeWhite" />
-        <activity
-            android:name="com.example.wizardry.wPlayer.Activities.SearchActivity"
-            android:theme="@style/AppThemeWhite" />
+        <activity android:name="com.example.wizardry.wPlayer.Activities.SearchActivity" />
+        <activity android:name=".Activities.SettingsActivity" />
     </application>
 
 </manifest>

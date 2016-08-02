@@ -233,7 +233,10 @@ public class AlbumActivity extends AppCompatActivity {
         //i.putExtra("path", "vac");
         ImageView iz = (ImageView) findViewById(R.id.imViewAlbum);
         i.putStringArrayListExtra("albumpaths", albumPaths);
-        if (useTr) {
+        if (albumPaths.size() == 1) {
+            i.putExtra("one", true);
+        }
+        //if (true) {
             final FloatingActionButton a = (FloatingActionButton) findViewById(R.id.fab);
            /* int cx = a.getWidth() / 2;
             int cy = a.getHeight() / 2;
@@ -250,7 +253,7 @@ public class AlbumActivity extends AppCompatActivity {
             a.setVisibility(View.INVISIBLE);
             ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(this, iz, "alb");
             ActivityCompat.startActivity(this, i, options.toBundle());
-        } else startActivity(i);
+        // } else startActivity(i);
     }
 
     @Override

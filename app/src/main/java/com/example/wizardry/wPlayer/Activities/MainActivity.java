@@ -285,7 +285,7 @@ public class MainActivity extends AppCompatActivity implements FragmentSongList.
         i.putExtra("path", path);
         i.putExtra("random", true);
         i.putStringArrayListExtra("albumpaths", randomString);
-        //   startActivity(i);
+        startActivity(i);
 
     }
 
@@ -299,7 +299,7 @@ public class MainActivity extends AppCompatActivity implements FragmentSongList.
             startActivity(i);
         }*/
         Intent i = new Intent(getApplicationContext(), SettingsActivity.class);
-        startActivity(i);
+        startActivityForResult(i, 1);
         //makeSnack();
     }
 
@@ -370,10 +370,10 @@ public class MainActivity extends AppCompatActivity implements FragmentSongList.
         im.setImageBitmap(mh.getFullEmbedded());
         int[] c = ImageHelper.getColors(mh.getFullEmbedded());
         if (!light) {
-            rl.setBackground(ImageHelper.makeSelector(c[5], Color.BLACK, 200));
+            rl.setBackground(ImageHelper.makeSelector(c[5], Color.BLACK, 255));
             tx1.setTextColor(c[2]);
         } else {
-            rl.setBackground(ImageHelper.makeSelector(c[2], Color.WHITE, 200));
+            rl.setBackground(ImageHelper.makeSelector(c[2], Color.WHITE, 255));
             tx1.setTextColor(c[3]);
         }
     }
@@ -392,6 +392,15 @@ public class MainActivity extends AppCompatActivity implements FragmentSongList.
             options = ActivityOptionsCompat.makeSceneTransitionAnimation(this, p1, p2);
         }
         ActivityCompat.startActivity(this, i, options.toBundle());
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == 1) {
+            Intent intent = getIntent();
+            finish();
+            startActivity(intent);
+        }
     }
 
     private class SectionsPagerAdapter extends FragmentPagerAdapter {

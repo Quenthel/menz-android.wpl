@@ -1,4 +1,4 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/fmain"
@@ -14,10 +14,10 @@
         android:fastScrollAlwaysVisible="false"
         android:fastScrollEnabled="false"
         android:longClickable="true"
+        android:paddingBottom="40dp"
         android:scrollingCache="false"
         android:stackFromBottom="false"
         android:textFilterEnabled="false"
-        android:paddingBottom="40dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-</RelativeLayout>
+</LinearLayout>

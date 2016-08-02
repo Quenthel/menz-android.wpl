@@ -9,6 +9,7 @@
         android:id="@+id/app_bar_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
         android:fitsSystemWindows="true">
 
         <android.support.design.widget.CollapsingToolbarLayout
@@ -44,6 +45,7 @@
         android:id="@+id/scroll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:animationCache="false"
         android:clipToPadding="false"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
@@ -93,8 +95,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/adapr"
                 android:layout_marginTop="6dp"
-                android:layout_toStartOf="@+id/txalbdura"
-                android:text="Medium Text" />
+                android:layout_toStartOf="@+id/txalbdura" />
 
             <TextView
                 android:id="@+id/txalbumtotal"

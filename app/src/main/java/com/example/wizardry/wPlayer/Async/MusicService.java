@@ -46,7 +46,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
         }
         if (intent.getStringExtra("nottype") != null) {
             String a = intent.getStringExtra("nottype");
-            Log.e("TYPE", a);
+            //    Log.e("TYPE", a);
             switch (a) {
                 case "0":
                     notType = 0;

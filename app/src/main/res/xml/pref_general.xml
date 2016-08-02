@@ -4,9 +4,9 @@
         android:title="@string/Notifications">
         <SwitchPreference
             android:defaultValue="true"
-            android:key="not"
             android:enabled="false"
-            android:textColor="?android:textColorPrimary"
+            android:key="not"
+            android:textColor="@color/colorPrimary"
             android:title="@string/enableno" />
     </PreferenceCategory>
 
@@ -26,16 +26,16 @@
 
         <CheckBoxPreference
             android:defaultValue="true"
+            android:enabled="false"
             android:key="usepalette"
             android:summary="@string/summP"
-            android:textColor="?android:textColorPrimary"
-            android:enabled="false"
+            android:textColor="@color/colorPrimary"
 
             android:title="@string/usepa" />
         <CheckBoxPreference
             android:defaultValue="false"
             android:key="light"
-            android:textColor="?android:textColorPrimary"
+            android:textColor="@color/colorPrimary"
             android:title="@string/uselight" />
         <CheckBoxPreference
             android:background="@android:color/darker_gray"
@@ -47,10 +47,16 @@
             android:title="@string/darkB" />
         <CheckBoxPreference
             android:defaultValue="true"
+            android:enabled="false"
             android:key="usematerial"
             android:textColor="?android:textColorPrimary"
-            android:enabled="false"
             android:title="@string/usemat" />
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:enabled="true"
+            android:key="showTitles"
+            android:textColor="?android:textColorPrimary"
+            android:title="@string/showT" />
     </PreferenceCategory>
     <PreferenceCategory
         android:key="pref_key_storage_settings"

@@ -464,8 +464,8 @@ public class PlayerActivity extends AppCompatActivity implements SeekBar.OnSeekB
         if (id == R.id.miCompose) {
             Intent i = new Intent(getApplicationContext(), DataActivity.class);
             i.putExtra("path", currentPath);
-            // ImageView iv = (ImageView) findViewById(R.id.imageViewPlayer);
-            ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(this);
+            ImageView iv = (ImageView) findViewById(R.id.imageViewPlayer);
+            ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(this, iv, "alb");
             ActivityCompat.startActivity(this, i, options.toBundle());
             return true;
         }

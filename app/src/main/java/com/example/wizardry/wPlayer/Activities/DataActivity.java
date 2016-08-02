@@ -7,9 +7,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.transition.Explode;
 import android.view.View;
-import android.view.Window;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -23,21 +21,19 @@ import java.util.concurrent.TimeUnit;
 import uk.co.senab.photoview.PhotoViewAttacher;
 
 public class DataActivity extends AppCompatActivity {
+    PhotoViewAttacher mAttacher;
     private boolean light = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
-// set an enter transition
-        getWindow().setExitTransition(new Explode());
+        // getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
+        // getWindow().setExitTransition(new Explode());
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         light = sharedPref.getBoolean("light", false);
         setTheme(!light ? R.style.AppTheme : R.style.AppThemeWhite);
         setContentView(R.layout.new_info);
         letThereBeLight(getIntent().getStringExtra("path"));
-
-// set an exit transition
     }
 
     private void letThereBeLight(String path) {
@@ -48,7 +44,6 @@ public class DataActivity extends AppCompatActivity {
         long d = mh.getDuration();
         final String tim = String.format("%02d:%02d", TimeUnit.MILLISECONDS.toMinutes(d), TimeUnit.MILLISECONDS.toSeconds(d) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(d)));
         final ImageView i = (ImageView) findViewById(R.id.imageView);
-        final PhotoViewAttacher mAttacher;
         final TextView t = (TextView) findViewById(R.id.txlir);
         final TextView t1 = (TextView) findViewById(R.id.textViewName);
         final TextView t2 = (TextView) findViewById(R.id.TextViewAlbum);
@@ -76,7 +71,7 @@ public class DataActivity extends AppCompatActivity {
         c.setChecked(mh.isCompilation());
         c1.setChecked(mh.getVBR());
         mAttacher = new PhotoViewAttacher(i, true);
-        mAttacher.setScaleType(ImageView.ScaleType.FIT_CENTER);
+        mAttacher.setScaleType(ImageView.ScaleType.FIT_XY);
 
 
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
@@ -94,6 +89,7 @@ public class DataActivity extends AppCompatActivity {
             t7.setTextColor(cs);
             t9.setTextColor(cs);
             t10.setTextColor(cs);
+            getWindow().setStatusBarColor(s[5]);
         }
         final Toolbar tol = (Toolbar) findViewById(R.id.toolbar);
         tol.setNavigationIcon(R.drawable.nav);
@@ -103,5 +99,18 @@ public class DataActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mAttacher.cleanup();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+        mAttacher.cleanup();
     }
 }
