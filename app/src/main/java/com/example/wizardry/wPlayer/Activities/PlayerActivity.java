@@ -55,22 +55,12 @@ public class PlayerActivity extends AppCompatActivity implements SeekBar.OnSeekB
     private MusicService mService;
     private Handler mHandler = new Handler();
     private boolean hasLi;
-    // private int seek_position = 0;
     private Utilities utils;
     private boolean tried = false;
     private SeekBar songProgressBar;
     private String current, currentPath, l;
     private TextView t6, tx8;
-    /*  private Runnable updateInfo = new Runnable() {
-          public void run() {
-              if (!mService.getPath().equals(current)) {
-                  Log.e("Task", "CAMBIO");
-                  current = mService.getPath();
-                  setupData(current);
-              }
-              mHandler2.postDelayed(this, 3000);
-          }
-      };*/
+
     private final BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -80,8 +70,8 @@ public class PlayerActivity extends AppCompatActivity implements SeekBar.OnSeekB
     };
     private Runnable mUpdateTimeTask = new Runnable() {
         public void run() {
-            int totalDuration = MusicService.mediaPlayer.getDuration();
-            int currentDuration = MusicService.mediaPlayer.getCurrentPosition();
+            int totalDuration = mService.getTotal();
+            int currentDuration = mService.getCurrentPosition();
             songTotalDurationLabel.setText(utils.milliSecondsToTimer(totalDuration));
             songCurrentDurationLabel.setText(utils.milliSecondsToTimer(currentDuration));
             songProgressBar.setProgress(utils.getProgressPercentage(currentDuration, totalDuration));
@@ -98,7 +88,7 @@ public class PlayerActivity extends AppCompatActivity implements SeekBar.OnSeekB
             MusicService.LocalBinder binder = (MusicService.LocalBinder) service;
             mService = binder.getService();
             ArrayList<String> st = getIntent().getStringArrayListExtra("albumpaths");
-            if (MusicService.mediaPlayer != null) {
+            if (mService.isNotNull()) {
                 if (!getIntent().getBooleanExtra("b", false)) {
                     mService.setList(st, 2);
                     mService.loadNextOrPreviousSong(true);
@@ -123,24 +113,7 @@ public class PlayerActivity extends AppCompatActivity implements SeekBar.OnSeekB
         }
     };
 
-    /**
-     * Background Runnable thread
-     */
-  /*  private void updateInfo() {
-        mHandler2.postDelayed(updateInfo, 1000);
-    }*/
 
-    /*@Override
-    protected void onStart() {
-        super.onStart();
-        // Bind to LocalService
-        Intent intent = new Intent(this, MusicService.class);
-        intent.putStringArrayListExtra()
-        bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
-    }/*
-
-    /** Called when a button is clicked (the button in the layout file attaches to
-     * this method with the android:onClick attribute) */
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.player);
@@ -236,7 +209,7 @@ public class PlayerActivity extends AppCompatActivity implements SeekBar.OnSeekB
         current = path;
         if (mBound) {
             path = mService.getPath();
-            mh = mService.mh;
+            mh = mService.getMh();
         }
     /*    }
         MetadataHelper mh = null;
@@ -346,7 +319,7 @@ public class PlayerActivity extends AppCompatActivity implements SeekBar.OnSeekB
 
     public void play(View v) {
         if (mBound) {
-            if (MusicService.mediaPlayer.isPlaying()) {
+            if (mService.isPlaying()) {
                 mService.start();
             } else {
                 mService.start();
@@ -355,7 +328,7 @@ public class PlayerActivity extends AppCompatActivity implements SeekBar.OnSeekB
     }
 
     public void setRepeat(View v) {
-        if (MusicService.mediaPlayer.isLooping()) {
+        if (mService.isLooping()) {
             mService.setRepeat();
             ImageButton ib = (ImageButton) v;
             ib.getBackground().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);
@@ -410,9 +383,9 @@ public class PlayerActivity extends AppCompatActivity implements SeekBar.OnSeekB
     public void onStopTrackingTouch(SeekBar seekBar) {
         if (mBound) {
             mHandler.removeCallbacks(mUpdateTimeTask);
-            int totalDuration = MusicService.mediaPlayer.getDuration();
+            int totalDuration = mService.getTotal();
             int currentPosition = utils.progressToTimer(seekBar.getProgress(), totalDuration);
-            MusicService.mediaPlayer.seekTo(currentPosition);
+            mService.seekTo(currentPosition);
             updateProgressBar();
         }
     }

@@ -53,7 +53,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements FragmentSongList.OnItemSelectedListener {
-    //public static boolean s = true;
     public static String current = null;
     private SharedPreferences sharedPref;
     private TabLayout tabLayout;
