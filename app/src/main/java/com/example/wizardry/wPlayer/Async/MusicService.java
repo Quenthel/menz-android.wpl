@@ -27,12 +27,12 @@ import java.util.Stack;
 public class MusicService extends Service implements MediaPlayer.OnPreparedListener, MediaPlayer.OnErrorListener, MediaPlayer.OnCompletionListener, MediaPlayer.OnSeekCompleteListener {
     public final static String action = "CHANGE";
     final static String service = "MusicService";
-    public static MediaPlayer mediaPlayer = null;
     private final IBinder mBinder = new LocalBinder();
-    public MetadataHelper mh;
     String currentPath;
     Bitmap art;
     int notType;
+    private MediaPlayer mediaPlayer = null;
+    private MetadataHelper mh;
     private Stack<String> pastItemsPilaVersion = new Stack<>();
     private ArrayDeque<String> listaRepColaVersion = new ArrayDeque<>();
 
@@ -155,9 +155,30 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
         return mediaPlayer.getDuration();
     }
 
+    public boolean isLooping() {
+        return mediaPlayer.isLooping();
+    }
+
+    public boolean isPlaying() {
+        return mediaPlayer.isPlaying();
+    }
+
+    public void seekTo(int i) {
+        mediaPlayer.seekTo(i);
+    }
+
+    public boolean isNotNull() {
+        if (mediaPlayer != null) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     /**
-     * Metodos del servicio
+     * Service
      */
+
     private void retrieve() {
         /*ASYNC
         try {
@@ -199,6 +220,10 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public MetadataHelper getMh() {
+        return mh;
     }
 
     public void loadNextOrPreviousSong(boolean isNext) {
