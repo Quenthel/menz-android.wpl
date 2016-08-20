@@ -261,6 +261,35 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
         showNotification();
     }
 
+    public void loadNext() {
+        if (!listaRepColaVersion.isEmpty()) {
+            if (listaRepColaVersion.peek().equals(currentPath)) {
+                currentPath = ".-.";
+                loadNextOrPreviousSong(true);
+            }
+            String nextPath = listaRepColaVersion.peek();
+            pastItemsPilaVersion.push(listaRepColaVersion.pop());
+            setupMedia(nextPath);
+        } else {
+            Log.e("Service-Load", "ListaNext Vacia");
+        }
+    }
+
+    public void loadPrev() {
+        if (!pastItemsPilaVersion.isEmpty()) {
+            if (pastItemsPilaVersion.peek().equals(currentPath) && pastItemsPilaVersion.size() > 1) {
+                currentPath = ".b-.";
+                loadNextOrPreviousSong(false);
+            }
+
+            listaRepColaVersion.addFirst(pastItemsPilaVersion.peek());
+            String nextPath = pastItemsPilaVersion.pop();
+            setupMedia(nextPath);
+        } else {
+            Log.e("Service-Load", "Pila Vacia");
+        }
+    }
+
     private void init() {
         if (mediaPlayer == null)
             mediaPlayer = new MediaPlayer();
@@ -304,7 +333,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
             case 0:
                 mBuilder = new Notification.Builder(this)
                         .setLargeIcon(art)
-                        .setSmallIcon(R.mipmap.ic_launcher)
+                        .setSmallIcon(R.drawable.ic_noti)
                         .setContentTitle(mh.getNombre())
                         .setContentText(mh.getArtist())
                         .addAction(R.drawable.ic_action_back, "", pi3)
@@ -315,7 +344,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
             case 1:
                 mBuilder = new Notification.Builder(this)
                         .setLargeIcon(art)
-                        .setSmallIcon(R.mipmap.ic_launcher)
+                        .setSmallIcon(R.drawable.ic_noti)
                         .setContentTitle(mh.getNombre())
                         .setContentText(mh.getArtist())
                         .addAction(R.drawable.ic_action_back, "", pi3)
@@ -327,7 +356,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
             case 2:
                 mBuilder = new Notification.Builder(this)
                         .setLargeIcon(art)
-                        .setSmallIcon(R.mipmap.ic_launcher)
+                        .setSmallIcon(R.drawable.ic_noti)
                         .setContentTitle(mh.getNombre())
                         .setContentText(mh.getArtist())
                         .addAction(R.drawable.ic_action_back, "", pi3)
@@ -337,7 +366,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
             default:
                 mBuilder = new Notification.Builder(this)
                         .setLargeIcon(art)
-                        .setSmallIcon(R.mipmap.ic_launcher)
+                        .setSmallIcon(R.drawable.ic_noti)
                         .setContentTitle(mh.getNombre())
                         .setContentText(mh.getArtist())
                         .addAction(R.drawable.ic_action_back, "", pi3)
@@ -357,7 +386,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
         Utilities.shuffleArray(a);
         listaRepColaVersion.clear();
         Collections.addAll(listaRepColaVersion, a);
-        Log.i(service, "Shuffleado");
+        Log.i(service, "Shuffled");
     }
 
     public class LocalBinder extends Binder {

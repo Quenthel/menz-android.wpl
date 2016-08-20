@@ -1,3 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
-<items version="2" />
+<items version="2" >
 
+    <item
+        jar="C:\x\wpl\menz-android.wpl\app\build\intermediates\exploded-aar\com.android.support\animated-vector-drawable\24.1.1\jars\classes.jar"
+        jumboMode="false"
+        revision="24.0.0"
+        sha1="c936c1bd42f0c018c18920c7bec619ef056b24f8">
+        <dex dex="C:\x\wpl\menz-android.wpl\app\build\intermediates\pre-dexed\debug\com.android.support-animated-vector-drawable-24.1.1_d89d876cbfd3890e0bc045ca0ef5217fb9321570.jar" />
+    </item>
+    <item
+        jar="C:\x\wpl\menz-android.wpl\app\build\intermediates\exploded-aar\com.android.support\design\24.1.1\jars\classes.jar"
+        jumboMode="false"
+        revision="24.0.0"
+        sha1="e195bd694d5389acfba27ff4fdfa64c4c65b2c05">
+        <dex dex="C:\x\wpl\menz-android.wpl\app\build\intermediates\pre-dexed\debug\com.android.support-design-24.1.1_6ec98acca2a250a1e8e40db6e788cb157398bd8d.jar" />
+    </item>
+    <item
+        jar="C:\x\wpl\menz-android.wpl\app\build\intermediates\exploded-aar\com.github.chrisbanes\PhotoView\1.2.6\jars\classes.jar"
+        jumboMode="false"
+        revision="24.0.0"
+        sha1="e39dd45427d2ba136c82ed1946f80dd3dff16695">
+        <dex dex="C:\x\wpl\menz-android.wpl\app\build\intermediates\pre-dexed\debug\com.github.chrisbanes-PhotoView-1.2.6_f2205450c7f265df9d65c2ead5b9f674153b986f.jar" />
+    </item>
+    <item
+        jar="C:\x\wpl\menz-android.wpl\app\build\intermediates\exploded-aar\com.android.support\support-v4\24.1.1\jars\libs\internal_impl-24.1.1.jar"
+        jumboMode="false"
+        revision="24.0.0"
+        sha1="f78c2f395cb096f9dc1dc07e729922b8fcd3c4f5">
+        <dex dex="C:\x\wpl\menz-android.wpl\app\build\intermediates\pre-dexed\debug\internal_impl-24.1.1_a79c27688de947be5de520ac49555bde475fb882.jar" />
+    </item>
+    <item
+        jar="C:\x\wpl\menz-android.wpl\app\build\intermediates\exploded-aar\com.android.support\support-v4\24.1.1\jars\classes.jar"
+        jumboMode="false"
+        revision="24.0.0"
+        sha1="6d7d803871e3203465f71a163e7af104f807b446">
+        <dex dex="C:\x\wpl\menz-android.wpl\app\build\intermediates\pre-dexed\debug\com.android.support-support-v4-24.1.1_ebe967a9793149659da9dfee2c0f697ebf6c6b17.jar" />
+    </item>
+    <item
+        jar="C:\x\wpl\menz-android.wpl\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\24.1.1\jars\classes.jar"
+        jumboMode="false"
+        revision="24.0.0"
+        sha1="1256c10604bb098490eab070d76754ac5ceab35c">
+        <dex dex="C:\x\wpl\menz-android.wpl\app\build\intermediates\pre-dexed\debug\com.android.support-appcompat-v7-24.1.1_32a94173fad806b07fae30f0b8b98688871e1a95.jar" />
+    </item>
+    <item
+        jar="C:\x\wpl\menz-android.wpl\app\build\intermediates\exploded-aar\com.oguzdev\CircularFloatingActionMenu\1.0.2\jars\classes.jar"
+        jumboMode="false"
+        revision="24.0.0"
+        sha1="607d961caf1a59b6e782724654c1f3229e036c20">
+        <dex dex="C:\x\wpl\menz-android.wpl\app\build\intermediates\pre-dexed\debug\com.oguzdev-CircularFloatingActionMenu-1.0.2_94c83274f741bf39077d19983fa90a40e8b003dd.jar" />
+    </item>
+    <item
+        jar="C:\x\wpl\menz-android.wpl\app\build\intermediates\exploded-aar\com.android.support\palette-v7\24.1.1\jars\classes.jar"
+        jumboMode="false"
+        revision="24.0.0"
+        sha1="b3f2f82a3805cb689e32238c95cb291a433b4323">
+        <dex dex="C:\x\wpl\menz-android.wpl\app\build\intermediates\pre-dexed\debug\com.android.support-palette-v7-24.1.1_8a64ffb5d19f766012f2636d1fa6d80505a05554.jar" />
+    </item>
+    <item
+        jar="C:\x\wpl\menz-android.wpl\app\build\intermediates\exploded-aar\com.android.support\support-vector-drawable\24.1.1\jars\classes.jar"
+        jumboMode="false"
+        revision="24.0.0"
+        sha1="f62e763609f65e47dc6c498760a4accf02776788">
+        <dex dex="C:\x\wpl\menz-android.wpl\app\build\intermediates\pre-dexed\debug\com.android.support-support-vector-drawable-24.1.1_6e50c03fbee4674f597ac157ca1e08935f9952a5.jar" />
+    </item>
+    <item
+        jar="C:\Users\Wizardry\.gradle\caches\modules-2\files-2.1\com.github.bumptech.glide\glide\3.7.0\9e9eeaf9948ee4d6c3ab354e8dc14368f16994a4\glide-3.7.0.jar"
+        jumboMode="false"
+        revision="24.0.0"
+        sha1="9e9eeaf9948ee4d6c3ab354e8dc14368f16994a4">
+        <dex dex="C:\x\wpl\menz-android.wpl\app\build\intermediates\pre-dexed\debug\glide-3.7.0_19fc4ca7143babb7b1aaf43f60f739b24caef265.jar" />
+    </item>
+    <item
+        jar="C:\x\wpl\menz-android.wpl\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\24.1.1\jars\classes.jar"
+        jumboMode="false"
+        revision="24.0.0"
+        sha1="787871951412550519b0222aba3c9df4cea49875">
+        <dex dex="C:\x\wpl\menz-android.wpl\app\build\intermediates\pre-dexed\debug\com.android.support-recyclerview-v7-24.1.1_e25f53516cc81ec4a1683f2876fe1c4f2c1d8886.jar" />
+    </item>
+    <item
+        jar="C:\Users\Wizardry\.gradle\caches\modules-2\files-2.1\com.android.support\support-annotations\24.1.1\3af19f153122737b372622fa6c81dd11a1c6b999\support-annotations-24.1.1.jar"
+        jumboMode="false"
+        revision="24.0.0"
+        sha1="3af19f153122737b372622fa6c81dd11a1c6b999">
+        <dex dex="C:\x\wpl\menz-android.wpl\app\build\intermediates\pre-dexed\debug\support-annotations-24.1.1_3617613b93819dde067116c0a73bab372ca5dc88.jar" />
+    </item>
+
+</items>
