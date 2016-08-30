@@ -236,7 +236,7 @@ public class PlayerActivity extends AppCompatActivity implements SeekBar.OnSeekB
         //Textos----------------------------
         t6.setText(mh.getAlbum());
         tx8.setText(mh.getArtist());
-        t6.setTextColor(palette[0]);
+        t6.setTextColor(palette[2]);
         tx8.setTextColor(palette[2]);
 
         if (l != null) {
@@ -261,9 +261,9 @@ public class PlayerActivity extends AppCompatActivity implements SeekBar.OnSeekB
         tool.setTitleTextColor(palette[2]);
 
         FloatingActionButton fabby1 = (FloatingActionButton) findViewById(R.id.fab);
-        fabby1.setBackgroundTintList(ColorStateList.valueOf(palette[6]));
+        fabby1.setBackgroundTintList(ColorStateList.valueOf(palette[7]));
         fabby1.setRippleColor(palette[2]);
-        songProgressBar.setProgressTintList(ColorStateList.valueOf(palette[2]));
+        songProgressBar.setProgressTintList(ColorStateList.valueOf(palette[0]));
         getWindow().setStatusBarColor(palette[5]);
         currentPath = path;
         mh = null;

@@ -15,7 +15,7 @@
             android:layout_gravity="center_vertical"
             android:focusableInTouchMode="false"
             android:typeface="monospace"
-            android:singleLine="true"
+            android:maxLines="1"
             android:maxLength="2">
         </TextView>
 

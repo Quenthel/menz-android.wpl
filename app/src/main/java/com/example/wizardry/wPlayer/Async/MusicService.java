@@ -44,7 +44,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
         if (intent.getBooleanExtra("s", true)) {
             setList(intent.getStringArrayListExtra("paths"), 0);
         }
-        if (intent.getStringExtra("nottype") != null) {
+      /*  if (intent.getStringExtra("nottype") != null) {
             String a = intent.getStringExtra("nottype");
             //    Log.e("TYPE", a);
             switch (a) {
@@ -58,8 +58,9 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
                     notType = 2;
                     break;
             }
-        }
+        }*/
         init();
+        notType = 0;
         return mBinder;
     }
 

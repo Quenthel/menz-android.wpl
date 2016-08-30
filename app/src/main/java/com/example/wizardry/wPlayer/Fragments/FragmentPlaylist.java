@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -19,11 +21,11 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.wizardry.wPlayer.Activities.PlayListActivity;
-import com.example.wizardry.wPlayer.Adapters.PlayListAdapter;
+import com.example.wizardry.wPlayer.Adapters.PlayListAdapterRec;
+import com.example.wizardry.wPlayer.Helpers.ItemClickSupport;
 import com.example.wizardry.wPlayer.R;
 import com.example.wizardry.wPlayer.Retrievers.MusicRetriever;
 import com.example.wizardry.wPlayer.Retrievers.PlaylistRetriever;
@@ -38,6 +40,7 @@ import java.util.List;
 public class FragmentPlaylist extends Fragment {
     String currentPlayList = "";
     String currentPlayListPath = "";
+    PlayListAdapterRec adapter;
     View sd;
 
     @Override
@@ -58,10 +61,35 @@ public class FragmentPlaylist extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_playlist, container, false);
-        ArrayAdapter<PlaylistRetriever.Item> adapterSon;
+        final ArrayAdapter<PlaylistRetriever.Item> adapterSon;
         ContentResolver cr = getActivity().getContentResolver();
         final List<PlaylistRetriever.Item> l = PlaylistRetriever.loadingSongs(cr);
         ImageButton ddd = (ImageButton) view.findViewById(R.id.zzzz);
+
+
+        // Lookup the recyclerview in activity layout
+        RecyclerView rvContacts = (RecyclerView) view.findViewById(R.id.listViewPlayList);
+        // Initialize contacts
+        // Create adapter passing in the sample user data
+        adapter = new PlayListAdapterRec(getContext(), l);
+        // Attach the adapter to the recyclerview to populate items
+        rvContacts.setAdapter(adapter);
+        // Set layout manager to position the items
+        rvContacts.setLayoutManager(new LinearLayoutManager(getContext()));
+        rvContacts.setHasFixedSize(true);
+        ItemClickSupport.addTo(rvContacts).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
+            @Override
+            public void onItemClicked(RecyclerView recyclerView, int position, View v) {
+                // do it
+                PlaylistRetriever.Item actual = l.get(position);
+                ArrayList<MusicRetriever.Item> a = new PlaylistRetriever(getContentResolver()).aBlazing(actual.getId());
+                Intent i = new Intent(getActivity(), PlayListActivity.class);
+                i.putExtra("name", actual.getName());
+                i.putExtra("songs", a);
+                i.putExtra("playpath", actual.getWhatever());
+                getActivity().startActivity(i);            }
+        });
+
         ddd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -75,7 +103,8 @@ public class FragmentPlaylist extends Fragment {
                             public void onClick(DialogInterface dialog, int id) {
                                 Log.e("Adding play:", userInput.getText().toString());
                                 RetrieverHelper.createPlayList(getActivity().getContentResolver(), userInput.getText().toString());
-                                getActivity().recreate();
+                                Snackbar.make(promptsView, "added", Snackbar.LENGTH_SHORT);
+                                adapter.notifyItemInserted(adapter.getItemCount());
                             }
                         }).setNegativeButton("Cancel",
                         new DialogInterface.OnClickListener() {
@@ -87,6 +116,7 @@ public class FragmentPlaylist extends Fragment {
                 alertDialog.show();
             }
         });
+        /*
         ListView lv2 = (ListView) view.findViewById(R.id.listViewPlayList);
         adapterSon = new PlayListAdapter(getActivity(), new ArrayList<PlaylistRetriever.Item>());
         lv2.setAdapter(adapterSon);
@@ -107,7 +137,7 @@ public class FragmentPlaylist extends Fragment {
             adapterSon.add(i);
         }
 
-        registerForContextMenu(lv2);
+        registerForContextMenu(lv2);*/
         return view;
     }
 
@@ -120,8 +150,9 @@ public class FragmentPlaylist extends Fragment {
             case R.id.deletepla:
                 Log.e("OPCION", "DELETE " + currentPlayListPath);
                 RetrieverHelper.deletePlayList(getActivity().getContentResolver(), RetrieverHelper.getPlaylist(getActivity().getContentResolver(), currentPlayList));
-                this.getActivity().recreate();
-                Snackbar.make(sd, "Deleted", Snackbar.LENGTH_SHORT);
+                // this.getActivity().recreate();
+                adapter.notifyDataSetChanged();
+
                 break;
             case R.id.edit:
                 LayoutInflater li = LayoutInflater.from(getContext());

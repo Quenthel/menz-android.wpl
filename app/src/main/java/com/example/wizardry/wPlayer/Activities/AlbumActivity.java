@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.database.DatabaseUtils;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -18,6 +19,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.graphics.Palette;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Gravity;
@@ -60,12 +62,7 @@ public class AlbumActivity extends AppCompatActivity {
         light = sharedPref.getBoolean("light", false);
         setTheme(!light ? R.style.AppTheme : R.style.AppThemeWhite);
         useD = sharedPref.getBoolean("lightB", false);
-
-        //  if (use)
         setContentView(R.layout.activity_album);
-        //   else
-        //       setContentView(R.layout.adaptablealbum);
-
         Intent in = getIntent();
         String[] data = in.getStringArrayExtra("data");
         album = data[0];
@@ -85,11 +82,13 @@ public class AlbumActivity extends AppCompatActivity {
         // isPaletable = sharedPref.getBoolean("usepalette", true);
 
         //  if (isPaletable) {
-        int[] s = ImageHelper.getColors(BitmapFactory.decodeFile(albumArt));
+          int[] s = ImageHelper.getColors(BitmapFactory.decodeFile(albumArt));
+      //  int[]s = ss(BitmapFactory.decodeFile(albumArt), false);
         adapterSonx = new AlbumSongListAdapterX(this, new ArrayList<AlbumSongsRetriever.Item>(), s, light, useD);
         //  adapterRecycler = new AlbumSongListAdapterRecycler(this, l, s, light, useD);
 
         //    if (use) {
+      //  setSDecorationsSwatch(s);
         setDecorations(s);
         //    }
       /*  } else {
@@ -129,6 +128,31 @@ public class AlbumActivity extends AppCompatActivity {
         tv5.setText("Total: " + t);
         tv6.setText(album);
     }
+  /*  private int[] ss(Bitmap s, boolean dark){
+        int[] sd = new int[7];
+        if(!dark) {
+            Palette palette = Palette.from(s).generate();
+            Palette.Swatch swa = palette.getVibrantSwatch();
+            Palette.Swatch swaL = palette.getLightVibrantSwatch();
+            if(swa==null){
+                swa= palette.getDarkVibrantSwatch();
+            }
+            sd[1] = swa.getRgb();
+            sd[0] = swa.getTitleTextColor();
+            sd[2] = swa.getBodyTextColor();
+            sd[4] = swaL.getRgb();
+        }else{
+            Palette palette = Palette.from(s).generate();
+            Palette.Swatch swa = palette.getDarkVibrantSwatch();
+            Palette.Swatch swaL = palette.getVibrantSwatch();
+            sd[1] = swa.getRgb();
+            sd[0] = swa.getTitleTextColor();
+            sd[2] = swa.getBodyTextColor();
+            sd[4] = swaL.getRgb();
+        }
+
+        return  sd;
+    }*/
 
     private void setDecorations(final int s[]) {
         final CoordinatorLayout lyx = (CoordinatorLayout) findViewById(R.id.coord);
@@ -187,7 +211,7 @@ public class AlbumActivity extends AppCompatActivity {
         ctl.setCollapsedTitleGravity(Gravity.CENTER_VERTICAL);
         ctl.setExpandedTitleGravity(Gravity.START);
         getWindow().setStatusBarColor(Color.TRANSPARENT);
-        fab.setBackgroundTintList(ColorStateList.valueOf(s[0]));
+        fab.setBackgroundTintList(ColorStateList.valueOf(s[7]));
         abl.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             int intColorCode = 0;
 
@@ -227,7 +251,6 @@ public class AlbumActivity extends AppCompatActivity {
         }, 600);
     }
 
-
     private void playFromTop() {
         Intent i = new Intent(this, PlayerActivity.class);
         //i.putExtra("path", "vac");
@@ -237,7 +260,7 @@ public class AlbumActivity extends AppCompatActivity {
             i.putExtra("one", true);
         }
         //if (true) {
-            final FloatingActionButton a = (FloatingActionButton) findViewById(R.id.fab);
+        final FloatingActionButton a = (FloatingActionButton) findViewById(R.id.fab);
            /* int cx = a.getWidth() / 2;
             int cy = a.getHeight() / 2;
             float initialRadius = (float) Math.hypot(cx, cy);
@@ -250,9 +273,9 @@ public class AlbumActivity extends AppCompatActivity {
                 }
             });
             anim.start();*/
-            a.setVisibility(View.INVISIBLE);
-            ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(this, iz, "alb");
-            ActivityCompat.startActivity(this, i, options.toBundle());
+        a.setVisibility(View.INVISIBLE);
+        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(this, iz, "alb");
+        ActivityCompat.startActivity(this, i, options.toBundle());
         // } else startActivity(i);
     }
 
@@ -311,6 +334,8 @@ public class AlbumActivity extends AppCompatActivity {
         menu.setHeaderTitle(selectedSong);
         String s = selectedSong;
         mi.inflate(R.menu.menu_options, menu);
+
+
     }
 
     @Override
@@ -324,7 +349,11 @@ public class AlbumActivity extends AppCompatActivity {
                 Log.e("OPCION", "DELETE");
                 if (ch.deleteSong(currentSelectedSong)) {
                     Toast.makeText(this, "Ok", Toast.LENGTH_LONG).show();
+                    Intent intent = getIntent();
+                    finish();
+                    startActivity(intent);
                     //     this.recreate();
+
                 }
 
                 break;

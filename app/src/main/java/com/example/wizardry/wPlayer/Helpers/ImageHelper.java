@@ -57,7 +57,7 @@ public class ImageHelper {
     }
 
     public static int[] getColors(Bitmap b) {
-        int[] a = new int[7];
+        int[] a = new int[8];
         if (b != null) {
             Palette p = Palette.from(b).generate();
             //reduceVisualCancer(p);
@@ -66,8 +66,9 @@ public class ImageHelper {
             a[2] = p.getLightVibrantColor(Color.LTGRAY);
             a[3] = p.getDarkVibrantColor(Color.BLACK);
             a[4] = p.getLightMutedColor(Color.WHITE);
-            a[5] = p.getVibrantColor(Color.BLACK);
+            a[5] = p.getVibrantColor(p.getDarkVibrantColor(Color.BLACK));
             a[6] = p.getVibrantColor(Color.LTGRAY);
+            a[7] = p.getVibrantColor(p.getDarkVibrantColor(p.getMutedColor(Color.LTGRAY)));
 
         } else {
             a[0] = Color.WHITE;
@@ -76,8 +77,8 @@ public class ImageHelper {
             a[3] = Color.BLACK;
             a[4] = Color.WHITE;
             a[5] = Color.BLACK;
-            a[5] = Color.LTGRAY;
-
+            a[6] = Color.LTGRAY;
+            a[7] = Color.LTGRAY;
         }
       /*  Palette.from( b ).generate( new Palette.PaletteAsyncListener() {
             @Override

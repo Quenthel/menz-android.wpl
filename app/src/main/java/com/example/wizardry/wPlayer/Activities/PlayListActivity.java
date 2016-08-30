@@ -6,22 +6,22 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.ContextMenu;
-import android.view.Gravity;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.wizardry.wPlayer.Adapters.PlayListSongsAdapter;
+import com.example.wizardry.wPlayer.Adapters.SongListAdapterRec;
 import com.example.wizardry.wPlayer.Fragments.FragmentPlaylist;
 import com.example.wizardry.wPlayer.Helpers.ContextHelper;
+import com.example.wizardry.wPlayer.Helpers.ItemClickSupport;
 import com.example.wizardry.wPlayer.R;
 import com.example.wizardry.wPlayer.Retrievers.MusicRetriever;
 import com.example.wizardry.wPlayer.Retrievers.RetrieverHelper;
@@ -41,44 +41,41 @@ public class PlayListActivity extends AppCompatActivity {
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         Boolean light = sharedPref.getBoolean("light", false);
         setTheme(!light ? R.style.AppTheme : R.style.AppThemeWhite);
-        //  getWindow().setStatusBarColor(Color.DKGRAY);
-
+        getWindow().setStatusBarColor(getResources().getColor(R.color.colorPrimary));
         setContentView(R.layout.activity_play_list);
-        ArrayAdapter<MusicRetriever.Item> adapterSon;
-        ListView lv2 = (ListView) findViewById(R.id.listViewP);
+
+        SongListAdapterRec adapter;
+        RecyclerView rvContacts = (RecyclerView) findViewById(R.id.lust);
         final ArrayList<MusicRetriever.Item> songs = getIntent().getParcelableArrayListExtra("songs");
         String name = getIntent().getStringExtra("name");
         currentPlaylist = name;
         playpath = getIntent().getStringExtra("playpath");
-        adapterSon = new PlayListSongsAdapter(this, new ArrayList<MusicRetriever.Item>());
-        lv2.setAdapter(adapterSon);
-        lv2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+        adapter = new SongListAdapterRec(this, songs);
+        rvContacts.setAdapter(adapter);
+        rvContacts.setLayoutManager(new LinearLayoutManager(this));
+        rvContacts.setHasFixedSize(true);
+        for (MusicRetriever.Item i : songs) {
+            Log.w(TAG, i.getTitle());
+            albumPaths.add(i.getPath());
+        }
+        ItemClickSupport.addTo(rvContacts).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemClicked(RecyclerView recyclerView, int position, View v) {
                 Intent i = new Intent(getBaseContext(), PlayerActivity.class);
-                TextView rt = (TextView) view.findViewById(R.id.songpath);
+                TextView rt = (TextView) v.findViewById(R.id.songpath);
                 String path = rt.getText().toString();
                 i.putExtra("path", path);
                 i.putStringArrayListExtra("albumpaths", albumPaths);
                 startActivity(i);
             }
         });
-        TextView rt = new TextView(getBaseContext());
+
+        TextView rt = (TextView) findViewById(R.id.nym);
         rt.setText("Total: " + songs.size());
         if (light) rt.setTextColor(Color.BLACK);
-        rt.setPadding(10, 10, 10, 10);
-        rt.setGravity(Gravity.CENTER_HORIZONTAL);
-        lv2.addHeaderView(rt);
-        for (MusicRetriever.Item i : songs) {
-            Log.w(TAG, i.getTitle());
-            albumPaths.add(i.getPath());
-            adapterSon.add(i);
-        }
-
-        registerForContextMenu(lv2);
         Toolbar t = (Toolbar) findViewById(R.id.toolbar);
         t.setTitle(name);
-
         t.setNavigationIcon(R.drawable.nav);
         t.setNavigationOnClickListener(new View.OnClickListener() {
             @Override

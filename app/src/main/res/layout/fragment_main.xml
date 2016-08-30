@@ -1,23 +1,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/fmain"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Activities.MainActivity">
 
-    <ListView
-        android:id="@+id/listViewSongs"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:clickable="false"
-        android:fastScrollAlwaysVisible="false"
-        android:fastScrollEnabled="false"
-        android:longClickable="true"
-        android:paddingBottom="40dp"
-        android:scrollingCache="false"
-        android:stackFromBottom="false"
-        android:textFilterEnabled="false"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/listViewSongsL"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </android.support.v7.widget.RecyclerView>
 
 </LinearLayout>

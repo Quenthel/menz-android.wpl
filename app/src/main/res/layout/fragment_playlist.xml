@@ -21,16 +21,15 @@
             android:src="@mipmap/circma" />
     </LinearLayout>
 
-    <ListView
+
+
+    <android.support.v7.widget.RecyclerView
         android:id="@+id/listViewPlayList"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/vbfbfb"
-        android:clickable="false"
-        android:fastScrollAlwaysVisible="false"
-        android:fastScrollEnabled="false"
-        android:scrollingCache="false"
-        android:stackFromBottom="false"
-        android:textFilterEnabled="false" />
+        android:animateLayoutChanges="true"
+        android:layout_below="@id/vbfbfb">
+
+    </android.support.v7.widget.RecyclerView>
 
 </RelativeLayout>

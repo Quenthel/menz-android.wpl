@@ -17,7 +17,7 @@ import java.io.InputStream;
 
 /**
  * Created by Witchery on 25/5/16.
- * Clase para recuperar metadatos, principalmente para aquellas zonas que requieran recuperar ciertos datos de distintas procedencias;
+ *
  */
 public class MetadataHelper {
     private String path;
@@ -36,7 +36,7 @@ public class MetadataHelper {
     private String trackNumber;
     private int sampleRate;
 
-    private long duration;
+    private long duration = 0;
     private boolean isCompilation;
 
     public MetadataHelper(String path) {
@@ -109,6 +109,7 @@ public class MetadataHelper {
     private void retrieveMin() {
         MediaMetadataRetriever mt = new MediaMetadataRetriever();
         mt.setDataSource(path);
+
         nombre = mt.extractMetadata(MediaMetadataRetriever.METADATA_KEY_TITLE);
         duration = Long.parseLong(mt.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION));
         album = mt.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ALBUM);
@@ -118,6 +119,7 @@ public class MetadataHelper {
             InputStream iss = new ByteArrayInputStream(s);
             fullEmbedded = BitmapFactory.decodeStream(iss);
         }
+
         albumArtist = "";
         isCompilation = false;
         isVBR = false;

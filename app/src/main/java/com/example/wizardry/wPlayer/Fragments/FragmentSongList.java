@@ -1,7 +1,6 @@
 package com.example.wizardry.wPlayer.Fragments;
 
 import android.content.ComponentName;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
@@ -13,6 +12,8 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -21,16 +22,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.wizardry.wPlayer.Activities.PlayerActivity;
-import com.example.wizardry.wPlayer.Adapters.SongListAdapter;
+import com.example.wizardry.wPlayer.Adapters.SongListAdapterRec;
 import com.example.wizardry.wPlayer.Async.MusicService;
 import com.example.wizardry.wPlayer.Helpers.ContextHelper;
+import com.example.wizardry.wPlayer.Helpers.ItemClickSupport;
 import com.example.wizardry.wPlayer.R;
 import com.example.wizardry.wPlayer.Retrievers.MusicRetriever;
 
@@ -40,6 +40,7 @@ import java.util.List;
 /**
  * Created by Wizardry on 19/04/2016.
  */
+
 public class FragmentSongList extends Fragment {
     String s = "";
     String currentSelectedSong = "";
@@ -93,27 +94,32 @@ public class FragmentSongList extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_main, container, false);
         setRetainInstance(true);
-        ArrayAdapter<MusicRetriever.Item> adapterSon;
-        ContentResolver cr = getActivity().getContentResolver();
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getContext());
+        final List<MusicRetriever.Item> l = MusicRetriever.loadingSongs(getActivity().getContentResolver(), sharedPref.getBoolean("order", true));
+        SongListAdapterRec adapter;
+        RecyclerView rvContacts = (RecyclerView) view.findViewById(R.id.listViewSongsL);
 
-        final List<MusicRetriever.Item> l = MusicRetriever.loadingSongs(cr, sharedPref.getBoolean("order", true));
-        ListView lv3 = (ListView) view.findViewById(R.id.listViewSongs);
-      /*  lv3.setOnScrollListener(new OnVerticalScrollDirectionListener() {
+        adapter = new SongListAdapterRec(getContext(), l);
+        rvContacts.setAdapter(adapter);
+        rvContacts.setLayoutManager(new LinearLayoutManager(getContext()));
+        rvContacts.setHasFixedSize(true);
+        ItemClickSupport.addTo(rvContacts).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
             @Override
-            public void onVerticalDirectionChanged(OnVerticalScrollDirectionListener.ListenerArgs args) {
-                if (args.isScrollable()) {
-                    if (!args.isTopItemReached()) {
-                        if (args.isScrollingUp()) {
-                            listener.hide(false);
-                        } else {
-                           listener.hide(true);
-                        }
-                    }
+            public void onItemClicked(RecyclerView recyclerView, int position, View v) {
+                // do it
+                Intent i = new Intent(getContext(), PlayerActivity.class);
+                MusicRetriever.Item is = l.get(position);
+                String path = is.getPath();
+                i.putExtra("path", path);
+                ArrayList<String> albumPaths = new ArrayList<>();
+                for (int x = position, y = 0; x < l.size() && y < 100; x++, y++) {
+                    albumPaths.add(l.get(x).getPath());
                 }
+                startNewPlayer(path, albumPaths, v);
             }
-        });*/
-        adapterSon = new SongListAdapter(getActivity(), new ArrayList<MusicRetriever.Item>());
+        });
+
+    /*   adapterSon = new SongListAdapter(getActivity(), new ArrayList<MusicRetriever.Item>());
         lv3.setAdapter(adapterSon);
         lv3.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -135,7 +141,7 @@ public class FragmentSongList extends Fragment {
         for (MusicRetriever.Item i : l) {
             adapterSon.add(i);
         }
-        registerForContextMenu(lv3);
+        registerForContextMenu(lv3);*/
 
         return view;
     }
