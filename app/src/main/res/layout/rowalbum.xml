@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="125dp"
-    android:background="?android:attr/selectableItemBackground">
+    android:layout_height="125dp">
 
     <ImageView
         android:id="@+id/imItemAlb"
@@ -12,13 +11,13 @@
         android:transitionName="alb" />
 
     <LinearLayout
-        android:id="@+id/cxz"
+        android:visibility="invisible"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:background="#64000000"
         android:orientation="horizontal">
+    <!--android:background="#64000000"      -->
 
         <TextView
             android:id="@+id/tvItemAlbName"

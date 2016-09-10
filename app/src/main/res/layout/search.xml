@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/layout_root"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
     android:padding="10dp">
 
     <TextView
-        android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/search"
@@ -28,7 +26,6 @@
         android:layout_height="wrap_content">
 
         <RadioButton
-            android:id="@+id/radioButton4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checked="true"
@@ -36,26 +33,22 @@
             android:text="@string/Song" />
 
         <RadioButton
-            android:id="@+id/radioButton3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/Genre" />
 
         <RadioButton
-            android:id="@+id/radioButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/Artist" />
 
         <RadioButton
-            android:id="@+id/radioButton2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/Album" />
     </RadioGroup>
 
     <Switch
-        android:id="@+id/switch1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Group by Album?"

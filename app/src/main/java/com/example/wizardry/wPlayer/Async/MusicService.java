@@ -87,7 +87,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
             mediaPlayer.release();
             mediaPlayer = null;
         }
-        Log.e(service, "Venga, hasta luego");
+        Log.e(service, "UnBind");
         stopForeground(true);
         this.stopSelf();
         return false;
@@ -140,7 +140,6 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
 
     @Override
     public void onPrepared(MediaPlayer mp) {
-        Log.i(service, "MediaPlayer Prepared...");
         mp.start();
         Intent i = new Intent(action);
         i.putExtra("path", currentPath);
@@ -169,11 +168,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     }
 
     public boolean isNotNull() {
-        if (mediaPlayer != null) {
-            return true;
-        } else {
-            return false;
-        }
+        return mediaPlayer != null;
     }
 
     /**

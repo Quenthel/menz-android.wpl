@@ -41,20 +41,17 @@
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.widget.NestedScrollView
-        android:id="@+id/scroll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:clipToPadding="false"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
-            android:id="@+id/linearlya"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
             <LinearLayout
-                android:id="@+id/linearAlbum"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minHeight="40dp"
@@ -75,7 +72,6 @@
                     android:transitionName="title" />
 
                 <TextView
-                    android:id="@+id/txAlbumOther"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/Bitrate"
@@ -94,7 +90,6 @@
                 android:orientation="vertical"></com.example.wizardry.wPlayer.Helpers.AdaptableLinearLayout>
 
             <RelativeLayout
-                android:id="@+id/linearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:background="@android:color/transparent"

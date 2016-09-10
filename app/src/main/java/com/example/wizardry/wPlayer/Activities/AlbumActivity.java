@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.database.DatabaseUtils;
-import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -19,7 +18,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.graphics.Palette;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Gravity;
@@ -82,13 +80,13 @@ public class AlbumActivity extends AppCompatActivity {
         // isPaletable = sharedPref.getBoolean("usepalette", true);
 
         //  if (isPaletable) {
-          int[] s = ImageHelper.getColors(BitmapFactory.decodeFile(albumArt));
-      //  int[]s = ss(BitmapFactory.decodeFile(albumArt), false);
-        adapterSonx = new AlbumSongListAdapterX(this, new ArrayList<AlbumSongsRetriever.Item>(), s, light, useD);
+        int[] s = ImageHelper.getColors(BitmapFactory.decodeFile(albumArt));
+        //  int[]s = ss(BitmapFactory.decodeFile(albumArt), false);
+        adapterSonx = new AlbumSongListAdapterX(this, new ArrayList<AlbumSongsRetriever.Item>(), s, light, useD, im);
         //  adapterRecycler = new AlbumSongListAdapterRecycler(this, l, s, light, useD);
 
         //    if (use) {
-      //  setSDecorationsSwatch(s);
+        //  setSDecorationsSwatch(s);
         setDecorations(s);
         //    }
       /*  } else {
@@ -206,7 +204,7 @@ public class AlbumActivity extends AppCompatActivity {
         lyx.setBackgroundColor(backD);
         ctl.setBackgroundColor(backD);
 
-        ctl.setExpandedTitleColor(getResources().getColor(android.R.color.transparent));
+        ctl.setExpandedTitleColor(getColor(android.R.color.transparent));
         ctl.setCollapsedTitleTextColor(texD);
         ctl.setCollapsedTitleGravity(Gravity.CENTER_VERTICAL);
         ctl.setExpandedTitleGravity(Gravity.START);
@@ -225,11 +223,7 @@ public class AlbumActivity extends AppCompatActivity {
                 } else {
                     getWindow().setStatusBarColor(Color.TRANSPARENT);
                 }
-                if (intColorCode > 10) {
-                    useTr = false;
-                } else {
-                    useTr = true;
-                }
+                useTr = intColorCode <= 10;
                 //  getWindow().setStatusBarColor(Color.alpha(255));
             }
         });

@@ -31,11 +31,12 @@
         android:layout_height="match_parent"
         android:layout_marginTop="58dp">
 
-        <RelativeLayout
+        <LinearLayout
             android:id="@+id/llImagen"
             android:layout_width="match_parent"
             android:layout_height="395dp"
-            android:background="@android:color/transparent">
+            android:background="@android:color/transparent"
+            android:orientation="vertical">
 
             <ImageView
                 android:id="@+id/imageViewPlayer"
@@ -47,7 +48,8 @@
             <ScrollView
                 android:id="@+id/scrollLyr"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="395dp"
+                android:layout_marginTop="-395dp"
                 android:visibility="invisible">
 
                 <TextView
@@ -64,11 +66,9 @@
                     android:textIsSelectable="true"
                     android:textSize="15sp" />
             </ScrollView>
-
-        </RelativeLayout>
+        </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/rlBotonesHover"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginTop="340dp"
@@ -78,13 +78,11 @@
 
 
         <RelativeLayout
-            android:id="@+id/rlData"
             android:layout_width="match_parent"
-            android:layout_height="fill_parent"
-            android:layout_alignParentStart="true"
+            android:layout_height="wrap_content"
             android:layout_below="@+id/llImagen"
             android:background="@color/material_grey_900"
-            android:minHeight="70dp">
+            android:minHeight="75dp">
 
             <TextView
                 android:id="@+id/txcur"
@@ -92,8 +90,9 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_centerHorizontal="true"
-                android:layout_marginEnd="10dp"
                 android:fontFamily="sans-serif"
+                android:paddingEnd="5dp"
+                android:paddingStart="5dp"
                 android:text="0:00"
                 android:textAlignment="center"
                 android:textSize="13sp" />
@@ -104,7 +103,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_centerHorizontal="true"
-                android:layout_marginStart="10dp"
+                android:paddingEnd="5dp"
+                android:paddingStart="5dp"
                 android:text="0:00"
                 android:textAlignment="center"
                 android:textSize="13sp" />
@@ -114,75 +114,82 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:layout_marginLeft="38dp"
-                android:layout_marginRight="38dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
                 android:clickable="false"
                 android:focusable="false"
                 android:progress="@android:integer/config_shortAnimTime"
                 android:splitTrack="false"
                 android:thumbTint="@android:color/white" />
 
-            <TextView
-                android:id="@+id/textView6"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="12dp"
-                android:maxLines="2"
-                android:textAlignment="center"
-                android:textSize="16sp"
-                android:transitionName="title" />
-
-            <TextView
-                android:id="@+id/textView8"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/textView6"
-                android:maxLines="1"
-                android:textAlignment="center" />
-
-
-            <RelativeLayout
-                android:id="@+id/controls"
-                android:layout_width="120dp"
-                android:layout_height="fill_parent"
-                android:layout_centerHorizontal="true"
-                android:orientation="horizontal" />
-
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:layout_alignParentBottom="true"
-                android:background="@color/black">
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:orientation="vertical">
 
-                <ImageButton
-                    android:id="@+id/imageButton"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_alignParentStart="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginStart="20dp"
-                    android:background="@drawable/ic_loop"
-                    android:backgroundTint="@android:color/white"
-                    android:onClick="setRepeat"
-                    android:tint="@android:color/white"
-                    android:visibility="visible" />
+                <TextView
+                    android:id="@+id/textView6"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="-4dp"
+                    android:maxLines="1"
+                    android:text="Allah"
+                    android:textAlignment="center"
+                    android:textSize="15sp"
+                    android:transitionName="title" />
 
-                <ImageButton
-                    android:id="@+id/imageButton2"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignTop="@+id/imageButton"
-                    android:layout_gravity="end"
-                    android:layout_marginEnd="19dp"
-                    android:background="@drawable/ic_shuffle"
-                    android:backgroundTint="@android:color/white"
-                    android:onClick="setRandom"
-                    android:visibility="visible" />
-            </RelativeLayout>
+                <TextView
+                    android:id="@+id/textView8"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:text="Wisomd asd "
+                    android:textAlignment="center"
+                    android:textSize="15sp" />
+            </LinearLayout>
         </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/black">
+
+            <ImageButton
+                android:id="@+id/imageButton"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                android:layout_marginStart="20dp"
+                android:background="@drawable/ic_loop"
+                android:backgroundTint="@android:color/white"
+                android:onClick="setRepeat"
+                android:tint="@android:color/white"
+                android:visibility="visible" />
+
+            <ImageButton
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignTop="@+id/imageButton"
+                android:layout_gravity="end"
+                android:layout_marginEnd="19dp"
+                android:background="@drawable/ic_shuffle"
+                android:backgroundTint="@android:color/white"
+                android:onClick="setRandom"
+                android:visibility="visible" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/controls"
+            android:layout_width="120dp"
+            android:layout_height="fill_parent"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:orientation="horizontal" />
     </RelativeLayout>
 
     <android.support.design.widget.FloatingActionButton
@@ -198,7 +205,6 @@
         app:layout_anchorGravity="bottom|center" />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="next"
@@ -210,7 +216,6 @@
         app:layout_anchorGravity="bottom|end" />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="back"

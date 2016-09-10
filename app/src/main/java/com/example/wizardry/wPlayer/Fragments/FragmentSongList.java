@@ -50,7 +50,7 @@ public class FragmentSongList extends Fragment {
     boolean mBound;
 
     private ContextHelper ch;
-    private OnItemSelectedListener listener;
+    //  private OnItemSelectedListener listener;
     private ServiceConnection mConnection = new ServiceConnection() {
         boolean mBound;
         MusicService mService;
@@ -96,17 +96,16 @@ public class FragmentSongList extends Fragment {
         setRetainInstance(true);
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getContext());
         final List<MusicRetriever.Item> l = MusicRetriever.loadingSongs(getActivity().getContentResolver(), sharedPref.getBoolean("order", true));
-        SongListAdapterRec adapter;
+        //    SongListAdapterRec adapter;
         RecyclerView rvContacts = (RecyclerView) view.findViewById(R.id.listViewSongsL);
 
-        adapter = new SongListAdapterRec(getContext(), l);
-        rvContacts.setAdapter(adapter);
+        // adapter = new SongListAdapterRec(getContext(), l);
+        rvContacts.setAdapter(new SongListAdapterRec(getContext(), l));
         rvContacts.setLayoutManager(new LinearLayoutManager(getContext()));
         rvContacts.setHasFixedSize(true);
         ItemClickSupport.addTo(rvContacts).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
             @Override
             public void onItemClicked(RecyclerView recyclerView, int position, View v) {
-                // do it
                 Intent i = new Intent(getContext(), PlayerActivity.class);
                 MusicRetriever.Item is = l.get(position);
                 String path = is.getPath();
@@ -206,7 +205,7 @@ public class FragmentSongList extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
-    @Override
+  /*  @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         if (context instanceof OnItemSelectedListener) {
@@ -222,5 +221,5 @@ public class FragmentSongList extends Fragment {
 
     public interface OnItemSelectedListener {
         void hide(boolean a);
-    }
+    }*/
 }

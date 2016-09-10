@@ -9,7 +9,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.example.wizardry.wPlayer.Async.ImageAsyncTask;
 import com.example.wizardry.wPlayer.R;
 import com.example.wizardry.wPlayer.Retrievers.MusicRetriever;
 
@@ -102,10 +101,10 @@ public class SongListAdapter extends ArrayAdapter<MusicRetriever.Item> {
         tv4.setText(s.getPath());
     }
 
-    public void loadBitmap(String path, ImageView imageView) {
+   /* public void loadBitmap(String path, ImageView imageView) {
         ImageAsyncTask task = new ImageAsyncTask(getContext(), imageView);
         task.execute(path);
-    }
+    }*/
 
     static class ViewHolder {
         TextView tv;

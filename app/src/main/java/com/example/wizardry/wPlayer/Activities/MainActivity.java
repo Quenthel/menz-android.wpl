@@ -35,7 +35,6 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.wizardry.wPlayer.Async.MusicService;
 import com.example.wizardry.wPlayer.Fragments.FragmentAlbumList;
@@ -52,10 +51,9 @@ import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements FragmentSongList.OnItemSelectedListener {
+public class MainActivity extends AppCompatActivity {
     public static String current = null;
     private SharedPreferences sharedPref;
-    private TabLayout tabLayout;
     private boolean light = false;
     private final BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override
@@ -81,16 +79,16 @@ public class MainActivity extends AppCompatActivity implements FragmentSongList.
         setTheme(!light ? R.style.AppTheme : R.style.AppThemeWhite);
         setContentView(R.layout.activity_main);
         if (light) {
-            findViewById(R.id.appbar).setBackgroundColor(getResources().getColor(R.color.colorAccent));
+            findViewById(R.id.appbar).setBackgroundColor(getColor(R.color.colorAccent));
             // getWindow().setStatusBarColor(Color.TRANSPARENT);
         }
-        getWindow().setStatusBarColor(getResources().getColor(R.color.colorPrimary));
+        getWindow().setStatusBarColor(getColor(R.color.colorPrimary));
         if (hasPermisssion) {
             SectionsPagerAdapter mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
             ViewPager mViewPager = (ViewPager) findViewById(R.id.container);
             mViewPager.setAdapter(mSectionsPagerAdapter);
 
-            tabLayout = (TabLayout) findViewById(R.id.tabs);
+            TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
             tabLayout.setupWithViewPager(mViewPager);
 
             mViewPager.setOffscreenPageLimit(1);
@@ -103,9 +101,9 @@ public class MainActivity extends AppCompatActivity implements FragmentSongList.
                 tabLayout.setBackgroundColor(Color.WHITE);
                 tabLayout.setTabTextColors(Color.BLACK, R.color.colorAccent);
             }
-        } else {
-            Toast.makeText(this, "Can't query without permission", Toast.LENGTH_LONG).show();
-        }
+        }//  else {
+        //  Toast.makeText(this, "Can't query without permission", Toast.LENGTH_LONG).show();
+        //  }
         // Intent intent = new Intent(this, MusicService.class);
         // intent.putExtra("s", false);
         //    bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
@@ -143,8 +141,6 @@ public class MainActivity extends AppCompatActivity implements FragmentSongList.
     private void check() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1349);
-        } else {
-            //boolean hasPermisssion = true;
         }
     }
 
@@ -203,7 +199,7 @@ public class MainActivity extends AppCompatActivity implements FragmentSongList.
         ImageView icon = new ImageView(this);
         // icon.setImageResource(R.mipmap.circma);
         icon.setImageResource(R.drawable.ic_add);
-        icon.setColorFilter(getResources().getColor(R.color.colorAccent), PorterDuff.Mode.SRC_ATOP);
+        icon.setColorFilter(getColor(R.color.colorAccent), PorterDuff.Mode.SRC_ATOP);
 
         FloatingActionButton actionButton;
         SubActionButton button1;
@@ -229,9 +225,9 @@ public class MainActivity extends AppCompatActivity implements FragmentSongList.
         itemIcon1.setImageResource(R.drawable.ic_shuffle);
         itemIcon2.setImageResource(R.drawable.ic_settings);
         itemIcon3.setImageResource(R.drawable.ic_search);
-        itemIcon1.setColorFilter(getResources().getColor(R.color.colorPrimary), PorterDuff.Mode.SRC_ATOP);
-        itemIcon2.setColorFilter(getResources().getColor(R.color.colorPrimary), PorterDuff.Mode.SRC_ATOP);
-        itemIcon3.setColorFilter(getResources().getColor(R.color.colorPrimary), PorterDuff.Mode.SRC_ATOP);
+        itemIcon1.setColorFilter(getColor(R.color.colorPrimary), PorterDuff.Mode.SRC_ATOP);
+        itemIcon2.setColorFilter(getColor(R.color.colorPrimary), PorterDuff.Mode.SRC_ATOP);
+        itemIcon3.setColorFilter(getColor(R.color.colorPrimary), PorterDuff.Mode.SRC_ATOP);
 
         if (light) {
             button1 = itemBuilder.setContentView(itemIcon1).setTheme(FloatingActionButton.THEME_LIGHT).build();
@@ -340,15 +336,15 @@ public class MainActivity extends AppCompatActivity implements FragmentSongList.
         startActivity(i);
     }
 
-    private void makeSnack() {
+    private void makeSnack(String text) {
         CoordinatorLayout c = (CoordinatorLayout) findViewById(R.id.main_content);
-        Snackbar.make(c, "", Snackbar.LENGTH_INDEFINITE)
+        Snackbar.make(c, text, Snackbar.LENGTH_INDEFINITE)
                 .setDuration(Snackbar.LENGTH_INDEFINITE)
-                .setActionTextColor(getResources().getColor(R.color.traspless))
+                .setActionTextColor(getColor(R.color.traspless))
                 .show();
     }
 
-    @Override
+   /* @Override
     public void hide(boolean a) {
         // View rl = findViewById(R.id.rlt);
         //  rl.setVisibility(View.GONE);
@@ -357,16 +353,15 @@ public class MainActivity extends AppCompatActivity implements FragmentSongList.
         } else {
             tabLayout.setVisibility(View.VISIBLE);
         }
-    }
+    }*/
 
     private void setupCur(String path) {
         View rl = findViewById(R.id.rlt);
         rl.setVisibility(View.VISIBLE);
         TextView tx1 = (TextView) findViewById(R.id.label2);
-        ImageView im = (ImageView) findViewById(R.id.icono2);
         MetadataHelper mh = new MetadataHelper(path, true);
         tx1.setText(mh.getNombre());
-        im.setImageBitmap(mh.getFullEmbedded());
+        ((ImageView) findViewById(R.id.icono2)).setImageBitmap(mh.getFullEmbedded());
         int[] c = ImageHelper.getColors(mh.getFullEmbedded());
         if (!light) {
             rl.setBackground(ImageHelper.makeSelector(c[5], Color.BLACK, 255));

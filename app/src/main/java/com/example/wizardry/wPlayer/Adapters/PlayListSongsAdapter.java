@@ -9,7 +9,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.example.wizardry.wPlayer.Async.ImageAsyncTask;
 import com.example.wizardry.wPlayer.R;
 import com.example.wizardry.wPlayer.Retrievers.MusicRetriever;
 
@@ -74,8 +73,8 @@ public class PlayListSongsAdapter extends ArrayAdapter<MusicRetriever.Item> {
     }
 
     public void loadBitmap(String path, ImageView imageView) {
-        ImageAsyncTask task = new ImageAsyncTask(getContext(), imageView);
-        task.execute(path);
+        // ImageAsyncTask task = new ImageAsyncTask(getContext(), imageView);
+        //  task.execute(path);
     }
 
 }

@@ -10,7 +10,6 @@
     <string name="Song">Canción</string>
     <string name="Year">Año</string>
     <string name="title_activity_data">Datos</string>
-    <string name="title_activity_settings">Configuración</string>
     <string name="Playlist">PlayList</string>
     <string name="Songs">Canciones</string>
     <string name="AlbumList">Álbum Grid</string>
@@ -42,7 +41,6 @@
     <string name="sumOr">Por defecto es Artista/Album</string>
     <string name="sumnotf">Estilo de la notificación. Requiere reinicio para ver el cambio.</string>
     <string name="nottyo">Estilo de notificación</string>
-    <string name="pref_header_general">ghj</string>
 
     <string-array name="nottypes">
         <item>MediaStyle</item>

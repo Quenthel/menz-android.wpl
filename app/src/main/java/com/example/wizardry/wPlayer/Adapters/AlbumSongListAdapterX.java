@@ -3,10 +3,14 @@ package com.example.wizardry.wPlayer.Adapters;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.graphics.Palette;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.wizardry.wPlayer.Activities.PlayerActivity;
@@ -26,6 +30,7 @@ public class AlbumSongListAdapterX extends ArrayAdapter<AlbumSongsRetriever.Item
     private int[] colorsArr;
     private boolean light = false;
     private boolean useD = false;
+    private ImageView im;
     private ArrayList<String> albumPaths = new ArrayList<>();
     private ArrayList<String> albumPaths2 = new ArrayList<>();
 
@@ -34,16 +39,18 @@ public class AlbumSongListAdapterX extends ArrayAdapter<AlbumSongsRetriever.Item
         this.ctx = context;
     }
 
-    public AlbumSongListAdapterX(Activity context, List<AlbumSongsRetriever.Item> l, int[] colors, boolean light, boolean useD) {
+    public AlbumSongListAdapterX(Activity context, List<AlbumSongsRetriever.Item> l, int[] colors, boolean light, boolean useD, ImageView im) {
         super(context, R.layout.rowalbumlist, l);
         this.ctx = context;
         this.colorsArr = colors;
         this.light = light;
+        this.im=im;
         this.useD = useD;
     }
 
+    @NonNull
     @Override
-    public View getView(int posicion, View v, ViewGroup parent) {
+    public View getView(int posicion, View v, @NonNull ViewGroup parent) {
         View vi = v;
 
         if (vi == null) {
@@ -77,7 +84,8 @@ public class AlbumSongListAdapterX extends ArrayAdapter<AlbumSongsRetriever.Item
                 i.putExtra("path", path);
                 blackMagic();
                 i.putStringArrayListExtra("albumpaths", albumPaths2);
-                ctx.startActivity(i);
+                ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(ctx, im, "alb");
+                ActivityCompat.startActivity(ctx, i, options.toBundle());
             }
         });
         if (colorsArr != null) {

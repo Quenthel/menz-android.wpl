@@ -63,7 +63,15 @@ public class DataActivity extends AppCompatActivity {
         t2.setText(mh.getAlbum());
         t3.setText(mh.getGenre());
         t4.setText(mh.getYear());
-        t5.setText(mh.getBitrate().substring(0, 3) + " kpbs");
+        String x = mh.getBitrate();
+        if (x != null) {
+            if (x.length() > 3) {
+                t5.setText(mh.getBitrate().substring(0, 3) + " kpbs");
+            }
+        } else {
+            t5.setText(0 + " kpbs");
+
+        }
         t6.setText(mh.getArtist());
         t7.setText(tim);
         t9.setText(mh.getSampleRate() + " kHz");

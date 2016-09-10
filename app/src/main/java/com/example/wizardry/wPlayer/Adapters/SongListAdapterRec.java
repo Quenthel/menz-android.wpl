@@ -2,8 +2,6 @@ package com.example.wizardry.wPlayer.Adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,7 +59,7 @@ public class SongListAdapterRec extends RecyclerView.Adapter<SongListAdapterRec.
         return mContacts.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    static class ViewHolder extends RecyclerView.ViewHolder {
         // Your holder should contain a member variable
         // for any view that will be set as you render a row
         TextView tv;
@@ -70,7 +68,7 @@ public class SongListAdapterRec extends RecyclerView.Adapter<SongListAdapterRec.
         TextView tv4;
         ImageView img;
 
-        public ViewHolder(View vi) {
+        ViewHolder(View vi) {
             super(vi);
             tv = (TextView) vi.findViewById(R.id.label);
             tv2 = (TextView) vi.findViewById(R.id.grupo);

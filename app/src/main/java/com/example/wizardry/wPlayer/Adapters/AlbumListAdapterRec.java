@@ -64,7 +64,7 @@ public class AlbumListAdapterRec extends RecyclerView.Adapter<AlbumListAdapterRe
     }
 
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    static class ViewHolder extends RecyclerView.ViewHolder {
         // Your holder should contain a member variable
         // for any view that will be set as you render a row
         TextView tv;
@@ -75,7 +75,7 @@ public class AlbumListAdapterRec extends RecyclerView.Adapter<AlbumListAdapterRe
 
         // We also create a constructor that accepts the entire item row
         // and does the view lookups to find each subview
-        public ViewHolder(View itemView) {
+        ViewHolder(View itemView) {
 
             super(itemView);
             tv = (TextView) itemView.findViewById(R.id.tvItemAlbName);

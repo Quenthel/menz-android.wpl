@@ -12,6 +12,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
@@ -35,7 +36,6 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.example.wizardry.wPlayer.Async.MusicService;
-import com.example.wizardry.wPlayer.Async.getLyrTask;
 import com.example.wizardry.wPlayer.Helpers.ImageHelper;
 import com.example.wizardry.wPlayer.Helpers.MetadataHelper;
 import com.example.wizardry.wPlayer.Helpers.Utilities;
@@ -46,8 +46,8 @@ import java.util.Collections;
 import java.util.concurrent.ExecutionException;
 
 public class PlayerActivity extends AppCompatActivity implements SeekBar.OnSeekBarChangeListener {
-    private static final int SWIPE_THRESHOLD = 100;
-    private static final int SWIPE_VELOCITY_THRESHOLD = 100;
+    //private static final int SWIPE_THRESHOLD = 100;
+    //private static final int SWIPE_VELOCITY_THRESHOLD = 100;
     private GestureDetector mGestureDetector;
     private boolean mBound;
     private String ly = null;
@@ -157,7 +157,7 @@ public class PlayerActivity extends AppCompatActivity implements SeekBar.OnSeekB
         mGestureDetector = new GestureDetector(this, new GestureDetector.SimpleOnGestureListener() {
             public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
                 float diffX = e2.getX() - e1.getX();
-                if (Math.abs(diffX) > SWIPE_THRESHOLD && Math.abs(velocityX) > SWIPE_VELOCITY_THRESHOLD) {
+                if (Math.abs(diffX) > 100 && Math.abs(velocityX) > 100) {
                     if (diffX > 0) {
                         ImageView iv = (ImageView) findViewById(R.id.imageViewPlayer);
                         Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade);
@@ -205,23 +205,19 @@ public class PlayerActivity extends AppCompatActivity implements SeekBar.OnSeekB
     private void setupData(String path) {
         MetadataHelper mh = null;
         tried = false;
+        hasLi = false;
         ly = null;
+        int[] palette;
+        //findViewById(R.id.scrollLyr).setVisibility(View.GONE);
         current = path;
         if (mBound) {
             path = mService.getPath();
             mh = mService.getMh();
         }
-    /*    }
-        MetadataHelper mh = null;
-        try {
-            mh = new getMetadataTask().execute(path).get();
-        } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-        }*/
+
         ImageView i = (ImageView) findViewById(R.id.imageViewPlayer);
         android.support.v7.widget.Toolbar tool = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
         Bitmap bi;
-        int[] palette;
         currentPath = path;
         current = mh.getPath();
         bi = mh.getFullEmbedded();
@@ -233,79 +229,55 @@ public class PlayerActivity extends AppCompatActivity implements SeekBar.OnSeekB
             i.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.nodata));
             palette = ImageHelper.getColors(BitmapFactory.decodeResource(getResources(), R.drawable.nodata));
         }
-        //Textos----------------------------
+
         t6.setText(mh.getAlbum());
         tx8.setText(mh.getArtist());
         t6.setTextColor(palette[2]);
         tx8.setTextColor(palette[2]);
 
-        if (l != null) {
-            TextView t10 = (TextView) findViewById(R.id.txLyr);
-            t10.setVisibility(View.VISIBLE);
-            t10.setText(l);
-            t10.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
-                    hide(v);
-                    return false;
-                }
-            });
-            hasLi = true;
-        } else {
-            findViewById(R.id.scrollLyr).setVisibility(View.GONE);
-            hasLi = false;
-        }
-        //-----------------------------------
-
         tool.setTitle(mh.getNombre());
         tool.setTitleTextColor(palette[2]);
-
         FloatingActionButton fabby1 = (FloatingActionButton) findViewById(R.id.fab);
         fabby1.setBackgroundTintList(ColorStateList.valueOf(palette[7]));
         fabby1.setRippleColor(palette[2]);
-        songProgressBar.setProgressTintList(ColorStateList.valueOf(palette[0]));
+        songProgressBar.setProgressTintList(ColorStateList.valueOf(palette[7]));
         getWindow().setStatusBarColor(palette[5]);
-        currentPath = path;
         mh = null;
     }
 
     public void hide(View v) {
-        final ScrollView sc = (ScrollView) findViewById(R.id.scrollLyr);
         try {
             if (ly == null) {
                 if (!hasLi && !tried) {
                     ly = new getLyrTask().execute(currentPath).get();
                     tried = true;
                 }
-            }
-            if (ly != null)
-                hasLi = true;
-            if (hasLi) {
-                TextView t10 = (TextView) findViewById(R.id.txLyr);
+            } else {
+                final ScrollView sc = (ScrollView) findViewById(R.id.scrollLyr);
                 int cx = sc.getWidth() / 2;
                 int cy = sc.getHeight() / 2;
                 float finalRadius = (float) Math.hypot(cx, cy);
                 Animator anim = ViewAnimationUtils.createCircularReveal(sc, cx, cy, 0, finalRadius);
-                //   sc.setVisibility(View.VISIBLE);
 
-                t10.setText(ly);
-                t10.setOnLongClickListener(new View.OnLongClickListener() {
-                    @Override
-                    public boolean onLongClick(View v) {
-                        hide(v);
-                        return false;
+                if (ly != null) {
+                    TextView t10 = (TextView) findViewById(R.id.txLyr);
+
+                    //   sc.setVisibility(View.VISIBLE);
+
+                    t10.setText(ly);
+
+                    if (sc.getVisibility() == View.VISIBLE) {
+                        sc.setVisibility(View.GONE);
+                        // i.setVisibility(View.VISIBLE);
+                    } else {
+                        sc.setVisibility(View.VISIBLE);
+                        anim.start();
+                        //     i.setVisibility(View.GONE);
                     }
-                });
-                if (sc.getVisibility() == View.VISIBLE) {
-                    sc.setVisibility(View.GONE);
-                    // i.setVisibility(View.VISIBLE);
-                } else {
-
-                    sc.setVisibility(View.VISIBLE);
-                    anim.start();
-                    //     i.setVisibility(View.GONE);
                 }
             }
+            hasLi = ly != null;
+
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
@@ -336,7 +308,7 @@ public class PlayerActivity extends AppCompatActivity implements SeekBar.OnSeekB
         } else {
             mService.setRepeat();
             ImageButton ib = (ImageButton) v;
-            ib.getBackground().setColorFilter(getResources().getColor(R.color.colorAccent), PorterDuff.Mode.SRC_ATOP);
+            ib.getBackground().setColorFilter(getColor(R.color.colorAccent), PorterDuff.Mode.SRC_ATOP);
         }
     }
 
@@ -445,4 +417,38 @@ public class PlayerActivity extends AppCompatActivity implements SeekBar.OnSeekB
         return super.onOptionsItemSelected(item);
     }
 
+
+    public class getLyrTask extends AsyncTask<String, Integer, String> {
+
+        @Override
+        protected String doInBackground(String... params) {
+            return new MetadataHelper(params[0]).getLirycs();
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            final ScrollView sc = (ScrollView) findViewById(R.id.scrollLyr);
+            int cx = sc.getWidth() / 2;
+            int cy = sc.getHeight() / 2;
+            float finalRadius = (float) Math.hypot(cx, cy);
+            Animator anim = ViewAnimationUtils.createCircularReveal(sc, cx, cy, 0, finalRadius);
+
+            if (s != null) {
+                TextView t10 = (TextView) findViewById(R.id.txLyr);
+
+                //   sc.setVisibility(View.VISIBLE);
+                t10.setText(ly);
+
+                if (sc.getVisibility() == View.VISIBLE) {
+                    sc.setVisibility(View.GONE);
+                    // i.setVisibility(View.VISIBLE);
+                } else {
+                    sc.setVisibility(View.VISIBLE);
+                    anim.start();
+                    //     i.setVisibility(View.GONE);
+                }
+            }
+        }
+    }
 }

@@ -25,6 +25,8 @@ import java.util.ArrayList;
  * Created by Wizardry on 19/04/2016.
  */
 public class FragmentAlbumList extends Fragment {
+    //private int numGrids = 3;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_grid, container, false);
@@ -43,29 +45,17 @@ public class FragmentAlbumList extends Fragment {
         ItemClickSupport.addTo(rvContacts).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
             @Override
             public void onItemClicked(RecyclerView recyclerView, int position, View v) {
-
                 Intent i = new Intent(getContext(), AlbumActivity.class);
-                TextView t = (TextView) v.findViewById(R.id.tvItemAlbName);
-                TextView t2 = (TextView) v.findViewById(R.id.chPath);
-                TextView t3 = (TextView) v.findViewById(R.id.chYear);
-                TextView t4 = (TextView) v.findViewById(R.id.chArtist);
+                String[] data = new String[4];
+                data[0] = ((TextView) v.findViewById(R.id.tvItemAlbName)).getText().toString();
+                data[1] = ((TextView) v.findViewById(R.id.chPath)).getText().toString();
+                data[2] = ((TextView) v.findViewById(R.id.chYear)).getText().toString();
+                data[3] = ((TextView) v.findViewById(R.id.chArtist)).getText().toString();
 
-                String s = t.getText().toString();
-                String s2 = t2.getText().toString();
-                String s3 = t3.getText().toString();
-                String s4 = t4.getText().toString();
-                String[] d = new String[4];
-                d[0] = s;
-                d[1] = s2;
-                d[2] = s3;
-                d[3] = s4;
-
-                //------------
-                i.putExtra("data", d);
+                i.putExtra("data", data);
                 // i.putStringArrayListExtra("datos", datos);
                 ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), v, "alb");
                 ActivityCompat.startActivity(getActivity(), i, options.toBundle());
-                //    startActivity(i);
             }
         });
 
@@ -108,4 +98,16 @@ public class FragmentAlbumList extends Fragment {
         }*/
         return view;
     }
+
+   /* @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            numGrids = 4;
+            //     Log.e("SD", "SD");
+        } else {
+            numGrids = 3;
+
+        }
+        super.onConfigurationChanged(newConfig);
+    }*/
 }
