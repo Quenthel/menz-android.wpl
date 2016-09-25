@@ -12,11 +12,10 @@ import java.util.Hashtable;
 import java.util.Random;
 
 public class AlbumRetriever {
-    final String TAG = "AlbumRetriever";
+    private final static String TAG = "AlbumRetriever";
     ContentResolver mContentResolver;
     ArrayList<ItemAlbum> mItems = new ArrayList<>();
     Hashtable<String, String> mapa = new Hashtable<>();
-    Random mRandom = new Random();
     String sortOrder;
 
     public AlbumRetriever(ContentResolver cr) {
@@ -93,11 +92,11 @@ public class AlbumRetriever {
 
     /**
      * Returns a random Item. If there are no items available, returns null.
-     */
     public ItemAlbum getRandomItem() {
         if (mItems.size() <= 0) return null;
         return mItems.get(mRandom.nextInt(mItems.size()));
-    }
+    }     */
+
 
     //Metodo que devuelve el path en cache para un determinado album
     public String getAlbumArtForSongId(String id) {
@@ -132,7 +131,7 @@ public class AlbumRetriever {
         }
     }
 
-    public final static class ItemAlbum {
+    public static class ItemAlbum {
         final String id;
         final String artist;
         final String title;
@@ -140,7 +139,7 @@ public class AlbumRetriever {
         final int duration;
         final String albumArt;
 
-        public ItemAlbum(String id, String artist, String title, String album, int duration, String albumArt) {
+        ItemAlbum(String id, String artist, String title, String album, int duration, String albumArt) {
             this.id = id;
             this.artist = artist;
             this.title = title;

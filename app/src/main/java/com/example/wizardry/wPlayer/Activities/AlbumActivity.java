@@ -191,7 +191,7 @@ public class AlbumActivity extends AppCompatActivity {
             texDl = s[3];
             sta = s[5];
         } else {
-            backD = s[1];
+            backD = Color.BLACK;
             texD = s[0];
             texDl = s[2];
             sta = s[1];

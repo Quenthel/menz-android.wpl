@@ -28,7 +28,7 @@ import android.widget.Toast;
 
 import com.example.wizardry.wPlayer.Activities.PlayerActivity;
 import com.example.wizardry.wPlayer.Adapters.SongListAdapterRec;
-import com.example.wizardry.wPlayer.Async.MusicService;
+import com.example.wizardry.wPlayer.MusicService;
 import com.example.wizardry.wPlayer.Helpers.ContextHelper;
 import com.example.wizardry.wPlayer.Helpers.ItemClickSupport;
 import com.example.wizardry.wPlayer.R;
@@ -103,6 +103,7 @@ public class FragmentSongList extends Fragment {
         rvContacts.setAdapter(new SongListAdapterRec(getContext(), l));
         rvContacts.setLayoutManager(new LinearLayoutManager(getContext()));
         rvContacts.setHasFixedSize(true);
+
         ItemClickSupport.addTo(rvContacts).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
             @Override
             public void onItemClicked(RecyclerView recyclerView, int position, View v) {

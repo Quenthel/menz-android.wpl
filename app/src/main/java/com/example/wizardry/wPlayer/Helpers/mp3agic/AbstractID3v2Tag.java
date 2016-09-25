@@ -391,6 +391,21 @@ public abstract class AbstractID3v2Tag implements ID3v2 {
     private ID3v2LyricsFrameData extractLyricsFrameData(String id) {
         ID3v2FrameSet frameSet = frameSets.get(id);
         if (frameSet != null) {
+            for (ID3v2Frame frame : frameSet.getFrames()) {
+                ID3v2LyricsFrameData frameData;
+                try {
+                    frameData = new ID3v2LyricsFrameData(useFrameUnsynchronisation(), frame.getData());
+                    return frameData;
+                } catch (InvalidDataException e) {
+                    // Do nothing
+                }
+            }
+        }
+        return null;
+    }
+   /* private ID3v2LyricsFrameData extractLyricsFrameData(String id) {
+        ID3v2FrameSet frameSet = frameSets.get(id);
+        if (frameSet != null) {
             Iterator<ID3v2Frame> iterator = frameSet.getFrames().iterator();
             while (iterator.hasNext()) {
                 ID3v2Frame frame = iterator.next();
@@ -404,8 +419,7 @@ public abstract class AbstractID3v2Tag implements ID3v2 {
             }
         }
         return null;
-    }
-
+    }*/
 
     public boolean isCompilation() {
         // unofficial frame used by iTunes

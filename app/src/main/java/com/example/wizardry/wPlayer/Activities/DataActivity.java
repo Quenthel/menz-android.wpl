@@ -13,8 +13,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.wizardry.wPlayer.Helpers.ImageHelper;
-import com.example.wizardry.wPlayer.Helpers.MetadataHelper;
 import com.example.wizardry.wPlayer.R;
+import com.example.wizardry.wPlayer.Retrievers.MetadataSingle;
 
 import java.util.concurrent.TimeUnit;
 
@@ -37,11 +37,18 @@ public class DataActivity extends AppCompatActivity {
     }
 
     private void letThereBeLight(String path) {
-        final MetadataHelper mh = new MetadataHelper(path);
-        Bitmap art = mh.getFullEmbedded();
+
+        MetadataSingle.INSTANCE.retrieve(path);
+
+        // final MetadataHelper mh = new MetadataHelper(path);
+        //  Bitmap art = mh.getFullEmbedded();
+        Bitmap art = MetadataSingle.INSTANCE.fullEmbedded;
+
         if (art == null)
             art = BitmapFactory.decodeResource(getResources(), R.drawable.nodata);
-        long d = mh.getDuration();
+        //  long d = mh.getDuration();
+        long d = MetadataSingle.INSTANCE.duration;
+
         final String tim = String.format("%02d:%02d", TimeUnit.MILLISECONDS.toMinutes(d), TimeUnit.MILLISECONDS.toSeconds(d) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(d)));
         final ImageView i = (ImageView) findViewById(R.id.imageView);
         final TextView t = (TextView) findViewById(R.id.txlir);
@@ -58,26 +65,40 @@ public class DataActivity extends AppCompatActivity {
         final CheckBox c1 = (CheckBox) findViewById(R.id.checkBox2);
 
         i.setImageBitmap(art);
-        t.setText(mh.getLirycs());
+       /* t.setText(mh.getLirycs());
         t1.setText(mh.getNombre());
         t2.setText(mh.getAlbum());
         t3.setText(mh.getGenre());
-        t4.setText(mh.getYear());
         String x = mh.getBitrate();
+        t4.setText(mh.getYear());*/
+
+        String x = MetadataSingle.INSTANCE.bitrate;
+        t.setText(MetadataSingle.INSTANCE.lirycs);
+        t1.setText(MetadataSingle.INSTANCE.nombre);
+        t2.setText(MetadataSingle.INSTANCE.album);
+        t3.setText(MetadataSingle.INSTANCE.genre);
+        t4.setText(MetadataSingle.INSTANCE.year);
         if (x != null) {
             if (x.length() > 3) {
-                t5.setText(mh.getBitrate().substring(0, 3) + " kpbs");
+                //t5.setText(mh.getBitrate().substring(0, 3) + " kpbs");
+                t5.setText(x.substring(0, 3) + " kpbs");
             }
         } else {
             t5.setText(0 + " kpbs");
 
         }
-        t6.setText(mh.getArtist());
+      /*  t6.setText(mh.getArtist());
         t7.setText(tim);
         t9.setText(mh.getSampleRate() + " kHz");
         t10.setText(mh.getExt());
         c.setChecked(mh.isCompilation());
-        c1.setChecked(mh.getVBR());
+        c1.setChecked(mh.getVBR());*/
+        t6.setText(MetadataSingle.INSTANCE.artist);
+        t7.setText(tim);
+        t9.setText(MetadataSingle.INSTANCE.sampleRate + " kHz");
+        t10.setText(MetadataSingle.INSTANCE.ext);
+        c.setChecked(MetadataSingle.INSTANCE.isCompilation);
+        c1.setChecked(MetadataSingle.INSTANCE.isVBR);
         mAttacher = new PhotoViewAttacher(i, true);
         mAttacher.setScaleType(ImageView.ScaleType.FIT_XY);
 
@@ -118,7 +139,6 @@ public class DataActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-
         mAttacher.cleanup();
     }
 }

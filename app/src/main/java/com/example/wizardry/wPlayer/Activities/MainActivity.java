@@ -12,11 +12,8 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
-import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
@@ -24,7 +21,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.util.Pair;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -36,13 +32,13 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import com.example.wizardry.wPlayer.Async.MusicService;
 import com.example.wizardry.wPlayer.Fragments.FragmentAlbumList;
 import com.example.wizardry.wPlayer.Fragments.FragmentPlaylist;
 import com.example.wizardry.wPlayer.Fragments.FragmentSongList;
 import com.example.wizardry.wPlayer.Helpers.ImageHelper;
-import com.example.wizardry.wPlayer.Helpers.MetadataHelper;
+import com.example.wizardry.wPlayer.MusicService;
 import com.example.wizardry.wPlayer.R;
+import com.example.wizardry.wPlayer.Retrievers.MetadataSingle;
 import com.example.wizardry.wPlayer.Retrievers.MusicRetriever;
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton;
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
@@ -52,38 +48,33 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    public static String current = null;
+    public String current = null;
     private SharedPreferences sharedPref;
-    private boolean light = false;
+    private boolean light, hasPermission = false;
     private final BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             current = intent.getStringExtra("path");
-            setupCur(current);
+            setupCurrent(current);
         }
     };
-    private boolean hasPermisssion = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-        if (Build.VERSION.SDK_INT >= 23) {
-            checkPermissions();
-
-        } else {
-            hasPermisssion = true;
-        }
-
+        checkPermissions();
         light = sharedPref.getBoolean("light", false);
         setTheme(!light ? R.style.AppTheme : R.style.AppThemeWhite);
         setContentView(R.layout.activity_main);
+
         if (light) {
             findViewById(R.id.appbar).setBackgroundColor(getColor(R.color.colorAccent));
             // getWindow().setStatusBarColor(Color.TRANSPARENT);
         }
         getWindow().setStatusBarColor(getColor(R.color.colorPrimary));
-        if (hasPermisssion) {
+        if (hasPermission) {
             SectionsPagerAdapter mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
             ViewPager mViewPager = (ViewPager) findViewById(R.id.container);
             mViewPager.setAdapter(mSectionsPagerAdapter);
@@ -92,8 +83,10 @@ public class MainActivity extends AppCompatActivity {
             tabLayout.setupWithViewPager(mViewPager);
 
             mViewPager.setOffscreenPageLimit(1);
+
             checkPreferences();
             createButtonMenu();
+            setupBottom();
             //  View vi = findViewById(R.id.rlt);
             //  vi.setBackground(ImageHelper.makeSelector(Color.parseColor("#d72c66"), Color.parseColor("#95000000"), 255));
 
@@ -113,36 +106,36 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
-        if (current != null) {
+        if (MetadataSingle.INSTANCE.path != null) {
             IntentFilter ix = new IntentFilter(MusicService.action);
             registerReceiver(receiver, ix);
-            setupCur(current);
+            setupCurrent(current);
         }
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        if (current != null) {
+        if (MetadataSingle.INSTANCE.path != null) {
             unregisterReceiver(receiver);
         }
     }
 
-    private Boolean checkPermissions() {
+    private boolean checkPermissions() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1337);
         } else {
-            hasPermisssion = true;
+            hasPermission = true;
         }
         return true;
     }
 
 
-    private void check() {
+   /* private void check() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1349);
         }
-    }
+    }*/
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
@@ -150,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
             case 1337: {
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    hasPermisssion = true;
+                    hasPermission = true;
 
                     Log.i("Permission", requestCode + " OK");
                     this.recreate();
@@ -163,7 +156,7 @@ public class MainActivity extends AppCompatActivity {
             case 1349: {
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    hasPermisssion = true;
+                    hasPermission = true;
 
                     Log.i("Permission", requestCode + " OK");
                     this.recreate();
@@ -200,6 +193,7 @@ public class MainActivity extends AppCompatActivity {
         // icon.setImageResource(R.mipmap.circma);
         icon.setImageResource(R.drawable.ic_add);
         icon.setColorFilter(getColor(R.color.colorAccent), PorterDuff.Mode.SRC_ATOP);
+        // CoordinatorLayout c = (CoordinatorLayout) findViewById(R.id.main_content);
 
         FloatingActionButton actionButton;
         SubActionButton button1;
@@ -221,7 +215,6 @@ public class MainActivity extends AppCompatActivity {
         ImageView itemIcon1 = new ImageView(this);
         ImageView itemIcon2 = new ImageView(this);
         ImageView itemIcon3 = new ImageView(this);
-
         itemIcon1.setImageResource(R.drawable.ic_shuffle);
         itemIcon2.setImageResource(R.drawable.ic_settings);
         itemIcon3.setImageResource(R.drawable.ic_search);
@@ -238,6 +231,11 @@ public class MainActivity extends AppCompatActivity {
             button2 = itemBuilder.setContentView(itemIcon2).setTheme(FloatingActionButton.THEME_DARK).build();
             button3 = itemBuilder.setContentView(itemIcon3).setTheme(FloatingActionButton.THEME_DARK).build();
         }
+   /*     CoordinatorLayout.LayoutParams params =
+                (CoordinatorLayout.LayoutParams) actionButton.getLayoutParams();
+        params.setBehavior(new  android.support.design.widget.FloatingActionButton.Behavior());
+        actionButton.requestLayout();*/
+
         FloatingActionMenu actionMenu = new FloatingActionMenu.Builder(this)
                 .addSubActionView(button1)
                 .addSubActionView(button2)
@@ -253,7 +251,7 @@ public class MainActivity extends AppCompatActivity {
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startOpcions();
+                startOptions();
             }
         });
         button3.setOnClickListener(new View.OnClickListener() {
@@ -262,6 +260,7 @@ public class MainActivity extends AppCompatActivity {
                 showSearch();
             }
         });
+
     }
 
     private void startRandom() {
@@ -284,7 +283,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void startOpcions() {
+    private void startOptions() {
         //  final TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
 
         //   check();
@@ -336,13 +335,13 @@ public class MainActivity extends AppCompatActivity {
         startActivity(i);
     }
 
-    private void makeSnack(String text) {
+    /*private void makeSnack(String text) {
         CoordinatorLayout c = (CoordinatorLayout) findViewById(R.id.main_content);
         Snackbar.make(c, text, Snackbar.LENGTH_INDEFINITE)
                 .setDuration(Snackbar.LENGTH_INDEFINITE)
                 .setActionTextColor(getColor(R.color.traspless))
                 .show();
-    }
+    }*/
 
    /* @Override
     public void hide(boolean a) {
@@ -355,36 +354,67 @@ public class MainActivity extends AppCompatActivity {
         }
     }*/
 
-    private void setupCur(String path) {
+    private void setupCurrent(String path) {
         View rl = findViewById(R.id.rlt);
         rl.setVisibility(View.VISIBLE);
         TextView tx1 = (TextView) findViewById(R.id.label2);
-        MetadataHelper mh = new MetadataHelper(path, true);
-        tx1.setText(mh.getNombre());
+        //MetadataHelper mh = new MetadataHelper(path, true);
+        /* tx1.setText(mh.getNombre());
         ((ImageView) findViewById(R.id.icono2)).setImageBitmap(mh.getFullEmbedded());
-        int[] c = ImageHelper.getColors(mh.getFullEmbedded());
+        int[] c = ImageHelper.getColors(mh.getFullEmbedded());*/
+        tx1.setText(MetadataSingle.INSTANCE.nombre);
+        ((ImageView) findViewById(R.id.icono2)).setImageBitmap(MetadataSingle.INSTANCE.fullEmbedded);
+        //   int[] c = ImageHelper.getColors(MetadataSingle.INSTANCE.fullEmbedded);
+
         if (!light) {
-            rl.setBackground(ImageHelper.makeSelector(c[5], Color.BLACK, 255));
-            tx1.setTextColor(c[2]);
+            rl.setBackground(ImageHelper.makeSelector(MetadataSingle.INSTANCE.currentColors[5], Color.BLACK, 255));
+            tx1.setTextColor(MetadataSingle.INSTANCE.currentColors[2]);
+
         } else {
-            rl.setBackground(ImageHelper.makeSelector(c[2], Color.WHITE, 255));
-            tx1.setTextColor(c[3]);
+            rl.setBackground(ImageHelper.makeSelector(MetadataSingle.INSTANCE.currentColors[2], Color.WHITE, 255));
+            tx1.setTextColor(MetadataSingle.INSTANCE.currentColors[3]);
         }
     }
 
-    public void gotow(View b) {
+    private void setupBottom() {
+        View rl = findViewById(R.id.rlt);
+         /*
+        BottomSheetBehavior behavior = BottomSheetBehavior.from(rl);
+        behavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+            @Override
+            public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+                // React to dragging events
+                Log.i("", "onSlide: " + slideOffset);
+            }
+
+            @Override
+            public void onStateChanged(@NonNull View bottomSheet, int newState) {
+                Log.i("", "onStateChanged: " + newState);
+
+                // React to state change
+            }
+
+        });*/
+        rl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToPlayer(v);
+            }
+        });
+    }
+
+    public void goToPlayer(View b) {
         Intent i = new Intent(this, PlayerActivity.class);
-        i.putExtra("b", true);
+        i.putExtra("returning", true);
         ImageView ddd = (ImageView) b.findViewById(R.id.icono2);
         //  ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(this, b, "now");
-        ActivityOptionsCompat options;
-        if (light) {
-            options = ActivityOptionsCompat.makeSceneTransitionAnimation(this, ddd, "alb");
-        } else {
+        //  if (light) {
+        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(this, ddd, "alb");
+       /* } else {
             Pair<View, String> p1 = Pair.create((View) ddd, "alb");
             Pair<View, String> p2 = Pair.create(b, "now");
             options = ActivityOptionsCompat.makeSceneTransitionAnimation(this, p1, p2);
-        }
+        }*/
         ActivityCompat.startActivity(this, i, options.toBundle());
     }
 

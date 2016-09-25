@@ -27,6 +27,7 @@
         android:layout_marginTop="3dp"
         android:layout_toEndOf="@+id/icono"
         android:breakStrategy="high_quality"
+        android:ellipsize="end"
         android:elegantTextHeight="true"
         android:maxLines="1"
         android:textColor="?android:textColorPrimary"

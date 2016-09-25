@@ -32,9 +32,7 @@ public class AlbumListAdapterRec extends RecyclerView.Adapter<AlbumListAdapterRe
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        Context context = parent.getContext();
-        LayoutInflater inflater = LayoutInflater.from(context);
-        // Inflate the custom layout
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View contactView = inflater.inflate(R.layout.rowalbum, parent, false);
         // Return a new holder instance
         return new ViewHolder(contactView);

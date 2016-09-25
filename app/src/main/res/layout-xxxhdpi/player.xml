@@ -27,10 +27,10 @@
     </android.support.design.widget.AppBarLayout>
 
     <RelativeLayout
+        android:id="@+id/xxx"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="58dp"
-        android:id="@+id/xxx"
         android:background="@color/black">
 
         <LinearLayout
@@ -51,8 +51,9 @@
         <ScrollView
             android:id="@+id/scrollLyr"
             android:layout_width="match_parent"
-            android:layout_height="390dp"
-            android:visibility="invisible">
+            android:layout_height="395dp"
+            android:fillViewport="true"
+            android:visibility="visible">
 
             <TextView
                 android:id="@+id/txLyr"
@@ -61,7 +62,6 @@
                 android:background="@color/traspless"
                 android:breakStrategy="balanced"
                 android:clickable="false"
-                android:minHeight="395dp"
                 android:padding="5dp"
                 android:textAlignment="center"
                 android:textAllCaps="false"
@@ -161,8 +161,9 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
-
-                android:layout_alignParentBottom="true">
+                android:layout_alignParentBottom="true"
+                android:clipToPadding="false"
+                android:elevation="15dp">
 
                 <ImageButton
                     android:id="@+id/imageButton"

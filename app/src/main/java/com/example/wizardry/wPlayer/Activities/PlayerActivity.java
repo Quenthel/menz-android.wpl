@@ -35,12 +35,17 @@ import android.widget.ScrollView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-import com.example.wizardry.wPlayer.Async.MusicService;
 import com.example.wizardry.wPlayer.Helpers.ImageHelper;
-import com.example.wizardry.wPlayer.Helpers.MetadataHelper;
 import com.example.wizardry.wPlayer.Helpers.Utilities;
+import com.example.wizardry.wPlayer.Helpers.mp3agic.ID3v2;
+import com.example.wizardry.wPlayer.Helpers.mp3agic.InvalidDataException;
+import com.example.wizardry.wPlayer.Helpers.mp3agic.Mp3File;
+import com.example.wizardry.wPlayer.Helpers.mp3agic.UnsupportedTagException;
+import com.example.wizardry.wPlayer.MusicService;
 import com.example.wizardry.wPlayer.R;
+import com.example.wizardry.wPlayer.Retrievers.MetadataSingle;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.concurrent.ExecutionException;
@@ -49,32 +54,34 @@ public class PlayerActivity extends AppCompatActivity implements SeekBar.OnSeekB
     //private static final int SWIPE_THRESHOLD = 100;
     //private static final int SWIPE_VELOCITY_THRESHOLD = 100;
     private GestureDetector mGestureDetector;
-    private boolean mBound;
-    private String ly = null;
-    private TextView songTotalDurationLabel, songCurrentDurationLabel;
     private MusicService mService;
     private Handler mHandler = new Handler();
-    private boolean hasLi;
-    private Utilities utils;
-    private boolean tried = false;
+    private boolean tried = false, hasLi, mBound;
     private SeekBar songProgressBar;
-    private String current, currentPath, l;
-    private TextView t6, tx8;
+    private String current, currentPath, l, ly = null;
+    private TextView t6, tx8, songTotalDurationLabel, songCurrentDurationLabel;
 
     private final BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            current = intent.getStringExtra("path");
-            setupData(current);
+            if (intent.getAction().equals(android.media.AudioManager.ACTION_AUDIO_BECOMING_NOISY)) {
+                Log.e("BroadCast", "NOISY");
+                if (mService.isPlaying()) mService.pause();
+
+            } else if (intent.getAction().equals(MusicService.action)) {
+                current = intent.getStringExtra("path");
+                setupData(current);
+                Log.e("BroadCast: ", "CHANGE");
+            }
         }
     };
     private Runnable mUpdateTimeTask = new Runnable() {
         public void run() {
             int totalDuration = mService.getTotal();
             int currentDuration = mService.getCurrentPosition();
-            songTotalDurationLabel.setText(utils.milliSecondsToTimer(totalDuration));
-            songCurrentDurationLabel.setText(utils.milliSecondsToTimer(currentDuration));
-            songProgressBar.setProgress(utils.getProgressPercentage(currentDuration, totalDuration));
+            songTotalDurationLabel.setText(Utilities.milliSecondsToTimer(totalDuration));
+            songCurrentDurationLabel.setText(Utilities.milliSecondsToTimer(currentDuration));
+            songProgressBar.setProgress(Utilities.getProgressPercentage(currentDuration, totalDuration));
             mHandler.postDelayed(this, 1000);
         }
     };
@@ -89,9 +96,9 @@ public class PlayerActivity extends AppCompatActivity implements SeekBar.OnSeekB
             mService = binder.getService();
             ArrayList<String> st = getIntent().getStringArrayListExtra("albumpaths");
             if (mService.isNotNull()) {
-                if (!getIntent().getBooleanExtra("b", false)) {
-                    mService.setList(st, 2);
-                    mService.loadNextOrPreviousSong(true);
+                if (!getIntent().getBooleanExtra("returning", false)) {
+                    mService.setList(st);
+                    mService.loadNext();
                     mBound = true;
                     setupData(mService.getPath());
                     updateProgressBar();
@@ -102,8 +109,11 @@ public class PlayerActivity extends AppCompatActivity implements SeekBar.OnSeekB
                     updateProgressBar();
                     // updateInfo();
                 }
+
             }
+
             IntentFilter ix = new IntentFilter(MusicService.action);
+            ix.addAction("android.media.AUDIO_BECOMING_NOISY");
             registerReceiver(receiver, ix);
         }
 
@@ -123,31 +133,27 @@ public class PlayerActivity extends AppCompatActivity implements SeekBar.OnSeekB
         songProgressBar.setOnSeekBarChangeListener(this);
         android.support.v7.widget.Toolbar tool = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(tool);
-        utils = new Utilities();
         Intent i = getIntent();
-
         boolean isRandom = i.getBooleanExtra("random", false);
         String audioFile = i.getStringExtra("path");
-        ArrayList<String> st = i.getStringArrayListExtra("albumpaths");
-        super.onStart();
+        ArrayList<String> albumpaths = i.getStringArrayListExtra("albumpaths");
 
-        if (st != null) {
-            if (st.size() > 0) {
+        if (albumpaths != null) {
+            if (albumpaths.size() > 0) {
                 if (audioFile != null) {
-                    st.remove(audioFile);
-                    st.add(0, audioFile);
+                    albumpaths.remove(audioFile);
+                    albumpaths.add(0, audioFile);
                 }
                 if (isRandom) {
-                    //     Log.i("Random", "Shuffleando lista...");
-                    Collections.shuffle(st);
+                    Collections.shuffle(albumpaths);
                 }
             }
         }
         t6 = (TextView) findViewById(R.id.textView6);
         tx8 = (TextView) findViewById(R.id.textView8);
         Intent intent = new Intent(this, MusicService.class);
-        if (!i.getBooleanExtra("b", false)) {
-            intent.putStringArrayListExtra("paths", st);
+        if (!i.getBooleanExtra("returning", false)) {
+            intent.putStringArrayListExtra("paths", albumpaths);
         }
         bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
 
@@ -157,92 +163,79 @@ public class PlayerActivity extends AppCompatActivity implements SeekBar.OnSeekB
         mGestureDetector = new GestureDetector(this, new GestureDetector.SimpleOnGestureListener() {
             public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
                 float diffX = e2.getX() - e1.getX();
+
                 if (Math.abs(diffX) > 100 && Math.abs(velocityX) > 100) {
                     if (diffX > 0) {
-                        ImageView iv = (ImageView) findViewById(R.id.imageViewPlayer);
-                        Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade);
-                        iv.startAnimation(animation);
+                        findViewById(R.id.imageViewPlayer).startAnimation(
+                                AnimationUtils.makeInAnimation(getApplicationContext(), true)
+                        );
                         if (mBound) {
-                            mService.loadNextOrPreviousSong(false);
-                            //   setupData(mService.getPath());
+                            mService.loadPrev();
                         }
                     } else {
-                        ImageView iv = (ImageView) findViewById(R.id.imageViewPlayer);
-                        Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade);
-                        iv.startAnimation(animation);
+                        //  Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade);
+                        findViewById(R.id.imageViewPlayer).startAnimation(
+                                AnimationUtils.makeInAnimation(getApplicationContext(), false)
+                        );
                         if (mBound) {
-                            mService.loadNextOrPreviousSong(true);
-                            //   setupData(mService.getPath());
-
+                            mService.loadNext();
                         }
                     }
                 }
-              /*  if (velocityX > 0 && mService.pastItemsPilaVersion.size() > 0) {
-                    ImageView iv = (ImageView) findViewById(R.id.imageViewPlayer);
-                    Animation animation = AnimationUtils.loadAnimation(
-                            getApplicationContext(), R.anim.fade);
-                    iv.startAnimation(animation);
-                    if (mBound) {
-                        mService.loadNextOrPreviousSong(false);
-                        setupData(mService.getPath());
-                    }
-                } else {
-                    ImageView iv = (ImageView) findViewById(R.id.imageViewPlayer);
-                    Animation animation = AnimationUtils.loadAnimation(
-                            getApplicationContext(), R.anim.fade);
-                    iv.startAnimation(animation);
-                    if (mBound) {
-                        mService.loadNextOrPreviousSong(true);
-                        setupData(mService.getPath());
-                    }
-                }*/
-
                 return true;
             }
         });
     }
 
     private void setupData(String path) {
-        MetadataHelper mh = null;
+        // MetadataHelper mh = null;
         tried = false;
         hasLi = false;
         ly = null;
         int[] palette;
-        //findViewById(R.id.scrollLyr).setVisibility(View.GONE);
+        findViewById(R.id.scrollLyr).setVisibility(View.INVISIBLE);
         current = path;
         if (mBound) {
             path = mService.getPath();
-            mh = mService.getMh();
+            // mh = mService.getMh();
         }
 
         ImageView i = (ImageView) findViewById(R.id.imageViewPlayer);
         android.support.v7.widget.Toolbar tool = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
         Bitmap bi;
         currentPath = path;
-        current = mh.getPath();
-        bi = mh.getFullEmbedded();
-        if (bi != null) {
+        // current = mh.getPath();
+        current = MetadataSingle.INSTANCE.path;
+
+        // bi = mh.getFullEmbedded();
+        bi = MetadataSingle.INSTANCE.fullEmbedded;
+       if (bi != null) {
             i.setImageBitmap(bi);
-            palette = ImageHelper.getColors(bi);
+           // palette = ImageHelper.getColors(bi);
 
         } else {
             i.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.nodata));
-            palette = ImageHelper.getColors(BitmapFactory.decodeResource(getResources(), R.drawable.nodata));
+           // palette = ImageHelper.getColors(BitmapFactory.decodeResource(getResources(), R.drawable.nodata));
         }
+        palette= MetadataSingle.INSTANCE.currentColors;
 
-        t6.setText(mh.getAlbum());
+        t6.setText(MetadataSingle.INSTANCE.album);
+        tx8.setText(MetadataSingle.INSTANCE.artist);
+        tool.setTitle(MetadataSingle.INSTANCE.nombre);
+
+       /* t6.setText(mh.getAlbum());
         tx8.setText(mh.getArtist());
+        tool.setTitle(mh.getNombre());*/
         t6.setTextColor(palette[2]);
         tx8.setTextColor(palette[2]);
 
-        tool.setTitle(mh.getNombre());
         tool.setTitleTextColor(palette[2]);
         FloatingActionButton fabby1 = (FloatingActionButton) findViewById(R.id.fab);
         fabby1.setBackgroundTintList(ColorStateList.valueOf(palette[7]));
         fabby1.setRippleColor(palette[2]);
         songProgressBar.setProgressTintList(ColorStateList.valueOf(palette[7]));
         getWindow().setStatusBarColor(palette[5]);
-        mh = null;
+        // mh = null;
     }
 
     public void hide(View v) {
@@ -321,14 +314,14 @@ public class PlayerActivity extends AppCompatActivity implements SeekBar.OnSeekB
 
     public void next(View v) {
         if (mBound) {
-            mService.loadNextOrPreviousSong(true);
+            mService.loadNext();
             setupData(mService.getPath());
         }
     }
 
     public void back(View v) {
         if (mBound) {
-            mService.loadNextOrPreviousSong(false);
+            mService.loadPrev();
             setupData(mService.getPath());
         }
     }
@@ -356,7 +349,7 @@ public class PlayerActivity extends AppCompatActivity implements SeekBar.OnSeekB
         if (mBound) {
             mHandler.removeCallbacks(mUpdateTimeTask);
             int totalDuration = mService.getTotal();
-            int currentPosition = utils.progressToTimer(seekBar.getProgress(), totalDuration);
+            int currentPosition = Utilities.progressToTimer(seekBar.getProgress(), totalDuration);
             mService.seekTo(currentPosition);
             updateProgressBar();
         }
@@ -417,12 +410,23 @@ public class PlayerActivity extends AppCompatActivity implements SeekBar.OnSeekB
         return super.onOptionsItemSelected(item);
     }
 
-
     public class getLyrTask extends AsyncTask<String, Integer, String> {
 
         @Override
         protected String doInBackground(String... params) {
-            return new MetadataHelper(params[0]).getLirycs();
+            if (params[0].endsWith(".mp3")) {
+                Mp3File mp3file;
+                try {
+                    mp3file = new Mp3File(params[0]);
+                    if (mp3file.hasId3v2Tag()) {
+                        ID3v2 id3v2 = mp3file.getId3v2Tag();
+                        return id3v2.getAsyncLyrics();
+                    }
+                } catch (IOException | UnsupportedTagException | InvalidDataException e) {
+                    e.printStackTrace();
+                }
+            }
+            return null;
         }
 
         @Override

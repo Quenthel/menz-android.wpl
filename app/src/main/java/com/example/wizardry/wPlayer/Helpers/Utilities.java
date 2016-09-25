@@ -5,7 +5,7 @@ import java.util.Random;
 /**
  * Created by admin on 31/5/16.
  */
-public class Utilities {
+public  class Utilities {
 
 
     public static void shuffleArray(String[] ar) {
@@ -18,7 +18,7 @@ public class Utilities {
         }
     }
 
-    public String milliSecondsToTimer(long milliseconds) {
+    public static String milliSecondsToTimer(long milliseconds) {
         String finalTimerString = "";
         String secondsString = "";
 
@@ -44,7 +44,7 @@ public class Utilities {
         return finalTimerString;
     }
 
-    public int getProgressPercentage(long currentDuration, long totalDuration) {
+    public static int getProgressPercentage(long currentDuration, long totalDuration) {
         double percentage;
         double currentSeconds = (int) (currentDuration / 1000);
         double totalSeconds = (int) (totalDuration / 1000);
@@ -53,7 +53,7 @@ public class Utilities {
         return ((int) percentage);
     }
 
-    public int progressToTimer(int progress, int totalDuration) {
+    public static int progressToTimer(int progress, int totalDuration) {
         int currentDuration = 0;
         totalDuration = totalDuration / 1000;
         currentDuration = (int) ((((double) progress) / 100) * totalDuration);

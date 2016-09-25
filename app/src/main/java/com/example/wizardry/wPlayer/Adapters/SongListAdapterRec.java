@@ -31,10 +31,9 @@ public class SongListAdapterRec extends RecyclerView.Adapter<SongListAdapterRec.
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        Context context = parent.getContext();
-        LayoutInflater inflater = LayoutInflater.from(context);
-        View contactView = inflater.inflate(R.layout.rows, parent, false);
-        return new ViewHolder(contactView);
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+      //  View contactView = inflater.inflate(R.layout.rows, parent, false);
+        return new ViewHolder(inflater.inflate(R.layout.rows, parent, false));
     }
 
     @Override
@@ -42,15 +41,15 @@ public class SongListAdapterRec extends RecyclerView.Adapter<SongListAdapterRec.
         MusicRetriever.Item actual = mContacts.get(position);
 
         long i = actual.getDuration();
-        String dura = String.format("%02d:%02d", TimeUnit.MILLISECONDS.toMinutes(i), TimeUnit.MILLISECONDS.toSeconds(i) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(i)));
         holder.tv.setText(actual.getTitle());
         holder.tv2.setText(actual.getArtist());
-        holder.tv3.setText(dura);
+        holder.tv3.setText(String.format("%02d:%02d", TimeUnit.MILLISECONDS.toMinutes(i), TimeUnit.MILLISECONDS.toSeconds(i) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(i))));
         holder.tv4.setText(actual.getPath());
         if (actual.getAlbumArtPath() != null) {
-            Glide.with(mContext).load(actual.getAlbumArtPath()).asBitmap().into(holder.img);
+            Glide.with(mContext).load(actual.getAlbumArtPath()).into(holder.img);
+
         } else {
-            Glide.with(mContext).load(R.drawable.nodata).asBitmap().into(holder.img);
+            Glide.with(mContext).load(R.drawable.nodata).into(holder.img);
         }
     }
 

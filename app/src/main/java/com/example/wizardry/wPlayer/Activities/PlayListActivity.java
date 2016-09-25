@@ -41,7 +41,8 @@ public class PlayListActivity extends AppCompatActivity {
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         Boolean light = sharedPref.getBoolean("light", false);
         setTheme(!light ? R.style.AppTheme : R.style.AppThemeWhite);
-        getWindow().setStatusBarColor(getResources().getColor(R.color.colorPrimary));
+        getWindow().setStatusBarColor(getColor(R.color.colorPrimary));
+
         setContentView(R.layout.activity_play_list);
 
         SongListAdapterRec adapter;

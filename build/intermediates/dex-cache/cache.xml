@@ -3,48 +3,111 @@
 
     <item
         is-multidex="true"
-        jar="C:\x\wpl\menz-android.wpl\app\build\intermediates\exploded-aar\com.android.support\support-v4\24.1.1\jars\libs\internal_impl-24.1.1.jar"
+        jar="C:\x\wpl\menz-android.wpl\app\build\intermediates\exploded-aar\com.android.support\support-media-compat\24.2.1\jars\libs\internal_impl-24.2.1.jar"
         jumboMode="true"
         optimize="true"
         revision="24.0.2"
-        sha1="f78c2f395cb096f9dc1dc07e729922b8fcd3c4f5">
-        <dex dex="C:\x\wpl\menz-android.wpl\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-24.1.1_a79c27688de947be5de520ac49555bde475fb882\classes.dex" />
+        sha1="fbf8da429efd5ad21e02e3e5ecaa1efc4167878d">
+        <dex dex="C:\x\wpl\menz-android.wpl\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-24.2.1_18997a77257b75cea220d4b52d434dda98ed70a1\classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="C:\x\wpl\menz-android.wpl\app\build\intermediates\exploded-aar\com.android.support\palette-v7\24.1.1\jars\classes.jar"
+        jar="R:\SDK\extras\android\m2repository\com\android\support\support-annotations\24.2.1\support-annotations-24.2.1.jar"
         jumboMode="true"
         optimize="true"
         revision="24.0.2"
-        sha1="b3f2f82a3805cb689e32238c95cb291a433b4323">
-        <dex dex="C:\x\wpl\menz-android.wpl\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-palette-v7-24.1.1_8a64ffb5d19f766012f2636d1fa6d80505a05554\classes.dex" />
+        sha1="8de3aafecbdf98a61db6427f008f2d515bcd2544">
+        <dex dex="C:\x\wpl\menz-android.wpl\app\build\intermediates\transforms\dex\debug\folders\1000\10\support-annotations-24.2.1_428575a0297bfd0ab3c7209952cc3339d90fef87\classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="C:\x\wpl\menz-android.wpl\app\build\intermediates\exploded-aar\com.android.support\animated-vector-drawable\24.1.1\jars\classes.jar"
+        jar="C:\x\wpl\menz-android.wpl\app\build\intermediates\exploded-aar\com.android.support\support-media-compat\24.2.1\jars\classes.jar"
         jumboMode="true"
         optimize="true"
         revision="24.0.2"
-        sha1="c936c1bd42f0c018c18920c7bec619ef056b24f8">
-        <dex dex="C:\x\wpl\menz-android.wpl\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-animated-vector-drawable-24.1.1_d89d876cbfd3890e0bc045ca0ef5217fb9321570\classes.dex" />
+        sha1="09b462bbcb77650284bd6614f1a32f360ef369f8">
+        <dex dex="C:\x\wpl\menz-android.wpl\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-media-compat-24.2.1_da7b8f2b56e43d5e4e6bc6a1b16bfb0cffc838d7\classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="C:\x\wpl\menz-android.wpl\app\build\intermediates\exploded-aar\com.android.support\support-v4\24.1.1\jars\classes.jar"
+        jar="C:\x\wpl\menz-android.wpl\app\build\intermediates\exploded-aar\com.android.support\support-core-ui\24.2.1\jars\libs\internal_impl-24.2.1.jar"
         jumboMode="true"
         optimize="true"
         revision="24.0.2"
-        sha1="6d7d803871e3203465f71a163e7af104f807b446">
-        <dex dex="C:\x\wpl\menz-android.wpl\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-v4-24.1.1_ebe967a9793149659da9dfee2c0f697ebf6c6b17\classes.dex" />
+        sha1="867dad63c33388ff8c7644b236579355036d075f">
+        <dex dex="C:\x\wpl\menz-android.wpl\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-24.2.1_bd661a4e282a6df37b3e0e84a6d5531ce7bd00af\classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="C:\x\wpl\menz-android.wpl\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\24.1.1\jars\classes.jar"
+        jar="C:\x\wpl\menz-android.wpl\app\build\intermediates\exploded-aar\com.android.support\design\24.2.1\jars\classes.jar"
         jumboMode="true"
         optimize="true"
         revision="24.0.2"
-        sha1="1256c10604bb098490eab070d76754ac5ceab35c">
-        <dex dex="C:\x\wpl\menz-android.wpl\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-appcompat-v7-24.1.1_32a94173fad806b07fae30f0b8b98688871e1a95\classes.dex" />
+        sha1="e03f47f3d1017a093bb3239d4ec47c3447f40744">
+        <dex dex="C:\x\wpl\menz-android.wpl\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-design-24.2.1_72157e817817c7778c03a5a9c4940b1bc555b70d\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\x\wpl\menz-android.wpl\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\24.2.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="7521486d9bfd2cd9e756e0cf75ed7d97f2ce2d3b">
+        <dex dex="C:\x\wpl\menz-android.wpl\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-recyclerview-v7-24.2.1_0a2fd83c249bb83da250a3852ad32a840b56aabd\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\x\wpl\menz-android.wpl\app\build\intermediates\exploded-aar\com.android.support\support-fragment\24.2.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="b9a1ac78ad7ef3abedc4a4b30cd92bcacb939d1f">
+        <dex dex="C:\x\wpl\menz-android.wpl\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-fragment-24.2.1_8122a764081444c94bfad784ce983c2bb409f4d7\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\x\wpl\menz-android.wpl\app\build\intermediates\exploded-aar\com.android.support\support-vector-drawable\24.2.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="d5c731fc64c03dfe04d51134955b483551c35849">
+        <dex dex="C:\x\wpl\menz-android.wpl\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-vector-drawable-24.2.1_ef6ce6290412a8cf902367f2fa832d0c425e9514\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\x\wpl\menz-android.wpl\app\build\intermediates\exploded-aar\com.android.support\support-compat\24.2.1\jars\libs\internal_impl-24.2.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="7e4389bd133359a2ff88623ff1e4ff93d6e6f780">
+        <dex dex="C:\x\wpl\menz-android.wpl\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-24.2.1_b8f94b2fc7f427a8a0ee34f6950c9c13a7abc6bd\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\x\wpl\menz-android.wpl\app\build\intermediates\exploded-aar\com.android.support\support-core-utils\24.2.1\jars\libs\internal_impl-24.2.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="935a969265b2a166b2d20415423f5f6e90fe16e0">
+        <dex dex="C:\x\wpl\menz-android.wpl\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-24.2.1_35a6929514480149a3d75f9772e87f244467bd7b\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\x\wpl\menz-android.wpl\app\build\intermediates\exploded-aar\com.android.support\support-fragment\24.2.1\jars\libs\internal_impl-24.2.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="5f64d657e838e8375135c0f6057a7ff8fab6a50e">
+        <dex dex="C:\x\wpl\menz-android.wpl\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-24.2.1_e5c07d19308abca6a615f1e52ab0e029b69ebc74\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\x\wpl\menz-android.wpl\app\build\intermediates\exploded-aar\com.android.support\animated-vector-drawable\24.2.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="94bc1dfb84dcc8b6f6f8f7cc726d7b2dd39c1574">
+        <dex dex="C:\x\wpl\menz-android.wpl\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-animated-vector-drawable-24.2.1_f6d3d613178a51ee3ad678f6345eb84c0f42b8b9\classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -61,17 +124,26 @@
         jumboMode="true"
         optimize="true"
         revision="24.0.2"
-        sha1="fdb96282d6edc2149aed13a044c239c27f69cfe5">
+        sha1="eef0af970d4cd790bd9195e96450a1a6c710a0cb">
         <dex dex="C:\x\wpl\menz-android.wpl\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_e88e1125b068b7b0b456a1d250db477b990a13b1\classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="C:\Users\Wizardry\AppData\Local\Android\Sdk\extras\android\m2repository\com\android\support\support-annotations\24.1.1\support-annotations-24.1.1.jar"
+        jar="C:\x\wpl\menz-android.wpl\app\build\intermediates\exploded-aar\com.android.support\support-core-utils\24.2.1\jars\classes.jar"
         jumboMode="true"
         optimize="true"
         revision="24.0.2"
-        sha1="3af19f153122737b372622fa6c81dd11a1c6b999">
-        <dex dex="C:\x\wpl\menz-android.wpl\app\build\intermediates\transforms\dex\debug\folders\1000\10\support-annotations-24.1.1_7832a58fa90a8db4a14d1a0334a3c0bc4a780117\classes.dex" />
+        sha1="9c4c3bc902450c39ed54de170db4fb12aea20a35">
+        <dex dex="C:\x\wpl\menz-android.wpl\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-core-utils-24.2.1_6e4201814eadc5bc5c3a4a31bf5c5f6d20c2d4d5\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\x\wpl\menz-android.wpl\app\build\intermediates\exploded-aar\com.android.support\support-compat\24.2.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="0ecb4b595fa0f0f8018a149ace3ea6525624f94e">
+        <dex dex="C:\x\wpl\menz-android.wpl\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-compat-24.2.1_6d85980111c0702f0bfcd40b854f72953ec4a365\classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -79,26 +151,26 @@
         jumboMode="true"
         optimize="true"
         revision="24.0.2"
-        sha1="35d03469739dc784f5bfd8179adfaba65f875007">
+        sha1="df0e4b74d47ed5c1b47f76694cdd84905e750f4b">
         <dex dex="C:\x\wpl\menz-android.wpl\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_e8d12290901f4cae3816d4042a41d58c72750073\classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="C:\x\wpl\menz-android.wpl\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\24.1.1\jars\classes.jar"
+        jar="C:\x\wpl\menz-android.wpl\app\build\intermediates\exploded-aar\com.android.support\palette-v7\24.2.1\jars\classes.jar"
         jumboMode="true"
         optimize="true"
         revision="24.0.2"
-        sha1="787871951412550519b0222aba3c9df4cea49875">
-        <dex dex="C:\x\wpl\menz-android.wpl\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-recyclerview-v7-24.1.1_e25f53516cc81ec4a1683f2876fe1c4f2c1d8886\classes.dex" />
+        sha1="3b7105277df9a8013468215c451ddefac2499d3a">
+        <dex dex="C:\x\wpl\menz-android.wpl\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-palette-v7-24.2.1_f465da5ddbecc8f82390828402aec82396884769\classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="C:\x\wpl\menz-android.wpl\app\build\intermediates\exploded-aar\com.android.support\design\24.1.1\jars\classes.jar"
+        jar="C:\x\wpl\menz-android.wpl\app\build\intermediates\exploded-aar\com.android.support\support-v4\24.2.1\jars\classes.jar"
         jumboMode="true"
         optimize="true"
         revision="24.0.2"
-        sha1="e195bd694d5389acfba27ff4fdfa64c4c65b2c05">
-        <dex dex="C:\x\wpl\menz-android.wpl\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-design-24.1.1_6ec98acca2a250a1e8e40db6e788cb157398bd8d\classes.dex" />
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="C:\x\wpl\menz-android.wpl\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-v4-24.2.1_e777f23b71f641604a8cb54f5fec07f6e17a41d5\classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -111,12 +183,12 @@
     </item>
     <item
         is-multidex="true"
-        jar="C:\x\wpl\menz-android.wpl\app\build\intermediates\exploded-aar\com.android.support\support-vector-drawable\24.1.1\jars\classes.jar"
+        jar="C:\x\wpl\menz-android.wpl\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\24.2.1\jars\classes.jar"
         jumboMode="true"
         optimize="true"
         revision="24.0.2"
-        sha1="f62e763609f65e47dc6c498760a4accf02776788">
-        <dex dex="C:\x\wpl\menz-android.wpl\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-vector-drawable-24.1.1_6e50c03fbee4674f597ac157ca1e08935f9952a5\classes.dex" />
+        sha1="43b2dba6b5a0b14527961b75329d0b90025f15ea">
+        <dex dex="C:\x\wpl\menz-android.wpl\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-appcompat-v7-24.2.1_13ee347babc0f222ef2cda9ee36baf45499307fa\classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -126,6 +198,15 @@
         revision="24.0.2"
         sha1="e39dd45427d2ba136c82ed1946f80dd3dff16695">
         <dex dex="C:\x\wpl\menz-android.wpl\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.github.chrisbanes-PhotoView-1.2.6_f2205450c7f265df9d65c2ead5b9f674153b986f\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\x\wpl\menz-android.wpl\app\build\intermediates\exploded-aar\com.android.support\support-core-ui\24.2.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="e7f3132168957eefc46229fc32c3bd464642b71e">
+        <dex dex="C:\x\wpl\menz-android.wpl\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-core-ui-24.2.1_21604831969837221436c7e8b67e9ec680a5f2bd\classes.dex" />
     </item>
 
 </items>
