@@ -17,12 +17,12 @@ import java.util.List;
 /**
  * Created by Wizardry on 22/08/2016.
  */
-public class PlayListAdapterRec extends RecyclerView.Adapter<PlayListAdapterRec.ViewHolder> {
+public class PlayListAdapter extends RecyclerView.Adapter<PlayListAdapter.ViewHolder> {
     private List<PlaylistRetriever.Item> mContacts;
     // Store the context for easy access
     private Context mContext;
 
-    public PlayListAdapterRec(Context context, List<PlaylistRetriever.Item> contacts) {
+    public PlayListAdapter(Context context, List<PlaylistRetriever.Item> contacts) {
         mContacts = contacts;
         mContext = context;
     }
@@ -81,12 +81,11 @@ public class PlayListAdapterRec extends RecyclerView.Adapter<PlayListAdapterRec.
 
     public static class RecyclerViewContextMenuInfo implements ContextMenu.ContextMenuInfo {
 
+        final public int position;
+        final public long id;
         public RecyclerViewContextMenuInfo(int position, long id) {
             this.position = position;
             this.id = id;
         }
-
-        final public int position;
-        final public long id;
     }
 }

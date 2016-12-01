@@ -27,24 +27,24 @@
         android:layout_marginTop="3dp"
         android:layout_toEndOf="@+id/icono"
         android:breakStrategy="high_quality"
-        android:ellipsize="end"
         android:elegantTextHeight="true"
+        android:ellipsize="end"
         android:maxLines="1"
         android:textColor="?android:textColorPrimary"
         android:textSize="16sp"
         android:typeface="serif" />
 
-    <TextView
-        android:id="@+id/tDuration"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignRight="@+id/grupo"
-        android:layout_below="@id/grupo"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="-24dp"
-        android:textColor="?android:textColorPrimary"
-        android:textSize="12sp" />
+    <!-- <TextView
+         android:id="@+id/tDuration"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_alignParentEnd="true"
+         android:layout_alignRight="@+id/grupo"
+         android:layout_below="@id/grupo"
+         android:layout_marginRight="10dp"
+         android:layout_marginTop="-24dp"
+         android:textColor="?android:textColorPrimary"
+         android:textSize="12sp" />-->
 
     <TextView
         android:id="@+id/grupo"

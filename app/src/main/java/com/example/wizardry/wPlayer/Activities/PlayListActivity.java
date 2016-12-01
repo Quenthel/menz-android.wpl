@@ -18,7 +18,7 @@ import android.widget.AdapterView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.wizardry.wPlayer.Adapters.SongListAdapterRec;
+import com.example.wizardry.wPlayer.Adapters.SongListAdapter;
 import com.example.wizardry.wPlayer.Fragments.FragmentPlaylist;
 import com.example.wizardry.wPlayer.Helpers.ContextHelper;
 import com.example.wizardry.wPlayer.Helpers.ItemClickSupport;
@@ -45,14 +45,14 @@ public class PlayListActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_play_list);
 
-        SongListAdapterRec adapter;
+        SongListAdapter adapter;
         RecyclerView rvContacts = (RecyclerView) findViewById(R.id.lust);
         final ArrayList<MusicRetriever.Item> songs = getIntent().getParcelableArrayListExtra("songs");
         String name = getIntent().getStringExtra("name");
         currentPlaylist = name;
         playpath = getIntent().getStringExtra("playpath");
 
-        adapter = new SongListAdapterRec(this, songs);
+        adapter = new SongListAdapter(this, songs);
         rvContacts.setAdapter(adapter);
         rvContacts.setLayoutManager(new LinearLayoutManager(this));
         rvContacts.setHasFixedSize(true);
@@ -77,7 +77,6 @@ public class PlayListActivity extends AppCompatActivity {
         if (light) rt.setTextColor(Color.BLACK);
         Toolbar t = (Toolbar) findViewById(R.id.toolbar);
         t.setTitle(name);
-        t.setNavigationIcon(R.drawable.nav);
         t.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

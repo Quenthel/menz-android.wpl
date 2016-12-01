@@ -41,7 +41,6 @@
             android:parentActivityName="com.example.wizardry.wPlayer.Activities.MainActivity" />
 
         <activity android:name="com.example.wizardry.wPlayer.Activities.PlayListActivity" />
-        <activity android:name="com.example.wizardry.wPlayer.Activities.SearchActivity" />
         <activity android:name=".Activities.SettingsActivity" />
     </application>
 

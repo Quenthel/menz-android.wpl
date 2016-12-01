@@ -1,11 +1,9 @@
 package com.example.wizardry.wPlayer.Activities;
 
 import android.Manifest;
-import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
@@ -24,21 +22,17 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.example.wizardry.wPlayer.Fragments.FragmentAlbumList;
 import com.example.wizardry.wPlayer.Fragments.FragmentPlaylist;
 import com.example.wizardry.wPlayer.Fragments.FragmentSongList;
 import com.example.wizardry.wPlayer.Helpers.ImageHelper;
+import com.example.wizardry.wPlayer.MetadataSingle;
 import com.example.wizardry.wPlayer.MusicService;
 import com.example.wizardry.wPlayer.R;
-import com.example.wizardry.wPlayer.Retrievers.MetadataSingle;
 import com.example.wizardry.wPlayer.Retrievers.MusicRetriever;
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton;
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
@@ -65,7 +59,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         checkPermissions();
-        light = sharedPref.getBoolean("light", false);
+        checkPreferences();
+
         setTheme(!light ? R.style.AppTheme : R.style.AppThemeWhite);
         setContentView(R.layout.activity_main);
 
@@ -78,15 +73,14 @@ public class MainActivity extends AppCompatActivity {
             SectionsPagerAdapter mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
             ViewPager mViewPager = (ViewPager) findViewById(R.id.container);
             mViewPager.setAdapter(mSectionsPagerAdapter);
-
             TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
             tabLayout.setupWithViewPager(mViewPager);
 
             mViewPager.setOffscreenPageLimit(1);
 
-            checkPreferences();
             createButtonMenu();
             setupBottom();
+            // MetadataSingle.INSTANCE.init();
             //  View vi = findViewById(R.id.rlt);
             //  vi.setBackground(ImageHelper.makeSelector(Color.parseColor("#d72c66"), Color.parseColor("#95000000"), 255));
 
@@ -173,6 +167,7 @@ public class MainActivity extends AppCompatActivity {
         List<MusicRetriever.Item> l = MusicRetriever.loadingSongs(getContentResolver());
         for (MusicRetriever.Item i : l) {
             Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+
             intent.setData(i.getURI());
             sendBroadcast(intent);
             Log.i(":", "Running...");
@@ -181,11 +176,14 @@ public class MainActivity extends AppCompatActivity {
 
     private void checkPreferences() {
         boolean scan = sharedPref.getBoolean("scanner", false);
-        light = sharedPref.getBoolean("light", false);
+        light = sharedPref.getBoolean("light", true);
         if (scan) {
             Log.i("Main:", "Running scanner");
             scan();
         }
+        //if(true) {
+        //  MetadataSingle.INSTANCE.type =Typeface.createFromAsset(getAssets(), "fonts/ss.ttf");
+        //}
     }
 
     private void createButtonMenu() {
@@ -298,41 +296,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showSearch() {
-        LayoutInflater li = LayoutInflater.from(this);
-        final View promptsView = li.inflate(R.layout.search, null);
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-                this);
-        alertDialogBuilder.setView(promptsView);
 
-        final EditText userInput = (EditText) promptsView
-                .findViewById(R.id.editTextDialogUserInput);
-
-        alertDialogBuilder
-                .setCancelable(false)
-                .setPositiveButton("OK",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                RadioGroup rg = (RadioGroup) promptsView.findViewById(R.id.radioGroup1);
-                                RadioButton r = (RadioButton) rg.findViewById(rg.getCheckedRadioButtonId());
-                                search(r.getText().toString(), userInput.getText().toString(), true);
-                            }
-                        })
-                .setNegativeButton("Cancel",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();
-                            }
-                        });
-        AlertDialog alertDialog = alertDialogBuilder.create();
-        alertDialog.show();
     }
 
     private void search(String s, String type, Boolean b) {
-        Intent i = new Intent(this, SearchActivity.class);
-        i.putExtra("search", type);
-        i.putExtra("type", s);
-        i.putExtra("b", b);
-        startActivity(i);
+
     }
 
     /*private void makeSnack(String text) {

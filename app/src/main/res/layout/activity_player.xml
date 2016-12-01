@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/app_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:fitsSystemWindows="false">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:textAlignment="center"
+            android:transitionGroup="true"
+            android:transitionName="now"
+            app:navigationIcon="?attr/actionModeCloseDrawable"
+            app:titleMarginTop="10dp"
+            app:titleTextAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+    </android.support.design.widget.AppBarLayout>
+
+    <RelativeLayout
+        android:id="@+id/xxx"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="?attr/actionBarSize">
+
+        <ImageView
+            android:id="@+id/imageViewPlayer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="120dp"
+            android:scaleType="fitXY"
+            android:transitionName="alb" />
+
+        <ScrollView
+            android:id="@+id/scrollLyr"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="120dp"
+            android:fillViewport="true"
+            android:visibility="invisible">
+
+            <TextView
+                android:id="@+id/txLyr"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/traspless"
+                android:clickable="false"
+                android:fontFamily="sans-serif"
+                android:padding="10dp"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textIsSelectable="true"
+                android:textSize="15sp" />
+        </ScrollView>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="130dp"
+            android:longClickable="true"
+            android:onClick="hide"
+            android:orientation="horizontal" />
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:layout_alignParentBottom="true"
+            android:elevation="10dp"
+            android:minHeight="75dp">
+
+            <TextView
+                android:id="@+id/txcur"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:fontFamily="sans-serif"
+                android:paddingEnd="5dp"
+                android:paddingStart="5dp"
+                android:text="0:00"
+                android:textAlignment="center"
+                android:textColor="@android:color/white"
+                android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/txtot"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:paddingEnd="5dp"
+                android:paddingStart="5dp"
+                android:text="0:00"
+                android:textAlignment="center"
+                android:textColor="@android:color/white"
+                android:textSize="13sp" />
+
+            <SeekBar
+                android:id="@+id/seekBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:clickable="false"
+                android:focusable="false"
+                android:progress="@android:integer/config_shortAnimTime"
+                android:splitTrack="false"
+                android:thumbTint="@android:color/white" />
+
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:maxLines="1"
+                android:textAlignment="center"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:maxLines="1"
+                android:textAlignment="center"
+                android:textSize="15sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_alignParentBottom="true"
+            android:clipToPadding="false">
+
+            <ImageButton
+                android:id="@+id/imageButton"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="20dp"
+                android:background="@drawable/ic_loop"
+                android:backgroundTint="@android:color/white"
+                android:onClick="setRepeat"
+                android:tint="@android:color/white"
+                android:visibility="visible" />
+
+            <Space
+                android:id="@+id/space"
+                android:layout_width="135dp"
+                android:layout_height="30dp"
+                android:layout_centerHorizontal="true" />
+
+            <ImageButton
+                android:id="@+id/imageButton3"
+                android:layout_width="25dp"
+                android:layout_height="30dp"
+                android:layout_alignLeft="@id/space"
+                android:layout_alignTop="@+id/imageButton"
+                android:adjustViewBounds="false"
+                android:background="@drawable/ic_skip_previous_black_24dp"
+                android:backgroundTint="@android:color/white"
+                android:onClick="back"
+                android:visibility="visible" />
+
+            <ImageButton
+                android:layout_width="25dp"
+                android:layout_height="30dp"
+                android:layout_alignRight="@id/space"
+                android:layout_alignTop="@+id/imageButton"
+                android:adjustViewBounds="false"
+                android:background="@drawable/ic_skip_next_black_24dp"
+                android:backgroundTint="@android:color/white"
+                android:onClick="next"
+                android:visibility="visible" />
+
+            <ImageButton
+                android:id="@+id/imageButton4"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignTop="@+id/imageButton"
+                android:layout_gravity="end"
+                android:layout_marginEnd="20dp"
+                android:adjustViewBounds="false"
+                android:background="@drawable/ic_shuffle"
+                android:backgroundTint="@android:color/white"
+                android:onClick="setRandom"
+                android:scaleType="fitCenter"
+                android:visibility="visible" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <!-- <LinearLayout
+         android:id="@+id/controls"
+         android:layout_width="120dp"
+         android:layout_height="fill_parent"
+         android:layout_alignParentTop="true"
+         android:layout_centerHorizontal="true"
+         android:orientation="horizontal" /> -->
+
+    <!--  <android.support.design.widget.FloatingActionButton
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:onClick="next"
+          android:src="@drawable/ic_skip_next_black_24dp"
+          android:tint="@android:color/white"
+          app:backgroundTint="@color/black"
+          app:fabSize="mini"
+          app:layout_anchor="@id/controls"
+          app:layout_anchorGravity="bottom|end" />
+
+      <android.support.design.widget.FloatingActionButton
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:onClick="back"
+          android:src="@drawable/ic_skip_previous_black_24dp"
+          android:tint="@android:color/white"
+          app:backgroundTint="@android:color/black"
+          app:fabSize="mini"
+          app:layout_anchor="@id/controls"
+          app:layout_anchorGravity="bottom|" />-->
+
+    <com.example.wizardry.wPlayer.Helpers.FloatingActionMusicButton
+        android:id="@+id/fab"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:onClick="play"
+        android:src="@drawable/vc_play"
+        app:layout_anchor="@+id/xxx"
+        app:layout_anchorGravity="bottom|center_horizontal" />
+
+    <!--<android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="play"
+        android:src="@drawable/ic_play"
+        android:tint="@android:color/white"
+        android:transitionName="button"
+        app:fabSize="normal"
+        app:layout_anchor="@+id/xxx"
+        app:layout_anchorGravity="bottom|center_horizontal"
+        android:layout_gravity="center_vertical|center_horizontal" />-->
+</android.support.design.widget.CoordinatorLayout>

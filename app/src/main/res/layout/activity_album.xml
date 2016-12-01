@@ -61,7 +61,6 @@
                 android:breakStrategy="high_quality"
                 android:gravity="center"
                 android:padding="3dp"
-                android:text="Medium Text"
                 android:textSize="18sp"
                 android:transitionName="title" />
 
@@ -74,7 +73,7 @@
             <com.example.wizardry.wPlayer.Helpers.AdaptableLinearLayout
                 android:id="@+id/adapr"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_below="@id/txAlbumInfo"
                 android:layout_gravity="bottom"
                 android:clickable="true"
@@ -100,8 +99,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/adapr"
                 android:layout_marginTop="6dp"
-                android:layout_toEndOf="@+id/txalbdura"
-                android:text="Medium Text" />
+                android:layout_toEndOf="@+id/txalbdura" />
 
             <TextView
                 android:id="@+id/txalbdura"
@@ -112,8 +110,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
-                android:layout_marginTop="6dp"
-                android:text="Medium Text" />
+                android:layout_marginTop="6dp" />
         </RelativeLayout>
 
     </android.support.v4.widget.NestedScrollView>

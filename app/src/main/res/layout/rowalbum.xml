@@ -10,42 +10,19 @@
         android:scaleType="fitXY"
         android:transitionName="alb" />
 
-    <LinearLayout
-        android:layout_width="fill_parent"
+    <TextView
+        android:id="@+id/tvItemAlbName"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
         android:background="#64000000"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/tvItemAlbName"
-            android:layout_width="match_parent"
-            android:layout_height="35dp"
-            android:breakStrategy="high_quality"
-            android:elegantTextHeight="true"
-            android:enabled="false"
-            android:maxLines="2"
-            android:textAlignment="center"
-            android:textColor="@android:color/white"
-            android:transitionName="textal" />
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/chPath"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone" />
-
-    <TextView
-        android:id="@+id/chArtist"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone" />
-
-    <TextView
-        android:id="@+id/chYear"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone" />
+        android:breakStrategy="high_quality"
+        android:elegantTextHeight="true"
+        android:fontFamily="serif"
+        android:maxLines="2"
+        android:minHeight="35dp"
+        android:text="seeseses"
+        android:textAlignment="center"
+        android:textColor="@android:color/white"
+        android:transitionName="textal" />
 </RelativeLayout>

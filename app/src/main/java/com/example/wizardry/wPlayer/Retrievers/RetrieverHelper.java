@@ -135,7 +135,6 @@ public class RetrieverHelper {
         if (cursor != null) {
             if (cursor.moveToNext())
                 id = cursor.getLong(0);
-            cursor.close();
         }
         cursor.close();
         return id;

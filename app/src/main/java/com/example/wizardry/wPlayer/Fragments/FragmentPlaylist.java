@@ -24,7 +24,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.wizardry.wPlayer.Activities.PlayListActivity;
-import com.example.wizardry.wPlayer.Adapters.PlayListAdapterRec;
+import com.example.wizardry.wPlayer.Adapters.PlayListAdapter;
 import com.example.wizardry.wPlayer.Helpers.ItemClickSupport;
 import com.example.wizardry.wPlayer.R;
 import com.example.wizardry.wPlayer.Retrievers.MusicRetriever;
@@ -40,7 +40,7 @@ import java.util.List;
 public class FragmentPlaylist extends Fragment {
     String currentPlayList = "";
     String currentPlayListPath = "";
-    PlayListAdapterRec adapter;
+    PlayListAdapter adapter;
     View sd;
 
     @Override
@@ -71,7 +71,7 @@ public class FragmentPlaylist extends Fragment {
         RecyclerView rvContacts = (RecyclerView) view.findViewById(R.id.listViewPlayList);
         // Initialize contacts
         // Create adapter passing in the sample user data
-        adapter = new PlayListAdapterRec(getContext(), l);
+        adapter = new PlayListAdapter(getContext(), l);
         // Attach the adapter to the recyclerview to populate items
         rvContacts.setAdapter(adapter);
         // Set layout manager to position the items

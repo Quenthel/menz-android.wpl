@@ -265,7 +265,7 @@ public class MusicRetriever {
         return mItems.get(mRandom.nextInt(mItems.size()));
     }
 
-    public static final class Item implements Parcelable {
+    public static class Item implements Parcelable {
         public static final Creator<Item> CREATOR = new Creator<Item>() {
             @Override
             public Item createFromParcel(Parcel in) {

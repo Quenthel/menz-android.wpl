@@ -54,4 +54,8 @@
         <item>2</item>
     </string-array>
     <string name="showT">¿Mostrar títulos?</string>
+    <string-array name="fonts">
+        <item>Default</item>
+        <item>Sansation</item>
+    </string-array>
 </resources>

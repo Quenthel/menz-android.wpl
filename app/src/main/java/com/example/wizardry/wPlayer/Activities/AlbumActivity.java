@@ -7,7 +7,6 @@ import android.content.res.ColorStateList;
 import android.database.DatabaseUtils;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -20,7 +19,6 @@ import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.ContextMenu;
-import android.view.Gravity;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -41,57 +39,44 @@ import java.util.concurrent.TimeUnit;
 
 
 public class AlbumActivity extends AppCompatActivity {
-    private String album;
-    private String selectedSong;
-    private String currentSelectedSong;
-    private String year;
+    private String album, selectedSong, currentSelectedSong, year;
     private long totalDuration;
     private ContextHelper ch;
     private int total;
-    private boolean isPaletable = true, light = false, useD, useTr = true;
+    private boolean useD;
+    private boolean useTr = true;
     private ArrayList<String> albumPaths = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        boolean light = sharedPref.getBoolean("light", false);
+        //getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         //    Boolean use = sharedPref.getBoolean("usematerial", true);
-        light = sharedPref.getBoolean("light", false);
         setTheme(!light ? R.style.AppTheme : R.style.AppThemeWhite);
         useD = sharedPref.getBoolean("lightB", false);
         setContentView(R.layout.activity_album);
-        Intent in = getIntent();
-        String[] data = in.getStringArrayExtra("data");
+        String[] data = getIntent().getStringArrayExtra("data");
         album = data[0];
         String albumArt = data[1];
         year = data[2];
-        String albumArtist = data[3];
+        //String albumArtist = data[3];
         AlbumSongListAdapterX adapterSonx;
 
         //  AlbumSongListAdapterRecycler adapterRecycler=null;
         ImageView im = (ImageView) findViewById(R.id.imViewAlbum);
-        if (!albumArt.equals("vac")) {
+        if (albumArt != null) {
             im.setImageDrawable(Drawable.createFromPath(albumArt));
         } else {
             im.setImageResource(R.drawable.nodata);
         }
         final ArrayList<AlbumSongsRetriever.Item> l = new AlbumSongsRetriever(getContentResolver(), DatabaseUtils.sqlEscapeString(album)).loadingSongs();
-        // isPaletable = sharedPref.getBoolean("usepalette", true);
-
-        //  if (isPaletable) {
         int[] s = ImageHelper.getColors(BitmapFactory.decodeFile(albumArt));
         //  int[]s = ss(BitmapFactory.decodeFile(albumArt), false);
         adapterSonx = new AlbumSongListAdapterX(this, new ArrayList<AlbumSongsRetriever.Item>(), s, light, useD, im);
         //  adapterRecycler = new AlbumSongListAdapterRecycler(this, l, s, light, useD);
 
-        //    if (use) {
-        //  setSDecorationsSwatch(s);
-        setDecorations(s);
-        //    }
-      /*  } else {
-            adapterSonx = new AlbumSongListAdapterX(this, new ArrayList<AlbumSongsRetriever.Item>());
-        }*/
 
         AdaptableLinearLayout lll = (AdaptableLinearLayout) findViewById(R.id.adapr);
         lll.setAdapter(adapterSonx);
@@ -102,30 +87,14 @@ public class AlbumActivity extends AppCompatActivity {
             albumPaths.add(i.getPath());
             adapterSonx.add(i);
         }
+        setupData(s);
         registerForContextMenu(lll);
-        //  if (use) {
-        fillOtherAlbumData();
-        // }
-        Log.w("AlbumAct: ", albumPaths.size() + "");
   /*      RecyclerView rc = (RecyclerView)findViewById(R.id.adapr);
         rc.setAdapter(adapterRecycler);
         rc.setNestedScrollingEnabled(false);
         rc.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));*/
     }
 
-    //Metodo que rellena los datos siempre que se usa el layout por defecto.
-    private void fillOtherAlbumData() {
-        TextView tv4 = (TextView) findViewById(R.id.txalbumtotal);
-        TextView tv5 = (TextView) findViewById(R.id.txalbdura);
-        TextView tv6 = (TextView) findViewById(R.id.txAlbumInfo);
-        String t = String.format("%d:%d", TimeUnit.MILLISECONDS.toMinutes(totalDuration), TimeUnit.MILLISECONDS.toSeconds(totalDuration) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(totalDuration)));
-        if (!year.equals("0")) {
-            ((TextView) findViewById(R.id.txalbyear)).setText(year);
-        }
-        tv4.setText(total + " songs ");
-        tv5.setText("Total: " + t);
-        tv6.setText(album);
-    }
   /*  private int[] ss(Bitmap s, boolean dark){
         int[] sd = new int[7];
         if(!dark) {
@@ -152,14 +121,12 @@ public class AlbumActivity extends AppCompatActivity {
         return  sd;
     }*/
 
-    private void setDecorations(final int s[]) {
+    private void setupData(final int s[]) {
         final CoordinatorLayout lyx = (CoordinatorLayout) findViewById(R.id.coord);
         final AppBarLayout abl = (AppBarLayout) findViewById(R.id.app_bar_layout);
         final android.support.v7.widget.Toolbar tool = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
         final CollapsingToolbarLayout ctl = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-
-        tool.setNavigationIcon(R.drawable.nav);
         tool.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -172,7 +139,8 @@ public class AlbumActivity extends AppCompatActivity {
                 playFromTop();
             }
         });
-        TextView tv = (TextView) findViewById(R.id.txAlbumInfo);
+
+        TextView txAlbumInfo = (TextView) findViewById(R.id.txAlbumInfo);
         TextView tv3 = (TextView) findViewById(R.id.txalbyear);
         TextView tv4 = (TextView) findViewById(R.id.txalbumtotal);
         TextView tv5 = (TextView) findViewById(R.id.txalbdura);
@@ -180,6 +148,7 @@ public class AlbumActivity extends AppCompatActivity {
         // fab.show();
       /*  if (!light) {
             backD = s[1];
+
             texD = s[0];
             texDl = s[2];
             sta = s[1];
@@ -196,19 +165,24 @@ public class AlbumActivity extends AppCompatActivity {
             texDl = s[2];
             sta = s[1];
         }
-        tv3.setTextColor(texDl);
-        tv.setTextColor(texD);
-        tv5.setTextColor(texD);
+        String t = String.format("%02d:%02d", TimeUnit.MILLISECONDS.toMinutes(totalDuration), TimeUnit.MILLISECONDS.toSeconds(totalDuration) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(totalDuration)));
+        if (!year.equals("0")) {
+            ((TextView) findViewById(R.id.txalbyear)).setText(year);
+        }
+        tv4.setText(
+                albumPaths.size() > 1 ? total + " songs" : total + " song"
+        );
+        tv5.setText("Total: " + t);
+        txAlbumInfo.setText(album);
+
         tv4.setTextColor(texDl);
-        //   ly.setBackgroundColor(backD);
+        tv5.setTextColor(texD);
+        tv3.setTextColor(texDl);
+        txAlbumInfo.setTextColor(texD);
         lyx.setBackgroundColor(backD);
         ctl.setBackgroundColor(backD);
 
-        ctl.setExpandedTitleColor(getColor(android.R.color.transparent));
-        ctl.setCollapsedTitleTextColor(texD);
-        ctl.setCollapsedTitleGravity(Gravity.CENTER_VERTICAL);
-        ctl.setExpandedTitleGravity(Gravity.START);
-        getWindow().setStatusBarColor(Color.TRANSPARENT);
+        // getWindow().setStatusBarColor((sta  & 0x00FFFFFF) | 0x76000000);
         fab.setBackgroundTintList(ColorStateList.valueOf(s[7]));
         abl.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             int intColorCode = 0;
@@ -221,6 +195,7 @@ public class AlbumActivity extends AppCompatActivity {
                     getWindow().setStatusBarColor(sta);
 
                 } else {
+                    //   getWindow().setStatusBarColor((sta  & 0x00FFFFFF) | 0x70000000);
                     getWindow().setStatusBarColor(Color.TRANSPARENT);
                 }
                 useTr = intColorCode <= 10;
@@ -328,8 +303,6 @@ public class AlbumActivity extends AppCompatActivity {
         menu.setHeaderTitle(selectedSong);
         String s = selectedSong;
         mi.inflate(R.menu.menu_options, menu);
-
-
     }
 
     @Override
@@ -343,11 +316,10 @@ public class AlbumActivity extends AppCompatActivity {
                 Log.e("OPCION", "DELETE");
                 if (ch.deleteSong(currentSelectedSong)) {
                     Toast.makeText(this, "Ok", Toast.LENGTH_LONG).show();
-                    Intent intent = getIntent();
-                    finish();
-                    startActivity(intent);
+                    //  Intent intent = getIntent();
+                    //   finish();
+                    // startActivity(intent);
                     //     this.recreate();
-
                 }
 
                 break;

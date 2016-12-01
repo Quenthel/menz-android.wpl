@@ -56,14 +56,29 @@
             android:key="showTitles"
             android:textColor="?android:textColorPrimary"
             android:title="@string/showT" />
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:enabled="true"
+            android:key="showTitles"
+            android:textColor="?android:textColorPrimary"
+            android:title="Show duration" />
         <EditTextPreference
             android:defaultValue="14"
+            android:key="edit_text_preference_1"
             android:selectAllOnFocus="true"
             android:singleLine="true"
-            android:title="Default font size"
-            android:key="edit_text_preference_1" />
+            android:title="Default font size" />
+        <ListPreference
+            android:defaultValue="2"
+            android:entries="@array/fonts"
+            android:key="nottype"
+            android:negativeButtonText="@null"
+            android:positiveButtonText="@null"
+            android:title="Font family" />
+
 
     </PreferenceCategory>
+
     <PreferenceCategory
         android:key="pref_key_storage_settings"
         android:title="@string/orderop">

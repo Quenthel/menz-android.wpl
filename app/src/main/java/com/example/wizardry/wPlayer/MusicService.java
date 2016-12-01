@@ -13,7 +13,6 @@ import android.support.v7.app.NotificationCompat;
 import android.util.Log;
 
 import com.example.wizardry.wPlayer.Helpers.Utilities;
-import com.example.wizardry.wPlayer.Retrievers.MetadataSingle;
 
 import java.io.IOException;
 import java.util.ArrayDeque;
@@ -24,16 +23,12 @@ import java.util.Stack;
 
 public class MusicService extends Service implements MediaPlayer.OnPreparedListener, MediaPlayer.OnErrorListener, MediaPlayer.OnCompletionListener, MediaPlayer.OnSeekCompleteListener {
     public final static String action = "CHANGE";
-    public final static String actionPause = "PLAY";
-
     final static String service = "MusicService";
     private final IBinder mBinder = new LocalBinder();
     String currentPath;
-    //Bitmap art;
-    //int notType;
+    private boolean isCompleted = false;
     private MediaPlayer mediaPlayer = null;
-    // private MetadataHelper mh;
-    private Stack<String> pastItems = new Stack<>();
+    private SizedStack<String> pastItems = new SizedStack<>(15);
     private ArrayDeque<String> nextItems = new ArrayDeque<>();
 
     @Override
@@ -129,6 +124,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     @Override
     public void onCompletion(MediaPlayer mp) {
         Log.i(service, "MediaPlayer Completed...");
+        isCompleted = true;
         loadNext();
     }
 
@@ -141,6 +137,11 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     @Override
     public void onPrepared(MediaPlayer mp) {
         mp.start();
+        if (isCompleted) {
+            showNotification();
+            Log.e("isCompeted", "true");
+        }
+        isCompleted = false;
     }
 
     public int getCurrentPosition() {
@@ -199,9 +200,12 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
         try {
             Log.i("Setup:  ", path);
             currentPath = path;
+            if (!isCompleted) {
+                showNotification();
+            }
             mediaPlayer.reset();
             mediaPlayer.setDataSource(path);
-            mediaPlayer.prepareAsync();
+            mediaPlayer.prepare();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -215,54 +219,19 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     //  return mh;
     // }
 
-    /*  public void loadNextOrPreviousSong(boolean isNext) {
-        String nextPath = "a";
-        if (isNext) {
-            if (!nextItems.isEmpty()) {
-                if (nextItems.peek().equals(currentPath)) {
-                    currentPath = ".-.";
-                    loadNextOrPreviousSong(true);
-                }
-                nextPath = nextItems.peek();
-                pastItems.push(nextItems.pop());
-                setupMedia(nextPath);
-            } else {
-                Log.e("Service-Load", "ListaNext Vacia");
-                return;
-            }
-
-        } else {
-            if (!pastItems.isEmpty()) {
-                if (pastItems.peek().equals(currentPath) && pastItems.size() > 1) {
-                    currentPath = ".b-.";
-                    loadNextOrPreviousSong(false);
-                }
-
-                nextItems.addFirst(pastItems.peek());
-                nextPath = pastItems.pop();
-                setupMedia(nextPath);
-            } else {
-                Log.e("Service-Load", "Pila Vacia");
-                return;
-            }
-        }
-        currentPath = nextPath;
-        showNotification();
-    }*/
-
     public void loadNext() {
         if (!nextItems.isEmpty()) {
             if (nextItems.peek().equals(currentPath)) {
+                if (nextItems.size() == 1) {
+                    setupMedia(currentPath);
+                    return;
+                }
                 currentPath = "";
                 loadNext();
             }
-            String nextPath = nextItems.peek();
+            setupMedia(nextItems.peek());
             pastItems.push(nextItems.pop());
-            setupMedia(nextPath);
-            showNotification();
-            Intent i = new Intent(action);
-            i.putExtra("path", currentPath);
-            sendBroadcast(i);
+
             //  MainActivity.current = currentPath;
         } else {
             Log.e("Service-Load", "ListaNext Vacia");
@@ -276,12 +245,8 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
                 loadPrev();
             }
             nextItems.addFirst(pastItems.peek());
-            String nextPath = pastItems.pop();
-            setupMedia(nextPath);
-            showNotification();
-            Intent i = new Intent(action);
-            i.putExtra("path", currentPath);
-            sendBroadcast(i);
+            setupMedia(pastItems.pop());
+            // showNotification();
         } else {
             Log.e("Service-Load", "Pila Vacia");
         }
@@ -404,6 +369,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
                         .addAction(R.drawable.ic_action_next, "", pi2);
         }*/
         startForeground(1337, not);
+        sendBroadcast(new Intent(action).putExtra("path", currentPath));
     }
 
     public boolean setRepeat() {
@@ -432,7 +398,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
                 break;
 
             case AudioManager.AUDIOFOCUS_LOSS:
-                // Lost focus for an unbounded amount of time: stop playback and release media player
+                // Lost focus for an unbounded amount of time: stop playback and release media activity_player
                 Log.i("AudioFocus", "LOST");
 
                 if (mediaPlayer.isPlaying()) mediaPlayer.pause();
@@ -440,7 +406,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
 
             case AudioManager.AUDIOFOCUS_LOSS_TRANSIENT:
                 // Lost focus for a short time, but we have to stop
-                // playback. We don't release the media player because playback
+                // playback. We don't release the media activity_player because playback
                 // is likely to resume
                 Log.i("AudioFocus", "TRAN");
 
@@ -471,6 +437,28 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     public class LocalBinder extends Binder {
         public MusicService getService() {
             return MusicService.this;
+        }
+    }
+
+    public class SizedStack<T> extends Stack<T> {
+        private int maxSize;
+
+        SizedStack(int size) {
+            super();
+            this.maxSize = size;
+        }
+
+        @Override
+        public Object push(Object object) {
+            //If the stack is too big, remove elements until it's the right size.
+            if (this.size() == maxSize) {
+                this.remove(0);
+
+            }
+           /* while (this.size() >= maxSize) {
+                this.remove(0);
+            }*/
+            return super.push((T) object);
         }
     }
 }

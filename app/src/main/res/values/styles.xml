@@ -13,6 +13,7 @@
         <item name="android:colorBackground">@color/backG</item>
         <item name="android:windowBackground">@color/backG</item>
 
+
     </style>
 
 

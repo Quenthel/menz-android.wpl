@@ -9,24 +9,23 @@ android {
             storePassword 'Wisdom'
         }
     }
-    compileSdkVersion 24
-    buildToolsVersion "24.0.2"
+    compileSdkVersion 25
+    buildToolsVersion "25.0.1"
     defaultConfig {
         applicationId "Witchery.wPlayer"
-        minSdkVersion 24
-        targetSdkVersion 24
+        minSdkVersion 23
+        targetSdkVersion 25
         versionCode 1
-        versionName "1.0 -ヂレンマ- "
-        signingConfig signingConfigs.BlackMagic
+        versionName "1.5 -ヂレンマ- "
+        //  signingConfig signingConfigs.BlackMagic
     }
     buildTypes {
         release {
             minifyEnabled true
             shrinkResources true
             //proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.BlackMagic
+            //signingConfig signingConfigs.BlackMagic
             proguardFile 'C:/x/x/app/proG.txt'
-
         }
         debug {
             minifyEnabled false
@@ -36,9 +35,9 @@ android {
         fullDavai {
             minifyEnabled true
             shrinkResources true
-            //proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.BlackMagic
-            proguardFile 'C:/x/x/app/proG.txt'
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            //    signingConfig signingConfigs.BlackMagic
+            //  proguardFile 'C:/x/x/app/proG.txt'
         }
     }
     productFlavors {
@@ -51,17 +50,17 @@ dependencies {
     repositories {
         mavenCentral()
         jcenter()
-        /*   maven {
+        maven {
                name 'glide-snapshot'
                url 'http://oss.sonatype.org/content/repositories/snapshots'
-           }*/
+        }
     }
-    compile 'com.android.support:appcompat-v7:24.2.1'
-    compile 'com.android.support:design:24.2.1'
-    compile 'com.android.support:palette-v7:24.2.1'
-    compile 'com.android.support:support-v4:24.2.1'
-    compile 'com.github.bumptech.glide:glide:3.7.0'
+    // debugCompile 'com.squareup.leakcanary:leakcanary-android:1.4'
+    compile 'com.android.support:appcompat-v7:25.0.1'
+    compile 'com.android.support:design:25.0.1'
+    compile 'com.android.support:palette-v7:25.0.1'
+    compile 'com.android.support:support-v4:25.0.1'
     compile 'com.oguzdev:CircularFloatingActionMenu:1.0.2'
     compile 'com.github.chrisbanes:PhotoView:1.2.6'
-    // compile 'com.github.bumptech.glide:glide:4.0.0-SNAPSHOT'
+    compile 'com.github.bumptech.glide:glide:4.0.0-SNAPSHOT'
 }

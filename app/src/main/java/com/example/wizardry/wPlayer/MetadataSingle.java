@@ -1,4 +1,4 @@
-package com.example.wizardry.wPlayer.Retrievers;
+package com.example.wizardry.wPlayer;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -31,12 +31,8 @@ public enum MetadataSingle {
     public int sampleRate;
     public long duration = 0;
     public Bitmap fullEmbedded;
-
-    /**
-     * Current colors.
-     */
-    public int[] currentColors;
-
+    public int[] currentColors = new int[8];
+//    public Typeface type;
 
     public void retrieve(String path) {
         this.path = path;
@@ -133,11 +129,13 @@ public enum MetadataSingle {
                 InputStream iss = new ByteArrayInputStream(s);
                 fullEmbedded = BitmapFactory.decodeStream(iss);
                 iss.close();
+                currentColors = ImageHelper.getColors(fullEmbedded);
+            } else {
+                currentColors = ImageHelper.getDefaultColors();
             }
             isCompilation = false;
             isVBR = false;
             sampleRate = 320;
-            currentColors = ImageHelper.getColors(fullEmbedded);
 
 
         } catch (NumberFormatException x) {
@@ -145,7 +143,6 @@ public enum MetadataSingle {
             Mp3File mp3file;
             try {
                 mp3file = new Mp3File(path);
-
                 if (mp3file.hasId3v2Tag()) {
                     ID3v2 id3v2 = mp3file.getId3v2Tag();
                     albumArtist = id3v2.getAlbumArtist();
@@ -160,6 +157,10 @@ public enum MetadataSingle {
                     if (s != null) {
                         InputStream iss = new ByteArrayInputStream(s);
                         fullEmbedded = BitmapFactory.decodeStream(iss);
+                        iss.close();
+                        currentColors = ImageHelper.getColors(fullEmbedded);
+                    } else {
+                        currentColors = ImageHelper.getDefaultColors();
                     }
                 }
             } catch (IOException | UnsupportedTagException | InvalidDataException e) {
@@ -169,4 +170,15 @@ public enum MetadataSingle {
             e.printStackTrace();
         }
     }
+
+   /* public void init() {
+        nombre = "";
+        album = "";
+        albumArtist = "";
+        artist = "";
+        trackNumber = "";
+        duration = 0;
+        fullEmbedded = null;
+        currentColors = ImageHelper.getDefaultColors();
+    }*/
 }

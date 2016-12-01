@@ -6,8 +6,6 @@ import java.util.Random;
  * Created by admin on 31/5/16.
  */
 public  class Utilities {
-
-
     public static void shuffleArray(String[] ar) {
         Random rnd = new Random();
         for (int i = ar.length - 1; i > 0; i--) {
@@ -20,7 +18,7 @@ public  class Utilities {
 
     public static String milliSecondsToTimer(long milliseconds) {
         String finalTimerString = "";
-        String secondsString = "";
+        String secondsString;
 
         // Convert total duration into time
         int hours = (int) (milliseconds / (1000 * 60 * 60));
@@ -37,11 +35,7 @@ public  class Utilities {
         } else {
             secondsString = "" + seconds;
         }
-
-        finalTimerString = finalTimerString + minutes + ":" + secondsString;
-
-        // return timer string
-        return finalTimerString;
+        return finalTimerString + minutes + ":" + secondsString;
     }
 
     public static int getProgressPercentage(long currentDuration, long totalDuration) {
@@ -54,7 +48,7 @@ public  class Utilities {
     }
 
     public static int progressToTimer(int progress, int totalDuration) {
-        int currentDuration = 0;
+        int currentDuration;
         totalDuration = totalDuration / 1000;
         currentDuration = (int) ((((double) progress) / 100) * totalDuration);
 

@@ -140,7 +140,7 @@ public class PlaylistRetriever {
         return mItems.get(mRandom.nextInt(mItems.size()));
     }
 
-    public static class Item {
+    public class Item {
         long id;
         String name;
         String whatever;

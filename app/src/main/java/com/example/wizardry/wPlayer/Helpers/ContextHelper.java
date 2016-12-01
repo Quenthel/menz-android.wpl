@@ -17,7 +17,6 @@ import java.util.List;
 
 /**
  * Created by Witchery on 25/5/16.
- * Clase para organizar las distintas opciones de los menus contextuales de las activities.
  */
 public class ContextHelper {
     private Context context;
@@ -122,5 +121,4 @@ public class ContextHelper {
                 .show();
         return true;
     }
-
 }

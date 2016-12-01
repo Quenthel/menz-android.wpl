@@ -16,7 +16,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -27,7 +26,6 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewAnimationUtils;
-import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -35,15 +33,15 @@ import android.widget.ScrollView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-import com.example.wizardry.wPlayer.Helpers.ImageHelper;
+import com.example.wizardry.wPlayer.Helpers.FloatingActionMusicButton;
 import com.example.wizardry.wPlayer.Helpers.Utilities;
 import com.example.wizardry.wPlayer.Helpers.mp3agic.ID3v2;
 import com.example.wizardry.wPlayer.Helpers.mp3agic.InvalidDataException;
 import com.example.wizardry.wPlayer.Helpers.mp3agic.Mp3File;
 import com.example.wizardry.wPlayer.Helpers.mp3agic.UnsupportedTagException;
+import com.example.wizardry.wPlayer.MetadataSingle;
 import com.example.wizardry.wPlayer.MusicService;
 import com.example.wizardry.wPlayer.R;
-import com.example.wizardry.wPlayer.Retrievers.MetadataSingle;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -59,19 +57,21 @@ public class PlayerActivity extends AppCompatActivity implements SeekBar.OnSeekB
     private boolean tried = false, hasLi, mBound;
     private SeekBar songProgressBar;
     private String current, currentPath, l, ly = null;
-    private TextView t6, tx8, songTotalDurationLabel, songCurrentDurationLabel;
-
+    private TextView txAlbum, txArtist, songTotalDurationLabel, songCurrentDurationLabel;
+    private FloatingActionMusicButton musicFab;
     private final BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            if (intent.getAction().equals(android.media.AudioManager.ACTION_AUDIO_BECOMING_NOISY)) {
-                Log.e("BroadCast", "NOISY");
-                if (mService.isPlaying()) mService.pause();
-
-            } else if (intent.getAction().equals(MusicService.action)) {
+            if (intent.getAction().equals(MusicService.action)) {
                 current = intent.getStringExtra("path");
                 setupData(current);
                 Log.e("BroadCast: ", "CHANGE");
+                //   if(musicFab.getOppositeMode().isShowingPlayIcon()){
+                //    musicFab.playAnimation();
+                // }
+            } else if (intent.getAction().equals(android.media.AudioManager.ACTION_AUDIO_BECOMING_NOISY)) {
+                Log.e("BroadCast", "NOISY");
+                if (mService.isPlaying()) mService.pause();
             }
         }
     };
@@ -109,7 +109,6 @@ public class PlayerActivity extends AppCompatActivity implements SeekBar.OnSeekB
                     updateProgressBar();
                     // updateInfo();
                 }
-
             }
 
             IntentFilter ix = new IntentFilter(MusicService.action);
@@ -126,7 +125,7 @@ public class PlayerActivity extends AppCompatActivity implements SeekBar.OnSeekB
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.player);
+        setContentView(R.layout.activity_player);
         songTotalDurationLabel = (TextView) findViewById(R.id.txcur);
         songCurrentDurationLabel = (TextView) findViewById(R.id.txtot);
         songProgressBar = (SeekBar) findViewById(R.id.seekBar);
@@ -137,6 +136,13 @@ public class PlayerActivity extends AppCompatActivity implements SeekBar.OnSeekB
         boolean isRandom = i.getBooleanExtra("random", false);
         String audioFile = i.getStringExtra("path");
         ArrayList<String> albumpaths = i.getStringArrayListExtra("albumpaths");
+        musicFab = (FloatingActionMusicButton) findViewById(R.id.fab);
+        //  musicFab.setOnMusicFabClickListener(new FloatingMusicActionButton.OnMusicFabClickListener() {
+        //       @Override
+        //    public void onClick(View view) {
+        //       mService.start();
+        //  }
+        //   });
 
         if (albumpaths != null) {
             if (albumpaths.size() > 0) {
@@ -149,8 +155,8 @@ public class PlayerActivity extends AppCompatActivity implements SeekBar.OnSeekB
                 }
             }
         }
-        t6 = (TextView) findViewById(R.id.textView6);
-        tx8 = (TextView) findViewById(R.id.textView8);
+        txAlbum = (TextView) findViewById(R.id.textView6);
+        txArtist = (TextView) findViewById(R.id.textView8);
         Intent intent = new Intent(this, MusicService.class);
         if (!i.getBooleanExtra("returning", false)) {
             intent.putStringArrayListExtra("paths", albumpaths);
@@ -188,7 +194,6 @@ public class PlayerActivity extends AppCompatActivity implements SeekBar.OnSeekB
     }
 
     private void setupData(String path) {
-        // MetadataHelper mh = null;
         tried = false;
         hasLi = false;
         ly = null;
@@ -202,37 +207,36 @@ public class PlayerActivity extends AppCompatActivity implements SeekBar.OnSeekB
 
         ImageView i = (ImageView) findViewById(R.id.imageViewPlayer);
         android.support.v7.widget.Toolbar tool = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
-        Bitmap bi;
         currentPath = path;
         // current = mh.getPath();
         current = MetadataSingle.INSTANCE.path;
 
         // bi = mh.getFullEmbedded();
-        bi = MetadataSingle.INSTANCE.fullEmbedded;
-       if (bi != null) {
+        Bitmap bi = MetadataSingle.INSTANCE.fullEmbedded;
+        if (bi != null) {
             i.setImageBitmap(bi);
-           // palette = ImageHelper.getColors(bi);
+            // palette = ImageHelper.getColors(bi);
 
         } else {
             i.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.nodata));
-           // palette = ImageHelper.getColors(BitmapFactory.decodeResource(getResources(), R.drawable.nodata));
+            // palette = ImageHelper.getColors(BitmapFactory.decodeResource(getResources(), R.drawable.nodata));
         }
-        palette= MetadataSingle.INSTANCE.currentColors;
+        palette = MetadataSingle.INSTANCE.currentColors;
 
-        t6.setText(MetadataSingle.INSTANCE.album);
-        tx8.setText(MetadataSingle.INSTANCE.artist);
+        txAlbum.setText(MetadataSingle.INSTANCE.album);
+        txArtist.setText(MetadataSingle.INSTANCE.artist);
         tool.setTitle(MetadataSingle.INSTANCE.nombre);
-
-       /* t6.setText(mh.getAlbum());
-        tx8.setText(mh.getArtist());
+//        txArtist.setTypeface(type);
+        //  txAlbum.setTypeface(type);
+       /* txAlbum.setText(mh.getAlbum());
+        txArtist.setText(mh.getArtist());
         tool.setTitle(mh.getNombre());*/
-        t6.setTextColor(palette[2]);
-        tx8.setTextColor(palette[2]);
+        txAlbum.setTextColor(palette[2]);
+        txArtist.setTextColor(palette[2]);
 
         tool.setTitleTextColor(palette[2]);
-        FloatingActionButton fabby1 = (FloatingActionButton) findViewById(R.id.fab);
-        fabby1.setBackgroundTintList(ColorStateList.valueOf(palette[7]));
-        fabby1.setRippleColor(palette[2]);
+        musicFab.setBackgroundTintList(ColorStateList.valueOf(palette[7]));
+        musicFab.setRippleColor(palette[2]);
         songProgressBar.setProgressTintList(ColorStateList.valueOf(palette[7]));
         getWindow().setStatusBarColor(palette[5]);
         // mh = null;
@@ -278,16 +282,18 @@ public class PlayerActivity extends AppCompatActivity implements SeekBar.OnSeekB
   /*  private void white(int[] a){
         View rlc = findViewById(R.id.rlData);
         rlc.setBackgroundColor(a[2]);
-        tx8.setTextColor(a[1]);
-        t6.setTextColor(a[3]);
+        txArtist.setTextColor(a[1]);
+        txAlbum.setTextColor(a[3]);
     }*/
 
     public void play(View v) {
         if (mBound) {
             if (mService.isPlaying()) {
+                musicFab.playAnimPause();
                 mService.start();
             } else {
                 mService.start();
+                musicFab.playAnimPlay();
             }
         }
     }
@@ -306,14 +312,16 @@ public class PlayerActivity extends AppCompatActivity implements SeekBar.OnSeekB
     }
 
     public void setRandom(View v) {
-        Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade);
-        v.setAnimation(animation);
-        v.startAnimation(animation);
+        //  Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade);
+        //  v.setAnimation(animation);
+        //  v.startAnimation(animation);
+
         mService.setRandom();
     }
 
     public void next(View v) {
         if (mBound) {
+            v.animate().alpha(200);
             mService.loadNext();
             setupData(mService.getPath());
         }
@@ -409,6 +417,7 @@ public class PlayerActivity extends AppCompatActivity implements SeekBar.OnSeekB
         }
         return super.onOptionsItemSelected(item);
     }
+
 
     public class getLyrTask extends AsyncTask<String, Integer, String> {
 

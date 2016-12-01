@@ -13,8 +13,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.wizardry.wPlayer.Helpers.ImageHelper;
+import com.example.wizardry.wPlayer.MetadataSingle;
 import com.example.wizardry.wPlayer.R;
-import com.example.wizardry.wPlayer.Retrievers.MetadataSingle;
 
 import java.util.concurrent.TimeUnit;
 
@@ -37,9 +37,7 @@ public class DataActivity extends AppCompatActivity {
     }
 
     private void letThereBeLight(String path) {
-
         MetadataSingle.INSTANCE.retrieve(path);
-
         // final MetadataHelper mh = new MetadataHelper(path);
         //  Bitmap art = mh.getFullEmbedded();
         Bitmap art = MetadataSingle.INSTANCE.fullEmbedded;
@@ -121,7 +119,6 @@ public class DataActivity extends AppCompatActivity {
             getWindow().setStatusBarColor(s[5]);
         }
         final Toolbar tol = (Toolbar) findViewById(R.id.toolbar);
-        tol.setNavigationIcon(R.drawable.nav);
         tol.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

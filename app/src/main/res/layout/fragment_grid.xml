@@ -2,4 +2,6 @@
     android:id="@+id/listViewAlbum"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:animateLayoutChanges="false" />
+    android:animateLayoutChanges="false"
+    android:clipToPadding="false"
+    android:paddingBottom="50dp" />

@@ -89,6 +89,19 @@ public class ImageHelper {
         return a;
     }
 
+    public static int[] getDefaultColors() {
+        int[] currentColors = new int[8];
+        currentColors[0] = Color.WHITE;
+        currentColors[1] = Color.BLACK;
+        currentColors[2] = Color.LTGRAY;
+        currentColors[3] = Color.BLACK;
+        currentColors[4] = Color.WHITE;
+        currentColors[5] = Color.BLACK;
+        currentColors[6] = Color.LTGRAY;
+        currentColors[7] = Color.LTGRAY;
+        return currentColors;
+    }
+
 
     //TODO
 

@@ -3,7 +3,7 @@
     <item
         android:id="@+id/miCompose"
         android:icon="@android:drawable/ic_menu_info_details"
-        app:showAsAction="ifRoom"
-        android:title="Compose">
+        android:title="Info"
+        app:showAsAction="never">
     </item>
 </menu>
