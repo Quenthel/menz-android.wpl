@@ -6,4 +6,8 @@
         android:title="Info"
         app:showAsAction="never">
     </item>
+    <item
+        android:id="@+id/white"
+        android:title="White"
+        app:showAsAction="never"></item>
 </menu>

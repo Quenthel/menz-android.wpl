@@ -8,8 +8,8 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.TabLayout;
@@ -34,16 +34,17 @@ import com.example.wizardry.wPlayer.MetadataSingle;
 import com.example.wizardry.wPlayer.MusicService;
 import com.example.wizardry.wPlayer.R;
 import com.example.wizardry.wPlayer.Retrievers.MusicRetriever;
-import com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton;
-import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
-import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     public String current = null;
+    public android.support.design.widget.FloatingActionButton ranFab;
     private SharedPreferences sharedPref;
+    private View rl;
+    private TextView tx1;
+    private TabLayout tabLayout;
     private boolean light, hasPermission = false;
     private final BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override
@@ -60,25 +61,54 @@ public class MainActivity extends AppCompatActivity {
         sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         checkPermissions();
         checkPreferences();
-
         setTheme(!light ? R.style.AppTheme : R.style.AppThemeWhite);
         setContentView(R.layout.activity_main);
-
+        ranFab = (android.support.design.widget.FloatingActionButton) findViewById(R.id.fabRan);
+        ranFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (rl.getVisibility() != View.VISIBLE) {
+                    startRandom();
+                } else {
+                    Intent i2 = new Intent(getApplication(), MusicService.class).setAction("NEXT");
+                    startService(i2);
+                }
+            }
+        });
+        ranFab.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                startRandom();
+                return true;
+            }
+        });
         if (light) {
             findViewById(R.id.appbar).setBackgroundColor(getColor(R.color.colorAccent));
+            getWindow().setStatusBarColor(getColor(R.color.colorPrimary));
             // getWindow().setStatusBarColor(Color.TRANSPARENT);
+        } else {
+            getWindow().setStatusBarColor(getColor(R.color.dkg));
         }
-        getWindow().setStatusBarColor(getColor(R.color.colorPrimary));
         if (hasPermission) {
             SectionsPagerAdapter mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
             ViewPager mViewPager = (ViewPager) findViewById(R.id.container);
             mViewPager.setAdapter(mSectionsPagerAdapter);
-            TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+            tabLayout = (TabLayout) findViewById(R.id.tabs);
             tabLayout.setupWithViewPager(mViewPager);
-
             mViewPager.setOffscreenPageLimit(1);
-
-            createButtonMenu();
+          /*  AppBarLayout appBarLayout = (AppBarLayout)findViewById(R.id.appbar);
+            appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+                @Override
+                public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+                   if(appBarLayout.getTop() <= 0) {
+                       Log.e("Log","Parriba");
+                        ranFab.hide();
+                    } else {
+                       ranFab.show();
+                    }
+                }
+            });*/
+            //     createButtonMenu();
             setupBottom();
             // MetadataSingle.INSTANCE.init();
             //  View vi = findViewById(R.id.rlt);
@@ -186,7 +216,7 @@ public class MainActivity extends AppCompatActivity {
         //}
     }
 
-    private void createButtonMenu() {
+   /* private void createButtonMenu() {
         ImageView icon = new ImageView(this);
         // icon.setImageResource(R.mipmap.circma);
         icon.setImageResource(R.drawable.ic_add);
@@ -229,10 +259,10 @@ public class MainActivity extends AppCompatActivity {
             button2 = itemBuilder.setContentView(itemIcon2).setTheme(FloatingActionButton.THEME_DARK).build();
             button3 = itemBuilder.setContentView(itemIcon3).setTheme(FloatingActionButton.THEME_DARK).build();
         }
-   /*     CoordinatorLayout.LayoutParams params =
+        CoordinatorLayout.LayoutParams params =
                 (CoordinatorLayout.LayoutParams) actionButton.getLayoutParams();
         params.setBehavior(new  android.support.design.widget.FloatingActionButton.Behavior());
-        actionButton.requestLayout();*/
+        actionButton.requestLayout();
 
         FloatingActionMenu actionMenu = new FloatingActionMenu.Builder(this)
                 .addSubActionView(button1)
@@ -259,7 +289,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-    }
+    }*/
 
     private void startRandom() {
         Intent i = new Intent(getApplicationContext(), PlayerActivity.class);
@@ -278,6 +308,9 @@ public class MainActivity extends AppCompatActivity {
         i.putExtra("random", true);
         i.putStringArrayListExtra("albumpaths", randomString);
         startActivity(i);
+        //   sendBroadcast(new Intent(i2));
+        //  PendingIntent pi2 = PendingIntent.getService(getApplicationContext(), 0, i2, 0);
+
 
     }
 
@@ -323,29 +356,43 @@ public class MainActivity extends AppCompatActivity {
     }*/
 
     private void setupCurrent(String path) {
-        View rl = findViewById(R.id.rlt);
         rl.setVisibility(View.VISIBLE);
-        TextView tx1 = (TextView) findViewById(R.id.label2);
         //MetadataHelper mh = new MetadataHelper(path, true);
         /* tx1.setText(mh.getNombre());
         ((ImageView) findViewById(R.id.icono2)).setImageBitmap(mh.getFullEmbedded());
         int[] c = ImageHelper.getColors(mh.getFullEmbedded());*/
         tx1.setText(MetadataSingle.INSTANCE.nombre);
+        // ranFab.setSize();
+        // app:layout_anchor="@id/app_bar_layout"
+        //   app:layout_anchorGravity="bottom|right|end" />
+        //LayoutPara
+        // ranFab.setLayoutParams();
+        ranFab.setSize(1);
         ((ImageView) findViewById(R.id.icono2)).setImageBitmap(MetadataSingle.INSTANCE.fullEmbedded);
         //   int[] c = ImageHelper.getColors(MetadataSingle.INSTANCE.fullEmbedded);
 
+
         if (!light) {
-            rl.setBackground(ImageHelper.makeSelector(MetadataSingle.INSTANCE.currentColors[5], Color.BLACK, 255));
+            rl.setBackground(ImageHelper.makeSelector(MetadataSingle.INSTANCE.currentColors[5], Color.DKGRAY, 255));
             tx1.setTextColor(MetadataSingle.INSTANCE.currentColors[2]);
+            //   getWindow().setStatusBarColor(MetadataSingle.INSTANCE.currentColors[7]);
+            tabLayout.setSelectedTabIndicatorColor(MetadataSingle.INSTANCE.currentColors[7]);
+            ranFab.setBackgroundTintList(ColorStateList.valueOf(MetadataSingle.INSTANCE.currentColors[7]));
+
 
         } else {
             rl.setBackground(ImageHelper.makeSelector(MetadataSingle.INSTANCE.currentColors[2], Color.WHITE, 255));
             tx1.setTextColor(MetadataSingle.INSTANCE.currentColors[3]);
+            getWindow().setStatusBarColor(MetadataSingle.INSTANCE.currentColors[7]);
+            tabLayout.setSelectedTabIndicatorColor(MetadataSingle.INSTANCE.currentColors[7]);
+            ranFab.setBackgroundTintList(ColorStateList.valueOf(MetadataSingle.INSTANCE.currentColors[7]));
+
         }
     }
 
     private void setupBottom() {
-        View rl = findViewById(R.id.rlt);
+        rl = findViewById(R.id.rlt);
+        tx1 = (TextView) findViewById(R.id.label2);
          /*
         BottomSheetBehavior behavior = BottomSheetBehavior.from(rl);
         behavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {

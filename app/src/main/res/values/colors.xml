@@ -7,5 +7,6 @@
     <color name="trasplesstool">#3c000000</color>
     <color name="black">#000000</color>
     <color name="backG">#303030</color>
-
+    <color name="dkg">#ff444444</color>
+    <!-- FFFF0090 FFC51162-->
 </resources>

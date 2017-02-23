@@ -90,6 +90,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        Log.e("Inte", "sd");
         checkIntent(intent);
         return super.onStartCommand(intent, flags, startId);
     }

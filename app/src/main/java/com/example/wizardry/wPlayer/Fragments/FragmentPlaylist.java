@@ -6,7 +6,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -24,6 +23,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.wizardry.wPlayer.Activities.PlayListActivity;
+import com.example.wizardry.wPlayer.Activities.SettingsActivity;
 import com.example.wizardry.wPlayer.Adapters.PlayListAdapter;
 import com.example.wizardry.wPlayer.Helpers.ItemClickSupport;
 import com.example.wizardry.wPlayer.R;
@@ -93,7 +93,9 @@ public class FragmentPlaylist extends Fragment {
         ddd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LayoutInflater li = LayoutInflater.from(getContext());
+                Intent i = new Intent(getContext(), SettingsActivity.class);
+                startActivityForResult(i, 1);
+          /*      LayoutInflater li = LayoutInflater.from(getContext());
                 final View promptsView = li.inflate(R.layout.add, null);
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
                 alertDialogBuilder.setView(promptsView);
@@ -113,7 +115,7 @@ public class FragmentPlaylist extends Fragment {
                             }
                         });
                 AlertDialog alertDialog = alertDialogBuilder.create();
-                alertDialog.show();
+                alertDialog.show();*/
             }
         });
         /*

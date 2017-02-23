@@ -5,7 +5,7 @@
     android:id="@+id/main_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
+    android:fitsSystemWindows="false"
     tools:context=".Activities.MainActivity">
 
     <android.support.design.widget.AppBarLayout
@@ -29,7 +29,7 @@
             android:id="@+id/tabs"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:background="?attr/colorPrimaryDark"
+            android:background="@color/dkg"
             app:layout_scrollFlags="scroll|enterAlways" />
 
     </android.support.design.widget.AppBarLayout>
@@ -41,14 +41,14 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
+
     <RelativeLayout
         android:id="@+id/rlt"
         android:layout_width="match_parent"
         android:layout_height="55dp"
         android:layout_gravity="bottom"
-        android:layout_marginTop="-55dp"
         android:clipToPadding="false"
-        android:elevation="15dp"
+        android:elevation="11dp"
         android:padding="5dp"
         android:visibility="invisible">
 
@@ -75,7 +75,25 @@
             android:textColor="@android:color/white"
             android:transitionName="now" />
 
+
     </RelativeLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fabRan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:layout_marginEnd="16dp"
+        android:clickable="true"
+        android:src="@android:drawable/ic_media_play"
+        app:elevation="12dp"
+        app:layout_anchor="@id/rlt"
+        app:layout_anchorGravity="top|right"
+
+        >
+
+    </android.support.design.widget.FloatingActionButton>
+    <!--  app:layout_behavior="com.example.wizardry.wPlayer.Helpers.FABAwareScrollingViewBehavior"-->
 </android.support.design.widget.CoordinatorLayout>
   <!--  android:layout_gravity="bottom"
     android:layout_height="55dp"

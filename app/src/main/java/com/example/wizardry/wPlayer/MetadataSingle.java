@@ -20,7 +20,7 @@ public enum MetadataSingle {
     public String nombre;
     public String album;
     public String albumArtist;
-    public String lirycs;
+    public String lyrics;
     public String artist;
     public String genre;
     public String bitrate;
@@ -67,7 +67,7 @@ public enum MetadataSingle {
                     if (mp3file.hasId3v2Tag()) {
                         ID3v2 id3v2 = mp3file.getId3v2Tag();
                         albumArtist = id3v2.getAlbumArtist();
-                        lirycs = id3v2.getAsyncLyrics();
+                        lyrics = id3v2.getAsyncLyrics();
                         isCompilation = id3v2.isCompilation();
                         isVBR = mp3file.isVbr();
                         sampleRate = mp3file.getSampleRate();
@@ -90,7 +90,7 @@ public enum MetadataSingle {
                 if (mp3file.hasId3v2Tag()) {
                     ID3v2 id3v2 = mp3file.getId3v2Tag();
                     albumArtist = id3v2.getAlbumArtist();
-                    lirycs = id3v2.getAsyncLyrics();
+                    lyrics = id3v2.getAsyncLyrics();
                     isCompilation = id3v2.isCompilation();
                     isVBR = mp3file.isVbr();
                     sampleRate = mp3file.getSampleRate();
@@ -110,7 +110,6 @@ public enum MetadataSingle {
         } finally {
             mt.release();
         }
-
     }
 
     public void retrieveMin(String path) {
@@ -131,6 +130,7 @@ public enum MetadataSingle {
                 iss.close();
                 currentColors = ImageHelper.getColors(fullEmbedded);
             } else {
+                fullEmbedded = null;
                 currentColors = ImageHelper.getDefaultColors();
             }
             isCompilation = false;
@@ -146,7 +146,7 @@ public enum MetadataSingle {
                 if (mp3file.hasId3v2Tag()) {
                     ID3v2 id3v2 = mp3file.getId3v2Tag();
                     albumArtist = id3v2.getAlbumArtist();
-                    lirycs = id3v2.getAsyncLyrics();
+                    lyrics = id3v2.getAsyncLyrics();
                     isCompilation = id3v2.isCompilation();
                     isVBR = mp3file.isVbr();
                     sampleRate = mp3file.getSampleRate();

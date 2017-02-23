@@ -7,18 +7,19 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
+import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
+import android.preference.PreferenceManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.Menu;
@@ -54,11 +55,12 @@ public class PlayerActivity extends AppCompatActivity implements SeekBar.OnSeekB
     private GestureDetector mGestureDetector;
     private MusicService mService;
     private Handler mHandler = new Handler();
-    private boolean tried = false, hasLi, mBound;
+    private boolean tried = false, hasLi, mBound, light;
     private SeekBar songProgressBar;
     private String current, currentPath, l, ly = null;
     private TextView txAlbum, txArtist, songTotalDurationLabel, songCurrentDurationLabel;
     private FloatingActionMusicButton musicFab;
+    private Toolbar tool;
     private final BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -125,13 +127,17 @@ public class PlayerActivity extends AppCompatActivity implements SeekBar.OnSeekB
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        light = sharedPref.getBoolean("light", false);
+        setTheme(!light ? R.style.AppTheme : R.style.AppThemeWhite);
         setContentView(R.layout.activity_player);
+        tool = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(tool);
         songTotalDurationLabel = (TextView) findViewById(R.id.txcur);
         songCurrentDurationLabel = (TextView) findViewById(R.id.txtot);
         songProgressBar = (SeekBar) findViewById(R.id.seekBar);
         songProgressBar.setOnSeekBarChangeListener(this);
-        android.support.v7.widget.Toolbar tool = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(tool);
+
         Intent i = getIntent();
         boolean isRandom = i.getBooleanExtra("random", false);
         String audioFile = i.getStringExtra("path");
@@ -206,40 +212,41 @@ public class PlayerActivity extends AppCompatActivity implements SeekBar.OnSeekB
         }
 
         ImageView i = (ImageView) findViewById(R.id.imageViewPlayer);
-        android.support.v7.widget.Toolbar tool = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
         currentPath = path;
         // current = mh.getPath();
         current = MetadataSingle.INSTANCE.path;
 
         // bi = mh.getFullEmbedded();
-        Bitmap bi = MetadataSingle.INSTANCE.fullEmbedded;
-        if (bi != null) {
-            i.setImageBitmap(bi);
+        //   if (MetadataSingle.INSTANCE.fullEmbedded != null) {
+        i.setImageBitmap(MetadataSingle.INSTANCE.fullEmbedded);
             // palette = ImageHelper.getColors(bi);
 
-        } else {
-            i.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.nodata));
+        //  } else {
+        //     i.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.nodata));
             // palette = ImageHelper.getColors(BitmapFactory.decodeResource(getResources(), R.drawable.nodata));
-        }
+        // }
         palette = MetadataSingle.INSTANCE.currentColors;
 
         txAlbum.setText(MetadataSingle.INSTANCE.album);
         txArtist.setText(MetadataSingle.INSTANCE.artist);
         tool.setTitle(MetadataSingle.INSTANCE.nombre);
-//        txArtist.setTypeface(type);
+        //  txArtist.setTypeface(type);
         //  txAlbum.setTypeface(type);
-       /* txAlbum.setText(mh.getAlbum());
-        txArtist.setText(mh.getArtist());
-        tool.setTitle(mh.getNombre());*/
-        txAlbum.setTextColor(palette[2]);
-        txArtist.setTextColor(palette[2]);
-
-        tool.setTitleTextColor(palette[2]);
         musicFab.setBackgroundTintList(ColorStateList.valueOf(palette[7]));
         musicFab.setRippleColor(palette[2]);
         songProgressBar.setProgressTintList(ColorStateList.valueOf(palette[7]));
         getWindow().setStatusBarColor(palette[5]);
-        // mh = null;
+
+        if (!light) {
+            txAlbum.setTextColor(palette[2]);
+            txArtist.setTextColor(palette[2]);
+            tool.setTitleTextColor(palette[2]);
+        } else {
+            txArtist.setTextColor(palette[1]);
+            tool.setTitleTextColor(palette[3]);
+            txAlbum.setTextColor(palette[3]);
+            // white(palette);
+        }
     }
 
     public void hide(View v) {
@@ -279,12 +286,12 @@ public class PlayerActivity extends AppCompatActivity implements SeekBar.OnSeekB
             e.printStackTrace();
         }
     }
-  /*  private void white(int[] a){
-        View rlc = findViewById(R.id.rlData);
-        rlc.setBackgroundColor(a[2]);
-        txArtist.setTextColor(a[1]);
-        txAlbum.setTextColor(a[3]);
-    }*/
+
+    private void white(int[] a) {
+        //  findViewById(R.id.ly_main).setBackgroundColor(Color.WHITE);
+        //  findViewById(R.id.ly_but).setBackgroundColor(Color.WHITE);
+        // tool.setBackgroundColor(Color.WHITE);
+    }
 
     public void play(View v) {
         if (mBound) {
@@ -315,13 +322,14 @@ public class PlayerActivity extends AppCompatActivity implements SeekBar.OnSeekB
         //  Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade);
         //  v.setAnimation(animation);
         //  v.startAnimation(animation);
-
+        ImageButton ib = (ImageButton) v;
+        ib.getBackground().setColorFilter(getColor(R.color.colorAccent), PorterDuff.Mode.SRC_ATOP);
         mService.setRandom();
     }
 
     public void next(View v) {
         if (mBound) {
-            v.animate().alpha(200);
+            //v.animate().alpha(20);
             mService.loadNext();
             setupData(mService.getPath());
         }
@@ -414,6 +422,8 @@ public class PlayerActivity extends AppCompatActivity implements SeekBar.OnSeekB
             ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(this, iv, "alb");
             ActivityCompat.startActivity(this, i, options.toBundle());
             return true;
+        } else if (id == R.id.white) {
+            white(MetadataSingle.INSTANCE.currentColors);
         }
         return super.onOptionsItemSelected(item);
     }

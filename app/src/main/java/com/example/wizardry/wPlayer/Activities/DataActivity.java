@@ -71,7 +71,7 @@ public class DataActivity extends AppCompatActivity {
         t4.setText(mh.getYear());*/
 
         String x = MetadataSingle.INSTANCE.bitrate;
-        t.setText(MetadataSingle.INSTANCE.lirycs);
+        t.setText(MetadataSingle.INSTANCE.lyrics);
         t1.setText(MetadataSingle.INSTANCE.nombre);
         t2.setText(MetadataSingle.INSTANCE.album);
         t3.setText(MetadataSingle.INSTANCE.genre);

@@ -23,9 +23,9 @@ android {
         release {
             minifyEnabled true
             shrinkResources true
-            //proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             //signingConfig signingConfigs.BlackMagic
-            proguardFile 'C:/x/x/app/proG.txt'
+            // proguardFile 'C:/x/x/app/proG.txt'
         }
         debug {
             minifyEnabled false
@@ -56,11 +56,11 @@ dependencies {
         }
     }
     // debugCompile 'com.squareup.leakcanary:leakcanary-android:1.4'
-    compile 'com.android.support:appcompat-v7:25.0.1'
-    compile 'com.android.support:design:25.0.1'
-    compile 'com.android.support:palette-v7:25.0.1'
-    compile 'com.android.support:support-v4:25.0.1'
-    compile 'com.oguzdev:CircularFloatingActionMenu:1.0.2'
+    compile 'com.android.support:appcompat-v7:25.1.1'
+    compile 'com.android.support:design:25.1.1'
+    compile 'com.android.support:palette-v7:25.1.1'
+    compile 'com.android.support:support-v4:25.1.1'
+    //compile 'com.oguzdev:CircularFloatingActionMenu:1.0.2'
     compile 'com.github.chrisbanes:PhotoView:1.2.6'
     compile 'com.github.bumptech.glide:glide:4.0.0-SNAPSHOT'
 }
